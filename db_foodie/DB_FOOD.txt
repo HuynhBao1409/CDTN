@@ -1,0 +1,97 @@
+CREATE DATABASE FoodieDB
+USE FoodieDB
+
+--Bang Users
+CREATE TABLE Users (
+    UserId INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    Name NVARCHAR(150) NULL,
+    Username NVARCHAR(150) NULL UNIQUE,
+    Mobile NVARCHAR(12) NULL,
+    Email NVARCHAR(150) NULL UNIQUE,
+    Address NVARCHAR(MAX) NULL,
+    PostCode NVARCHAR(50) NULL,
+    Password NVARCHAR(50) NULL,
+    ImageUrl NVARCHAR(MAX) NULL,
+    CreatedDate DATETIME NULL
+)
+
+--Bang Contact
+CREATE TABLE Contact (
+ContactId int PRIMARY KEY IDENTITY(1,1) NOT NULL,
+Name NVARCHAR(150) NULL,
+Email NVARCHAR(150) NULL,
+Subject NVARCHAR(200) NULL,
+Message NVARCHAR(max) NULL,
+CreatedDate DATETIME NULL
+)
+
+--Bang Categories
+CREATE TABLE Categories (
+CategoryId INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+Name NVARCHAR(150) NULL,
+ImageUrl NVARCHAR(MAX) NULL,
+IsActive BIT NULL,
+CreatedDate DATETIME NULL
+)
+
+--Bang Products
+CREATE TABLE Products (
+ProductId INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+Name NVARCHAR(150) NULL,
+Description NVARCHAR(MAX) NULL,
+Price DECIMAL(18, 2) NULL,
+Quantity INT NULL,
+ImageUrl NVARCHAR(MAX) NULL,
+CategoryId INT NULL,  --FK
+IsActive BIT NULL,
+CreatedDate DATETIME NULL
+)
+
+--Bang Carts
+CREATE TABLE Carts (
+CartId INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+ProductId INT NULL,  --FK
+Quantity INT NULL,
+UserId INT NULL,  --FK
+)
+
+--Bang Order
+CREATE TABLE Orders(
+OrderDetailsId INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+OrderNo NVARCHAR(MAX) NULL,
+ProductId INT NULL,  --FK
+Quantity INT NULL,
+UserId INT NULL,   --FK
+Status NVARCHAR(50) NULL,
+PaymentId INT NULL,  --FK
+OrderDate DATETIME NULL
+)
+
+--Bang Payment
+CREATE TABLE Payment(
+PaymentId INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+Name NVARCHAR(150) NULL,
+CardNo NVARCHAR(150) NULL,
+ExpiryDate NVARCHAR(150) NULL,
+Address NVARCHAR(MAX) NULL,
+PaymentMode NVARCHAR(50) NULL
+)
+
+--Tao khoa ngoai
+ALTER TABLE Products
+ADD FOREIGN KEY (CategoryId) REFERENCES Categories(CategoryId)
+
+ALTER TABLE Carts
+ADD FOREIGN KEY (ProductId) REFERENCES Products(ProductId)
+
+ALTER TABLE Carts
+ADD FOREIGN KEY (UserId) REFERENCES Users(UserId)
+
+ALTER TABLE Orders
+ADD FOREIGN KEY (ProductId) REFERENCES Products(ProductId)
+
+ALTER TABLE Orders
+ADD FOREIGN KEY (UserId) REFERENCES Users(UserId)
+
+ALTER TABLE Orders
+ADD FOREIGN KEY (PaymentId) REFERENCES Payment(PaymentId)
