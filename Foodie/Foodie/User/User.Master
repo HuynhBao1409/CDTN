@@ -32,6 +32,26 @@
   <link href="../Public/css/style.css" rel="stylesheet" />
   <!-- responsive style -->
   <link href="../Public/css/responsive.css" rel="stylesheet" />
+    
+    <!-- jQery -->
+  <script src="../Public/js/jquery-3.4.1.min.js"></script>
+
+    <script>
+        $(function (){
+            // Lấy toàn bộ URL trên thanh địa chỉ
+            var url = window.location.href;
+
+            // Kiểm tra tất cả thẻ "a" bên trong phần tử có id "navbarSupportedContent"
+            $("#navbarSupportedContent a").each(function () {
+                // Kiểm tra xem URL của thẻ "a" có trùng với URL trên thanh địa chỉ không
+                if (url == (this.href)) {
+                    $(this).closest("li").addClass("active");
+                }
+            });
+
+        });
+    </script>
+
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -58,8 +78,8 @@
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav  mx-auto ">
-              <li class="nav-item active">
-                <a class="nav-link" href="Default.aspx">Trang chủ <span class="sr-only">(current)</span></a>
+              <li class="nav-item">
+                <a class="nav-link" href="Default.aspx">Trang chủ </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="Menu.aspx">Thực đơn</a>
@@ -150,6 +170,7 @@
 
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
+
   <!-- footer section -->
   <footer class="footer_section">
     <div class="container">
@@ -233,7 +254,7 @@
   <!-- footer section -->
     </form>
 <!-- jQery -->
-  <script src="../Public/js/jquery-3.4.1.min.js"></script>
+  <%--<script src="../Public/js/jquery-3.4.1.min.js"></script>--%>
   <!-- popper js -->
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
   </script>
