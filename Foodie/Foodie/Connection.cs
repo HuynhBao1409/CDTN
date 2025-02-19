@@ -34,6 +34,23 @@ namespace Foodie
             // Trả về kết quả
             return isValid;
         }
-	}
+
+        // Để ảnh mặc định nếu không có ảnh
+        public static string GetImageUrl(Object url)
+        {
+            string url1 = "";
+            if (string.IsNullOrEmpty(url.ToString()) || url == DBNull.Value)
+            {
+                url1 = "../Images/No_image.png"; // Ảnh mặc định
+            }
+            else
+            {
+                url1 = string.Format("../{0}", url); // Định dạng đường dẫn ảnh
+            }
+            // return ResolveUrl(url1);
+            return url1;
+        }
+
+    }
 
 }

@@ -17,21 +17,29 @@ namespace Foodie.Admin
         SqlCommand cmd;
         SqlDataAdapter sda;
         DataTable dt;
+
+        //Gán sự kiện cho thanh điều hướng
         protected void Page_Load(object sender, EventArgs e)
 		{
-
+            if (!IsPostBack)
+            {
+                Session["breadCrum"] = "Danh mục";
+                getCategories();
+            }
+            lblMsg.Visible = false;
 		}
 
+        //Gán sự kiện cho btn Add Category
         protected void btnAddOrUpdate_Click(object sender, EventArgs e)
         {
             // Khai báo các biến
             string actionName = string.Empty, imagePath = string.Empty, fileExtension = string.Empty;
             bool isValidToExecute = false;
-            int categoryId = Convert.ToInt32(hdnId.Value);  // Lấy ID từ hidden field, = 0 thêm mới, >= 0 thì cập nhật
+            int categoryId = Convert.ToInt32(hdnId.Value); 
             // Tạo kết nối DB
             con = new SqlConnection(Connection.GetConnectionString());
             cmd = new SqlCommand("Category_Crud", con);
-            // Thêm các parameter cho stored proc
+            // Thêm các parameter cho stored procedures
             cmd.Parameters.AddWithValue("@Action", categoryId == 0 ? "INSERT" : "UPDATE");  // Nếu ID = 0 thì Insert, không thì Update
             cmd.Parameters.AddWithValue("@CategoryId", categoryId); // Truyền ID vào
             cmd.Parameters.AddWithValue("@Name", txtName.Text.Trim());
@@ -53,7 +61,7 @@ namespace Foodie.Admin
                 }
                 else
                 {
-                    // Báo lỗi nếu file không đúng định dạng
+                    // Báo lỗi nếu không đúng định dạng
                     lblMsg.Visible = true;
                     lblMsg.Text = "Hãy chọn đúng định dạng .jpg, .jpeg hoặc .png ";
                     lblMsg.CssClass = "alert alert-danger";
@@ -77,7 +85,7 @@ namespace Foodie.Admin
                     lblMsg.Visible = true;
                     lblMsg.Text = "Danh mục " + actionName + " thành công!";
                     lblMsg.CssClass = "alert alert-success";
-                    //getCategories();
+                    getCategories();
                     clear();
                 }
                 catch (Exception ex)
@@ -94,6 +102,22 @@ namespace Foodie.Admin
             }
         }
 
+        private void getCategories()
+        {
+            // Tạo kết nối và cmd cho SQL và stored proc
+            con = new SqlConnection(Connection.GetConnectionString());
+            cmd = new SqlCommand("Category_Crud", con);
+            cmd.Parameters.AddWithValue("@Action", "SELECT");
+            cmd.Parameters.AddWithValue("@ImageUrl", DBNull.Value);
+            cmd.CommandType = CommandType.StoredProcedure;
+            sda = new SqlDataAdapter(cmd); //lấy dliệu từ DB
+            dt = new DataTable(); //tạo table mới
+            sda.Fill(dt);
+            //Gán dliệu cho id rCategory
+            rCategory.DataSource = dt;
+            rCategory.DataBind();
+        }
+
         // Reset form về mặc định
         private void clear()
         {
@@ -101,6 +125,11 @@ namespace Foodie.Admin
             cbIsActive.Checked = false;
             hdnId.Value = "0";
             btnAddOrUpdate.Text = "Add";
+        }
+        //btn_Clear
+        protected void btnClear_Click(object sender, EventArgs e)
+        {
+            clear();
         }
     }
 }

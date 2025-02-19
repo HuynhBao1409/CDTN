@@ -9,9 +9,13 @@ namespace Foodie.Admin
 {
 	public partial class Dashboard : System.Web.UI.Page
 	{
+		//Gán sự kiện cho thanh điều hướng
 		protected void Page_Load(object sender, EventArgs e)
 		{
-
+			if (!IsPostBack)
+			{
+				Session["breadCrum"] = "Trang chủ";
+			}
 		}
 	}
 }

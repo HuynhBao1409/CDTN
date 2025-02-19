@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="Category.aspx.cs" Inherits="Foodie.Admin.Category" %>
+<%@ Import Namespace="Foodie" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
@@ -41,7 +42,6 @@
                         <div class="col-sm-12">
                             <div class="card">
                                 <div class="card-header">
-                                    
                                 </div>
                                 <!-- Form Category-->
                                 <div class="card-block">
@@ -54,44 +54,80 @@
                                                     <div>
                                                         <!-- TextBox -->
                                                         <asp:TextBox ID="txtName" runat="server" CssClass="form-control"
-                                                            placeholder="Điền Tên Loại Danh Mục" required></asp:TextBox>
-                                                        <asp:HiddenField ID="hdnId" runat="server" Value="0" /> 
+                                                            placeholder="Enter Category Name" required>
+                                                        </asp:TextBox>
+                                                        <asp:HiddenField ID="hdnId" runat="server" Value="0" />
                                                     </div>
-                                                 </div>
+                                                </div>
                                                 <!-- FileUpload -->
                                                 <div class="form-group">
-                                                    <label>Ảnh</label>
+                                                    <label>Hình Ảnh</label>
                                                     <div>
                                                         <asp:FileUpload ID="fuCategoryImage" runat="server" CssClass="form-control"
-                                                            onchange="ImagePreview(this);"/> 
+                                                            onchange="ImagePreview(this);" />
                                                     </div>
                                                 </div>
                                                 <!-- CheckBox -->
                                                 <div class="form-check pl-4">
                                                     <asp:CheckBox ID="cbIsActive" runat="server" Text="&nbsp; Duyệt"
-                                                        CssClass="form-check-input" /> 
-                                                 </div>
+                                                        CssClass="form-check-input" />
+                                                </div>
                                                 <!-- Button -->
-                                                 <div class="pb-5">
-                                                     <asp:Button ID="btnAddOrUpdate" runat="server" Text="Thêm" CssClass="btn btn-primary"
-                                                         OnClick="btnAddOrUpdate_Click"/>
-                                                        &nbsp;
+                                                <div class="pb-5">
+                                                    <asp:Button ID="btnAddOrUpdate" runat="server" Text="Thêm" CssClass="btn btn-primary"
+                                                        OnClick="btnAddOrUpdate_Click" />
+                                                    &nbsp;
                                                      <asp:Button ID="btnClear" runat="server" Text="Làm mới" CssClass="btn btn-primary"
-                                                        CausesValidation="false" />
-                                                 </div>
-                                                 <div>
+                                                         CausesValidation="false" OnClick="btnClear_Click" />
+                                                </div>
+                                                <div>
                                                     <asp:Image ID="imgCategory" runat="server" CssClass="img-thumbnail" />
-                                                 </div>
-                                             </div>
-                                         </div>
-                                    </div> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- List Category -->
+                                        <div class="col-sm-6 col-md-8 col-lg-8 mobile-inputs">
+                                            <h4 class="sub-title">Danh sách Danh Mục</h4>
+                                            <div class="card-block table-border-style">
+                                                <div class="table-responsive">
+
+                                                    <asp:Repeater ID="rCategory" runat="server">
+                                                        <HeaderTemplate>
+                                                            <table class="table data-table-export table-hover nowrap">
+                                                                <tr>
+                                                                    <th class="table-plus">Tên</th>
+                                                                    <th>Ảnh</th>
+                                                                    <th>Phê duyệt</th>
+                                                                    <th>Ngày tạo</th>
+                                                                    <th class="datatable-nosort">Tùy chọn</th>
+                                                                </tr>
+                                                            </table>
+                                                        </HeaderTemplate>
+                                                        <ItemTemplate>
+                                                            <tr>
+                                                                <td> <%#Eval("Name") %> </td>
+                                                                <td> <%#Eval("ImageUrl") %> 
+                                                                    <img alt="" src="<%# Utils.GetImageUrl( Eval("ImageUrl")) %>" />
+                                                                </td>
+                                                                <td> <%#Eval("IsActive") %> </td>
+                                                                <td> <%#Eval("CreatedDate") %> </td>
+                                                                <td></td>
+                                                            </tr>
+                                                        </ItemTemplate>
+                                                    </asp:Repeater>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        </div>
+                                    </div>
+                                    <!-- End Form -->
                                 </div>
-                                <!-- End Form -->
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 </asp:Content>

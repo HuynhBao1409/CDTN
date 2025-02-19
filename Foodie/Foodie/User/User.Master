@@ -32,7 +32,6 @@
   <link href="../Public/css/style.css" rel="stylesheet" />
   <!-- responsive style -->
   <link href="../Public/css/responsive.css" rel="stylesheet" />
-    
     <!-- jQery -->
   <script src="../Public/js/jquery-3.4.1.min.js"></script>
 
