@@ -73,9 +73,20 @@ PaymentId INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
 Name NVARCHAR(150) NULL,
 CardNo NVARCHAR(150) NULL,
 ExpiryDate NVARCHAR(150) NULL,
+CvvNo int NULL,
 Address NVARCHAR(MAX) NULL,
 PaymentMode NVARCHAR(50) NULL
 )
+--Bảng Category_Crud (create,read,update,delete)
+CREATE PROCEDURE Category_Crud
+	-- Add the parameters for the stored procedure here
+	@Action VARCHAR(10),
+	@CategoryId INT = NULL,
+	@Name NVARCHAR(100) = NULL,
+	@IsActive BIT = false,
+	@ImageUrl NVARCHAR(MAX) NULL
+AS
+BEGIN
 
 --Tao khoa ngoai
 ALTER TABLE Products

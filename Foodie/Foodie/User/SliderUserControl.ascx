@@ -1,9 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SliderUserControl.ascx.cs" Inherits="Foodie.User.SliderUserControl1" %>
 
-
+    
     <section class="slider_section ">
       <div id="customCarousel1" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
+            <!-- Slider -->
           <div class="carousel-item active">
             <div class="container ">
               <div class="row">
@@ -25,6 +26,8 @@
               </div>
             </div>
           </div>
+            <!-- End Slider -->
+
           <div class="carousel-item ">
             <div class="container ">
               <div class="row">
@@ -46,6 +49,7 @@
               </div>
             </div>
           </div>
+
           <div class="carousel-item">
             <div class="container ">
               <div class="row">

@@ -11,18 +11,19 @@ namespace Foodie.User
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			if(!Request.Url.AbsoluteUri.ToString().Contains("Default.aspx"))
+            // Kiểm tra nếu URL hiện tại KHÔNG chứa "Default.aspx"
+            if (!Request.Url.AbsoluteUri.ToString().Contains("Default.aspx"))
 			{
-				form1.Attributes.Add("class", "sub_page");
-			}
+				form1.Attributes.Add("class", "sub_page"); // Thêm class "sub_page" vào form1
+            }
 			else
 			{
-				form1.Attributes.Remove("class");
-                //Load the control
+				form1.Attributes.Remove("class");  // Xóa thuộc tính class khỏi form1
+                // Tạo một control mới từ file SliderUserControl.ascx
                 Control sliderUserControl = (Control)Page.LoadControl("SliderUserControl.ascx");
 
-				// Add the control to the panel
-				pnlSliderUC.Controls.Add(sliderUserControl);
+                // Thêm control slider vào panel 
+                pnlSliderUC.Controls.Add(sliderUserControl);
 
             }
 		}
