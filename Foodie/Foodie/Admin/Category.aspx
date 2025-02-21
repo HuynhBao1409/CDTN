@@ -52,14 +52,14 @@
                                                 <div class="form-group">
                                                     <label>Tên Danh Mục</label>
                                                     <div>
-                                                        <!-- TextBox -->
+                                                        <!-- Name -->
                                                         <asp:TextBox ID="txtName" runat="server" CssClass="form-control"
-                                                            placeholder="Enter Category Name" required>
+                                                            placeholder="Nhập tên danh mục" required>
                                                         </asp:TextBox>
                                                         <asp:HiddenField ID="hdnId" runat="server" Value="0" />
                                                     </div>
                                                 </div>
-                                                <!-- FileUpload -->
+                                                <!-- Image -->
                                                 <div class="form-group">
                                                     <label>Hình Ảnh</label>
                                                     <div>
@@ -69,7 +69,7 @@
                                                 </div>
                                                 <!-- CheckBox -->
                                                 <div class="form-check pl-4">
-                                                    <asp:CheckBox ID="cbIsActive" runat="server" Text="&nbsp; Duyệt"
+                                                    <asp:CheckBox ID="cbIsActive" runat="server" Text="&nbsp; Hoạt động"
                                                         CssClass="form-check-input" />
                                                 </div>
                                                 <!-- Button -->
@@ -99,7 +99,7 @@
                                                                 <tr>
                                                                     <th class="table-plus">Tên</th>
                                                                     <th>Ảnh</th>
-                                                                    <th>Phê duyệt</th>
+                                                                    <th>Trạng thái</th>
                                                                     <th>Ngày tạo</th>
                                                                     <th class="datatable-nosort">Tùy chọn</th>
                                                                 </tr>

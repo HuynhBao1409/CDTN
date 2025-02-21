@@ -212,12 +212,12 @@ namespace Foodie.Admin
                 // Kiểm tra lbl
                 if (lbl.Text == "True")
                 {
-                    lbl.Text = "Active"; 
+                    lbl.Text = "Hoạt động"; 
                     lbl.CssClass = "badge badge-success";
                 }
                 else
                 {
-                    lbl.Text = "In-Active";
+                    lbl.Text = "Ngưng hoạt động";
                     lbl.CssClass = "badge badge-danger";
                 }
             }
