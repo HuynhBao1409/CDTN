@@ -180,6 +180,7 @@
     <Content Include="assets\pages\widget\amchart\worldLow.js" />
     <Content Include="assets\pages\widget\amchart\worldLow.min.js" />
     <Content Include="Global.asax" />
+    <Content Include="Images\Category\No_image.png" />
     <Content Include="Public\css\bootstrap.css" />
     <Content Include="Public\css\font-awesome.min.css" />
     <Content Include="Public\css\responsive.css" />
@@ -308,7 +309,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Images\Category\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>

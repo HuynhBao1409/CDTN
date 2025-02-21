@@ -74,10 +74,10 @@
                                                 </div>
                                                 <!-- Button -->
                                                 <div class="pb-5">
-                                                    <asp:Button ID="btnAddOrUpdate" runat="server" Text="Thêm" CssClass="btn btn-primary"
+                                                    <asp:Button ID="btnAddOrUpdate" runat="server" Text="Add" CssClass="btn btn-primary"
                                                         OnClick="btnAddOrUpdate_Click" />
                                                     &nbsp;
-                                                     <asp:Button ID="btnClear" runat="server" Text="Làm mới" CssClass="btn btn-primary"
+                                                     <asp:Button ID="btnClear" runat="server" Text="Clear" CssClass="btn btn-primary"
                                                          CausesValidation="false" OnClick="btnClear_Click" />
                                                 </div>
                                                 <div>
@@ -90,10 +90,12 @@
                                             <h4 class="sub-title">Danh sách Danh Mục</h4>
                                             <div class="card-block table-border-style">
                                                 <div class="table-responsive">
-
-                                                    <asp:Repeater ID="rCategory" runat="server">
+                                                    <!-- Datatable -->
+                                                    <asp:Repeater ID="rCategory" runat="server" OnItemCommand="rCategory_ItemCommand"
+                                                        OnItemDataBound="rCategory_ItemDataBound">
                                                         <HeaderTemplate>
                                                             <table class="table data-table-export table-hover nowrap">
+                                                                <thead>
                                                                 <tr>
                                                                     <th class="table-plus">Tên</th>
                                                                     <th>Ảnh</th>
@@ -101,21 +103,39 @@
                                                                     <th>Ngày tạo</th>
                                                                     <th class="datatable-nosort">Tùy chọn</th>
                                                                 </tr>
-                                                            </table>
+                                                            </thead>
+                                                                <tbody>
                                                         </HeaderTemplate>
                                                         <ItemTemplate>
                                                             <tr>
-                                                                <td> <%#Eval("Name") %> </td>
-                                                                <td> <%#Eval("ImageUrl") %> 
-                                                                    <img alt="" src="<%# Utils.GetImageUrl( Eval("ImageUrl")) %>" />
+                                                                <td class="table-plus"> <%#Eval("Name") %> </td>
+                                                                <td>  
+                                                                    <img alt="" width="40" src="<%# Utils.GetImageUrl( Eval("ImageUrl")) %>" />
                                                                 </td>
-                                                                <td> <%#Eval("IsActive") %> </td>
+                                                                <td>
+                                                                    <asp:Label ID="lblIsActive" runat="server" Text='<%# Eval("IsActive") %>'></asp:Label>
+                                                                </td>
                                                                 <td> <%#Eval("CreatedDate") %> </td>
-                                                                <td></td>
+                                                                <td>
+                                                                    <!-- btn -->
+                                                                    <asp:LinkButton ID="lnkEdit" Text="Edit" runat="server" CssClass="badge badge-primary"
+                                                                        CommandArgument='<%# Eval("CategoryId") %>' CommandName="edit">
+                                                                        <i class="ti-pencil"></i>
+                                                                    </asp:LinkButton>
+                                                                    <asp:LinkButton ID="lnkDelete" Text="Delete" runat="server" CommandName="delete"
+                                                                        CssClass="badge bg-danger" CommandArgument='<%# Eval("CategoryId") %>'
+                                                                        OnClientClick="return confirm('Bạn có chắc chắn muốn xóa danh mục này?');">
+                                                                            <i class="ti-trash"></i>
+                                                                    </asp:LinkButton>
+                                                                </td>
                                                             </tr>
                                                         </ItemTemplate>
+                                                        <FooterTemplate>
+                                                            </tbody>
+                                                            </table>
+                                                        </FooterTemplate>
                                                     </asp:Repeater>
-
+                                                    <!-- Datatable end -->
                                                 </div>
                                             </div>
                                         </div>

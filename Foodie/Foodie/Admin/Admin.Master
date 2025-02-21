@@ -40,7 +40,6 @@
 
     <script type="text/javascript" src="../assets/js/jquery/jquery.min.js"></script>
 
-
     <script>
         $(function () {
             // Lấy toàn bộ URL trên thanh địa chỉ
