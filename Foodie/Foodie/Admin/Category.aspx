@@ -74,10 +74,10 @@
                                                 </div>
                                                 <!-- Button -->
                                                 <div class="pb-5">
-                                                    <asp:Button ID="btnAddOrUpdate" runat="server" Text="Add" CssClass="btn btn-primary"
+                                                    <asp:Button ID="btnAddOrUpdate" runat="server" Text="Thêm" CssClass="btn btn-primary"
                                                         OnClick="btnAddOrUpdate_Click" />
                                                     &nbsp;
-                                                     <asp:Button ID="btnClear" runat="server" Text="Clear" CssClass="btn btn-primary"
+                                                     <asp:Button ID="btnClear" runat="server" Text="Làm mới" CssClass="btn btn-primary"
                                                          CausesValidation="false" OnClick="btnClear_Click" />
                                                 </div>
                                                 <div>

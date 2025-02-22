@@ -39,7 +39,7 @@ namespace Foodie.Admin
             // Tạo kết nối DB
             con = new SqlConnection(Connection.GetConnectionString());
             cmd = new SqlCommand("Category_Crud", con);
-            // Thêm các tham số cho stored procedures
+            // Truyền các tham số cho stored procedures
             cmd.Parameters.AddWithValue("@Action", categoryId == 0 ? "INSERT" : "UPDATE");  // Nếu ID = 0 thì Insert, không thì Update
             cmd.Parameters.AddWithValue("@CategoryId", categoryId); // Truyền ID vào
             cmd.Parameters.AddWithValue("@Name", txtName.Text.Trim());
@@ -126,7 +126,7 @@ namespace Foodie.Admin
             txtName.Text = string.Empty;
             cbIsActive.Checked = false;
             hdnId.Value = "0"; 
-            btnAddOrUpdate.Text = "Add";
+            btnAddOrUpdate.Text = "Thêm";
             imgCategory.ImageUrl = string.Empty;
         }
 
@@ -145,7 +145,7 @@ namespace Foodie.Admin
             if (e.CommandName == "edit") // Kiểm tra Command nếu là "edit"
             {
                 cmd = new SqlCommand("Category_Crud", con); // Gọi stored proc
-                //Truyền các tham số dliệu cần chỉnh sửa của Cate_Crud
+                //Truyền các tham số từ Cate_Crud
                 cmd.Parameters.AddWithValue("@Action", "GETBYID");
                 cmd.Parameters.AddWithValue("@CategoryId", e.CommandArgument);
                 cmd.Parameters.AddWithValue("@Name", DBNull.Value);
@@ -153,7 +153,7 @@ namespace Foodie.Admin
                 cmd.Parameters.AddWithValue("@ImageUrl", DBNull.Value);
                 cmd.CommandType = CommandType.StoredProcedure;
                 sda = new SqlDataAdapter(cmd);
-                dt = new DataTable(); //Tạo DataTable để chứa dữ liệu
+                dt = new DataTable(); 
                 sda.Fill(dt);
                 // Gán giá trị từ DataTable vào Index
                 txtName.Text = dt.Rows[0]["Name"].ToString();
@@ -171,8 +171,8 @@ namespace Foodie.Admin
             else if (e.CommandName == "delete") // Kiểm tra nếu là "delete"
             {
                 //con = new SqlConnection(Connection.GetConnectionString());
-                cmd = new SqlCommand("Category_Crud", con); // Gọi stored proc
-                //Truyền các tham số dliệu cần xóa của Cate_Crud
+                cmd = new SqlCommand("Category_Crud", con); 
+                //Truyền các tham số của Cate_Crud
                 cmd.Parameters.AddWithValue("@Action", "DELETE");
                 cmd.Parameters.AddWithValue("@CategoryId", e.CommandArgument);
                 cmd.Parameters.AddWithValue("@Name", DBNull.Value);
@@ -190,13 +190,13 @@ namespace Foodie.Admin
                 }
                 catch (Exception ex)
                 {
-                    lblMsg.Visible = true; // Hiển thị thông báo
+                    lblMsg.Visible = true; //Hiện thông báo
                     lblMsg.Text = "Error: " + ex.Message;
                     lblMsg.CssClass = "alert alert-danger";
                 }
                 finally
                 {
-                    con.Close(); // Đóng SQL
+                    con.Close(); 
                 }
             }
         }

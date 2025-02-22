@@ -87,12 +87,14 @@
                                                         <!-- Required -->
                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server"
                                                             ErrorMessage="Giá tiền không được để trống" ForeColor="Red" Display="Dynamic"
-                                                            SetFocusOnError="true" ControlToValidate="txtPrice"></asp:RequiredFieldValidator>
+                                                            SetFocusOnError="true" ControlToValidate="txtPrice">
+                                                        </asp:RequiredFieldValidator>
                                                         <!-- Kiểu giá trị -->
                                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server"
                                                             ErrorMessage="Giá tiền phải là số nguyên" ForeColor="Red" Display="Dynamic"
                                                             SetFocusOnError="true" ControlToValidate="txtPrice"
-                                                            ValidationExpression="^\d{1,12}(\.\d{1,4})?$"></asp:RegularExpressionValidator>
+                                                            ValidationExpression="^\d{1,12}(\.\d{1,4})?$">
+                                                        </asp:RegularExpressionValidator>
                                                     </div>
                                                 </div>
 
@@ -105,12 +107,14 @@
                                                         <!-- Required -->
                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server"
                                                             ErrorMessage="Số lượng không được để trống" ForeColor="Red" Display="Dynamic"
-                                                            SetFocusOnError="true" ControlToValidate="txtQuantity"></asp:RequiredFieldValidator>
+                                                            SetFocusOnError="true" ControlToValidate="txtQuantity">
+                                                        </asp:RequiredFieldValidator>
                                                         <!-- Kiểu giá trị -->
                                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server"
                                                             ErrorMessage="Số lượng phải là số dương" ForeColor="Red" Display="Dynamic"
                                                             SetFocusOnError="true" ControlToValidate="txtQuantity"
-                                                            ValidationExpression="^([1-9]\d*|0)$"></asp:RegularExpressionValidator>
+                                                            ValidationExpression="^([1-9]\d*|0)$">
+                                                        </asp:RegularExpressionValidator>
                                                     </div>
                                                 </div>
 
@@ -128,7 +132,7 @@
                                                     <label>Danh Mục Sản Phẩm</label>
                                                     <div>
                                                         <!-- DropList Danh mục -->
-                                                        <asp:DropDownList ID="ddlCategories" runat="server" CssClass="form-control" 
+                                                        <asp:DropDownList ID="ddlCategories" runat="server" CssClass="form-control"
                                                             DataSourceID="SqlDataSource1" DataTextField="Name" DataValueField="CategoryId"
                                                             AppendDataBoundItems="true">
                                                             <asp:ListItem Value="0">Chọn Danh Mục</asp:ListItem>
@@ -153,10 +157,10 @@
                                                 </div>
                                                 <!-- Button -->
                                                 <div class="pb-5">
-                                                    <asp:Button ID="btnAddOrUpdate" runat="server" Text="Add" CssClass="btn btn-primary"
+                                                    <asp:Button ID="btnAddOrUpdate" runat="server" Text="Thêm" CssClass="btn btn-primary"
                                                         OnClick="btnAddOrUpdate_Click" />
                                                     &nbsp;
-                                                 <asp:Button ID="btnClear" runat="server" Text="Clear" CssClass="btn btn-primary"
+                                                 <asp:Button ID="btnClear" runat="server" Text="Làm mới" CssClass="btn btn-primary"
                                                      CausesValidation="false" OnClick="btnClear_Click" />
                                                 </div>
                                                 <div>
@@ -169,7 +173,7 @@
                                             <h4 class="sub-title">Danh sách Danh Mục</h4>
                                             <div class="card-block table-border-style">
                                                 <div class="table-responsive">
-                                                    <!-- Datatable -->
+                                                    <!-- Data table -->
                                                     <asp:Repeater ID="rProduct" runat="server" OnItemCommand="rProduct_ItemCommand"
                                                         OnItemDataBound="rProduct_ItemDataBound">
                                                         <HeaderTemplate>
@@ -178,7 +182,11 @@
                                                                     <tr>
                                                                         <th class="table-plus">Tên</th>
                                                                         <th>Ảnh</th>
+                                                                        <th>Giá tiền(VND)</th>
+                                                                        <th>Số lượng</th>
+                                                                        <th>Danh mục</th>
                                                                         <th>Trạng thái</th>
+                                                                        <th>Mô tả</th>
                                                                         <th>Ngày tạo</th>
                                                                         <th class="datatable-nosort">Tùy chọn</th>
                                                                     </tr>
@@ -188,22 +196,38 @@
                                                         <ItemTemplate>
                                                             <tr>
                                                                 <td class="table-plus"><%#Eval("Name") %> </td>
+
                                                                 <td>
                                                                     <img alt="" width="40" src="<%# Utils.GetImageUrl( Eval("ImageUrl")) %>" />
                                                                 </td>
+
+                                                                <td><%#Eval("Price") %> </td>
+
+                                                                <td>
+                                                                    <asp:Label ID="lblQuantity" runat="server" Text='<%# Eval("Quantity") %>'></asp:Label>
+                                                                </td>
+
+                                                                <td><%#Eval("CategoryName") %> </td>
+
                                                                 <td>
                                                                     <asp:Label ID="lblIsActive" runat="server" Text='<%# Eval("IsActive") %>'></asp:Label>
                                                                 </td>
+
+                                                                <td><%#Eval("Description") %> </td>
+
                                                                 <td><%#Eval("CreatedDate") %> </td>
+
                                                                 <td>
                                                                     <!-- btn -->
                                                                     <asp:LinkButton ID="lnkEdit" Text="Edit" runat="server" CssClass="badge badge-primary"
-                                                                        CommandArgument='<%# Eval("CategoryId") %>' CommandName="edit">
+                                                                        CausesValidation="false"
+                                                                        CommandArgument='<%# Eval("ProductId") %>' CommandName="edit">
                                                                     <i class="ti-pencil"></i>
                                                                     </asp:LinkButton>
                                                                     <asp:LinkButton ID="lnkDelete" Text="Delete" runat="server" CommandName="delete"
-                                                                        CssClass="badge bg-danger" CommandArgument='<%# Eval("CategoryId") %>'
-                                                                        OnClientClick="return confirm('Bạn có chắc chắn muốn xóa danh mục này?');">
+                                                                        CssClass="badge bg-danger" CommandArgument='<%# Eval("ProductId") %>'
+                                                                        OnClientClick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?');"
+                                                                        CausesValidation="false">
                                                                         <i class="ti-trash"></i>
                                                                     </asp:LinkButton>
                                                                 </td>
