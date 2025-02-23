@@ -25,6 +25,9 @@
         }
     </script>
 
+
+    </script>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
@@ -52,7 +55,7 @@
                                 ForeColor="Red" Display="Dynamic" SetFocusOnError="true">
                             </asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="revName" runat="server" ErrorMessage="Tên không chứa số và ký tự đặc biệt"
-                                ForeColor="Red" Display="Dynamic" SetFocusOnError="true" ValidationExpression="^[a-zA-Z\s]+$"
+                                ForeColor="Red" Display="Dynamic" SetFocusOnError="true" ValidationExpression="^[a-zA-ZÀ-ỹ\s]+$"
                                 ControlToValidate="txtName">
                             </asp:RegularExpressionValidator>
                         </div>
@@ -70,7 +73,7 @@
                         <div class="mb-3">
                             <label for="txtEmail" class="form-label">Email</label>
                             <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" placeholder="Nhập Email"
-                                ToolTip="Email">
+                                ToolTip="Email" TextMode="Email">
                             </asp:TextBox>
                             <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ErrorMessage="Email không được để trống"
                                 ControlToValidate="txtEmail" ForeColor="Red" Display="Dynamic" SetFocusOnError="true">
@@ -131,11 +134,11 @@
                         <!-- Password -->
                         <div class="mb-3">
                             <label for="txtPassword" class="form-label">Mật khẩu</label>
-                            <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" placeholder="Nhập Mật Khẩu"
-                                ToolTip="Mật Khẩu" TextMode="Password">
-                            </asp:TextBox>
-                            <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ErrorMessage="Mật Khẩu không được để trống" ControlToValidate="txtPassword"
-                                ForeColor="Red" Display="Dynamic" SetFocusOnError="true">
+                                <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" placeholder="Nhập Mật Khẩu"
+                                    ToolTip="Mật Khẩu" TextMode="Password">
+                                </asp:TextBox>
+                            <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ErrorMessage="Mật Khẩu không được để trống"
+                                ControlToValidate="txtPassword" ForeColor="Red" Display="Dynamic" SetFocusOnError="true">
                             </asp:RequiredFieldValidator>
                         </div>
 
@@ -144,7 +147,8 @@
                 <!-- btn Register-->
                 <div class="row pl-4">
                     <div class="btn_box">
-                        <asp:Button ID="btnRegister" runat="server" Text="Đăng ký" CssClass="btn btn-success rounded-pill pl-4 pr-4 text-white" />
+                        <asp:Button ID="btnRegister" runat="server" Text="Đăng ký" CssClass="btn btn-success rounded-pill pl-4 pr-4 text-white" 
+                            Onclick="btnRegister_Click"/>
 
                         <asp:Label ID="lblAlreadyUser" runat="server" CssClass="pl-3 text-black-100"
                             Text="Đã đăng ký rồi? <a href='Login.aspx' class='badge badge-info'> Đăng nhập..</a>"></asp:Label>

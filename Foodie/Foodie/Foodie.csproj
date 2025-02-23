@@ -219,6 +219,8 @@
     <Content Include="Public\images\pizzaga.jpg" />
     <Content Include="Public\images\ricechicken.jpg" />
     <Content Include="Public\images\sprite.png" />
+    <Content Include="Public\images\user1.jpg" />
+    <Content Include="Public\images\user3.jpg" />
     <Content Include="Public\js\bootstrap.js" />
     <Content Include="Public\js\custom.js" />
     <Content Include="Public\js\jquery-3.4.1.min.js" />
@@ -344,6 +346,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Images\Category\" />
     <Folder Include="Images\Product\" />
+    <Folder Include="Images\User\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
