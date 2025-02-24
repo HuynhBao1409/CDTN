@@ -26,42 +26,36 @@ namespace Foodie.Admin
                 Session["breadCrum"] = "Danh mục";
                 getCategories();
             }
-            lblMsg.Visible = false; //Ẩn thông báo
+            lblMsg.Visible = false;
         }
 
         //Gán sự kiện cho btn Add Category
         protected void btnAddOrUpdate_Click(object sender, EventArgs e)
         {
-            // Khai báo các biến
             string actionName = string.Empty, imagePath = string.Empty, fileExtension = string.Empty;
             bool isValidToExecute = false;
             int categoryId = Convert.ToInt32(hdnId.Value); 
-            // Tạo kết nối DB
             con = new SqlConnection(Connection.GetConnectionString());
             cmd = new SqlCommand("Category_Crud", con);
             // Truyền các tham số cho stored procedures
-            cmd.Parameters.AddWithValue("@Action", categoryId == 0 ? "INSERT" : "UPDATE");  // Nếu ID = 0 thì Insert, không thì Update
-            cmd.Parameters.AddWithValue("@CategoryId", categoryId); // Truyền ID vào
+            cmd.Parameters.AddWithValue("@Action", categoryId == 0 ? "INSERT" : "UPDATE");
+            cmd.Parameters.AddWithValue("@CategoryId", categoryId); 
             cmd.Parameters.AddWithValue("@Name", txtName.Text.Trim());
             cmd.Parameters.AddWithValue("@IsActive", cbIsActive.Checked);
 
-            // Kiểm tra xem có upload ảnh không
             if (fuCategoryImage.HasFile)  
             {
                 if (Utils.IsValidExtension(fuCategoryImage.FileName)) //Kiểm tra định dạng file
                 {
-                    // Tạo tên file ngẫu nhiên bằng Guid
                     Guid obj = Guid.NewGuid();
                     fileExtension = Path.GetExtension(fuCategoryImage.FileName);
                     imagePath = "Images/Category/" + obj.ToString() + fileExtension;
-                    // Lưu file vào thư mục ~/Images/Category/
                     fuCategoryImage.PostedFile.SaveAs(Server.MapPath("~/Images/Category/") + obj.ToString() + fileExtension);
                     cmd.Parameters.AddWithValue("@ImageUrl", imagePath);
                     isValidToExecute = true;
                 }
                 else
                 {
-                    // Báo lỗi nếu không đúng định dạng
                     lblMsg.Visible = true;
                     lblMsg.Text = "Hãy chọn đúng định dạng .jpg, .jpeg hoặc .png ";
                     lblMsg.CssClass = "alert alert-danger";
@@ -73,7 +67,7 @@ namespace Foodie.Admin
                 cmd.Parameters.AddWithValue("@ImageUrl", DBNull.Value);
                 isValidToExecute = true;
             }
-            // Nếu mọi thứ hợp lệ thì tiếp tục kiểm tra
+
             if (isValidToExecute) 
             {
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -81,7 +75,6 @@ namespace Foodie.Admin
                 {
                     con.Open();
                     cmd.ExecuteNonQuery();
-                    // Hiển thị thông báo thành công
                     actionName = categoryId == 0 ? "đã thêm" : "đã cật nhật";
                     lblMsg.Visible = true;
                     lblMsg.Text = "Danh mục " + actionName + " thành công!";
@@ -91,7 +84,6 @@ namespace Foodie.Admin
                 }
                 catch (Exception ex)
                 {
-                    // Hiển thị lỗi nếu có
                     lblMsg.Visible = true;
                     lblMsg.Text = "Error - " + ex.Message;
                     lblMsg.CssClass = "alert alert-danger";
@@ -108,14 +100,12 @@ namespace Foodie.Admin
             // Tạo kết nối và cmd cho SQL và stored proc
             con = new SqlConnection(Connection.GetConnectionString());
             cmd = new SqlCommand("Category_Crud", con);
-            //Truyền tham số
             cmd.Parameters.AddWithValue("@Action", "SELECT");
             cmd.Parameters.AddWithValue("@ImageUrl", DBNull.Value);
             cmd.CommandType = CommandType.StoredProcedure;
-            sda = new SqlDataAdapter(cmd); //lấy dliệu từ DB
-            dt = new DataTable(); //tạo table mới
+            sda = new SqlDataAdapter(cmd);
+            dt = new DataTable();
             sda.Fill(dt);
-            //Gán dliệu cho id rCategory
             rCategory.DataSource = dt;
             rCategory.DataBind();
         }
@@ -140,11 +130,11 @@ namespace Foodie.Admin
         protected void rCategory_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             lblMsg.Visible = false; 
-            con = new SqlConnection(Connection.GetConnectionString()); //Kết nối SQL
+            con = new SqlConnection(Connection.GetConnectionString());
 
-            if (e.CommandName == "edit") // Kiểm tra Command nếu là "edit"
+            if (e.CommandName == "edit") 
             {
-                cmd = new SqlCommand("Category_Crud", con); // Gọi stored proc
+                cmd = new SqlCommand("Category_Crud", con);
                 //Truyền các tham số từ Cate_Crud
                 cmd.Parameters.AddWithValue("@Action", "GETBYID");
                 cmd.Parameters.AddWithValue("@CategoryId", e.CommandArgument);
@@ -168,7 +158,7 @@ namespace Foodie.Admin
                 LinkButton btn = e.Item.FindControl("lnkEdit") as LinkButton;
                 btn.CssClass = "badge badge-warning";
             }
-            else if (e.CommandName == "delete") // Kiểm tra nếu là "delete"
+            else if (e.CommandName == "delete") 
             {
                 //con = new SqlConnection(Connection.GetConnectionString());
                 cmd = new SqlCommand("Category_Crud", con); 
@@ -178,19 +168,19 @@ namespace Foodie.Admin
                 cmd.Parameters.AddWithValue("@Name", DBNull.Value);
                 cmd.Parameters.AddWithValue("@IsActive", false);
                 cmd.Parameters.AddWithValue("@ImageUrl", DBNull.Value);
-                cmd.CommandType = CommandType.StoredProcedure; // Đặt kiểu lệnh cho stored proc
+                cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {
-                    con.Open(); //mở SQL
-                    cmd.ExecuteNonQuery(); //Thực thị xóa
+                    con.Open();
+                    cmd.ExecuteNonQuery();
                     lblMsg.Visible = true;
                     lblMsg.Text = "Danh mục đã xóa thành công!";
                     lblMsg.CssClass = "alert alert-success";
-                    getCategories(); // Cập nhật lại dsách
+                    getCategories();
                 }
                 catch (Exception ex)
                 {
-                    lblMsg.Visible = true; //Hiện thông báo
+                    lblMsg.Visible = true; 
                     lblMsg.Text = "Error: " + ex.Message;
                     lblMsg.CssClass = "alert alert-danger";
                 }
@@ -207,9 +197,7 @@ namespace Foodie.Admin
             // Kiểm tra nếu ItemType là mục thông thường hoặc mục xen kẽ
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
-                //Tìm controllabel của lblIsActive
                 Label lbl = e.Item.FindControl("lblIsActive") as Label;
-                // Kiểm tra lbl
                 if (lbl.Text == "True")
                 {
                     lbl.Text = "Hoạt động"; 

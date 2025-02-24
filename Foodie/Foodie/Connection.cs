@@ -21,17 +21,15 @@ namespace Foodie
         public static bool IsValidExtension(string fileName)
 		{
             bool isValid = false;
-            string[] fileExtension = { ".jpg", ".png", ".jpeg" }; // Đuôi file hợp lệ
+            string[] fileExtension = { ".jpg", ".png", ".jpeg" }; 
             for (int i = 0; i <= fileExtension.Length - 1; i++)  //Check từng file một
 			{
-                // Kiểm tra xem file có hợp lệ không
                 if (fileName.Contains(fileExtension[i]))
 				{
-                    isValid = true;  // Hợp lệ đặt flag = true
+                    isValid = true;  
                     break;
 				}
 			}
-            // Trả về kết quả
             return isValid;
         }
 
@@ -41,11 +39,11 @@ namespace Foodie
             string url1 = "";
             if (string.IsNullOrEmpty(url.ToString()) || url == DBNull.Value)
             {
-                url1 = "../Images/No_image.png"; // Ảnh mặc định
+                url1 = "../Images/No_image.png";
             }
             else
             {
-                url1 = string.Format("../{0}", url); // Định dạng đường dẫn ảnh
+                url1 = string.Format("../{0}", url);
             }
             // return ResolveUrl(url1);
             return url1;

@@ -39,7 +39,7 @@ namespace Foodie.User
             string actionName = string.Empty, imagePath = string.Empty, fileExtension = string.Empty;
             bool isValidToExecute = false;
             int userId = Convert.ToInt32(Request.QueryString["id"]);
-            con = new SqlConnection(Connection.GetConnectionString()); // Kết nối SQL
+            con = new SqlConnection(Connection.GetConnectionString());
             // Khởi tạo command SQL với stored proc
             cmd = new SqlCommand("User_Crud", con);
             cmd.CommandType = CommandType.StoredProcedure;
@@ -61,9 +61,9 @@ namespace Foodie.User
                     Guid obj = Guid.NewGuid();
                     fileExtension = Path.GetExtension(fuUserImage.FileName);
                     imagePath = "~/Images/User/" + obj.ToString() + fileExtension;
-                    fuUserImage.PostedFile.SaveAs(Server.MapPath("~/Images/User/") + obj.ToString() + fileExtension); // Lưu ảnh vào thư mục trên server
+                    fuUserImage.PostedFile.SaveAs(Server.MapPath("~/Images/User/") + obj.ToString() + fileExtension);
                     cmd.Parameters.AddWithValue("@ImageUrl", imagePath);
-                    isValidToExecute = true; // Đánh dấu là hợp lệ
+                    isValidToExecute = true;
                 }
                 else
                 {
@@ -71,7 +71,7 @@ namespace Foodie.User
                     lblMsg.Visible = true;
                     lblMsg.Text = "Hãy chọn đúng định dạng .jpg, .jpeg .png";
                     lblMsg.CssClass = "alert alert-danger";
-                    isValidToExecute = false; // Đánh dấu không hợp lệ 
+                    isValidToExecute = false;
                 }
             }
             else
@@ -83,9 +83,8 @@ namespace Foodie.User
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {
-                    con.Open(); // Mở kết nối DB
+                    con.Open();
                     cmd.ExecuteNonQuery();
-                    // Thông báo thành công
                     actionName = userId == 0 ?
                         "Đăng ký thành công. <b><a href='Login.aspx'>Nhấn vào đây</a></b> để đăng nhập" :
                         "Cập nhật thành công! <b><a href='Profile.aspx'>Xem hồ sơ tại đây</a></b>";
@@ -105,7 +104,7 @@ namespace Foodie.User
                     {
                         lblMsg.Visible = true;
                         lblMsg.Text = "<b>" + txtUsername.Text.Trim() + "</b> Tên đăng nhập đã tồn tại, thử cái khác!";
-                        lblMsg.CssClass = "alert alert-danger"; // Gán class hiển thị lỗi
+                        lblMsg.CssClass = "alert alert-danger";
                     }
                 }
                 catch (Exception ex)
@@ -124,10 +123,9 @@ namespace Foodie.User
         //Sự kiện Update Profile
         void getUserDetails()
         {
-            // Tạo Sql và chỉ định Stored Proc
+
             con = new SqlConnection(Connection.GetConnectionString());
             cmd = new SqlCommand("User_Crud", con);
-            // Thêm tham số lấy thông tin người dùng
             cmd.Parameters.AddWithValue("@Action", "SELECT4PROFILE");
             cmd.Parameters.AddWithValue("@UserId", Request.QueryString["id"]);
             cmd.CommandType = CommandType.StoredProcedure;
@@ -145,20 +143,19 @@ namespace Foodie.User
                 txtEmail.Text = dt.Rows[0]["Email"].ToString();
                 txtAddress.Text = dt.Rows[0]["Address"].ToString();
                 txtPostCode.Text = dt.Rows[0]["PostCode"].ToString();
-                // Kiểm tra nếu không có ảnh thì để ảnh mặc định
                 imgUser.ImageUrl = string.IsNullOrEmpty(dt.Rows[0]["ImageUrl"].ToString())
                     ? "../Images/No_image.png"
                     : "../" + dt.Rows[0]["ImageUrl"].ToString();
                 imgUser.Height = 200;
                 imgUser.Width = 200;
                 // Định dạng lại nhập mật khẩu
-                txtPassword.TextMode = TextBoxMode.SingleLine; // Hiển thị mật khẩu
+                txtPassword.TextMode = TextBoxMode.SingleLine;
                 txtPassword.ReadOnly = true;
                 txtPassword.Text = dt.Rows[0]["Password"].ToString();
                 // Cập nhật thông tin
                 lblHeaderMsg.Text = "<h2>Chỉnh sửa hồ sơ</h2>";
                 btnRegister.Text = "Cật nhật";
-                lblAlreadyUser.Text = "";// Xóa thông báo
+                lblAlreadyUser.Text = "";
             }
         }
 

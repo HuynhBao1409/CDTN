@@ -61,11 +61,11 @@
                         </div>
                         <!-- UserName -->
                         <div class="mb-3">
-                            <label for="txtUsername" class="form-label">Tên Người Dùng</label>
-                            <asp:TextBox ID="txtUsername" runat="server" CssClass="form-control" placeholder="Nhập Tên Người Dùng"
-                                ToolTip="Tên Người dùng">
+                            <label for="txtUsername" class="form-label">Tên Đăng Nhập</label>
+                            <asp:TextBox ID="txtUsername" runat="server" CssClass="form-control" placeholder="Nhập Tên Đăng Nhập"
+                                ToolTip="Tên Đăng Nhập">
                             </asp:TextBox>
-                            <asp:RequiredFieldValidator ID="rfvUsername" runat="server" ErrorMessage="Tên người dùng không được để trống"
+                            <asp:RequiredFieldValidator ID="rfvUsername" runat="server" ErrorMessage="Tên Đăng Nhập không được để trống"
                                 ControlToValidate="txtUsername" ForeColor="Red" Display="Dynamic" SetFocusOnError="true">
                             </asp:RequiredFieldValidator>
                         </div>
