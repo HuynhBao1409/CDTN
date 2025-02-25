@@ -38,11 +38,12 @@
                                 ForeColor="Red" Display="Dynamic" SetFocusOnError="true" Font-Size="Small"></asp:RequiredFieldValidator>
                             <asp:TextBox ID="txtUsername" runat="server" CssClass="form-control" placeholder="Nhập tên đăng nhập"></asp:TextBox>
                         </div>
+                        <!-- Password -->
                         <div>
                             <label for="txtPassword" class="form-label">Mật Khẩu</label>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*Không được bỏ trống" ControlToValidate="txtPassword"
-                                ForeColor="Red" Display="Dynamic" SetFocusOnError="true" Font-Size="Small"></asp:RequiredFieldValidator>
-                            <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" placeholder="Nhập mật khẩu"></asp:TextBox>
+                                ForeColor="Red" Display="Dynamic" SetFocusOnError="true" Font-Size="Small" ></asp:RequiredFieldValidator>
+                            <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" TextMode="Password" placeholder="Nhập mật khẩu"></asp:TextBox>
                         </div>
                         <!-- Btn Login -->
                         <div class="btn_box">
