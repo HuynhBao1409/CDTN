@@ -23,7 +23,15 @@ namespace Foodie.Admin
             if (!IsPostBack)
             {
                 Session["breadCrum"] = "Tài Khoản";
-                getUsers();
+                //Nếu ko có tk admin
+                if (Session["admin"] == null)
+                {
+                    Response.Redirect("../User/Login.aspx");//Trả về trang Login
+                }
+                else
+                {
+                    getUsers();
+                }
             }
             lblMsg.Visible = false;
         }
