@@ -57,7 +57,7 @@ namespace Foodie.Admin
                 {
                     Guid obj = Guid.NewGuid();
                     fileExtension = Path.GetExtension(fuCategoryImage.FileName);
-                    imagePath = "Images/Category/" + obj.ToString() + fileExtension;
+                    imagePath = "../Images/Category/" + obj.ToString() + fileExtension;
                     fuCategoryImage.PostedFile.SaveAs(Server.MapPath("~/Images/Category/") + obj.ToString() + fileExtension);
                     cmd.Parameters.AddWithValue("@ImageUrl", imagePath);
                     isValidToExecute = true;

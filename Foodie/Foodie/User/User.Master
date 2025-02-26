@@ -91,9 +91,10 @@
               </li>
             </ul>
             <div class="user_option">
-              <a href="" class="user_link">
-                <i class="fa fa-user" aria-hidden="true"></i>
-              </a>
+              <%-- Details Profile --%>
+                <asp:LinkButton ID="lbRegisterOrProfile" runat="server" CssClass="user_link" OnClick="lbRegisterOrProfile_Click" CausesValidation="false">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                </asp:LinkButton>
               <a class="cart_link" href="#">
                 <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                   <g>
@@ -153,9 +154,7 @@
                   <i class="fa fa-search" aria-hidden="true"></i>
                 </button>
               </div>
-              <%--<a href="" class="order_online">
-                Order
-              </a>--%>
+              <%-- Login/Logout --%>
                 <asp:LinkButton ID="lbLoginOrLogout" runat="server" CssClass="order_online" CausesValidation="false" 
                     OnClick="lbLoginOrLogout_Click"></asp:LinkButton>
             </div>

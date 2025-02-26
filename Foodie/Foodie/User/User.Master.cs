@@ -25,6 +25,7 @@ namespace Foodie.User
                 pnlSliderUC.Controls.Add(sliderUserControl);
 
             }
+            //Trạng thái btn
             if (Session["userId"] != null)
             {
                 lbLoginOrLogout.Text = "Đăng xuất";
@@ -35,16 +36,31 @@ namespace Foodie.User
             }
 		}
 
+        //Sự kiện Login/Logout
         protected void lbLoginOrLogout_Click(object sender, EventArgs e)
         {
-            if (Session["userId"] == null)
+            if (Session["userId"] == null) //Ktra nếu ch TK 
             {
                 Response.Redirect("Login.aspx");
             }
             else
             {
-                Session.Abandon();
+                Session.Abandon(); //xóa toàn bộ dữ liệu
                 Response.Redirect("Login.aspx");
+            }
+        }
+
+        protected void lbRegisterOrProfile_Click(object sender, EventArgs e)
+        {
+            if (Session["userId"] != null) //Ktra nếu có TK
+            {
+                lbRegisterOrProfile.ToolTip = "Hồ Sơ Cá Nhân";
+                Response.Redirect("Profile.aspx");
+            }
+            else
+            {
+                lbRegisterOrProfile.ToolTip = "Đăng ký Tài Khoản";
+                Response.Redirect("Registration.aspx");
             }
         }
     }
