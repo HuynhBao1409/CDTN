@@ -1,16 +1,18 @@
-
+USE [FoodieDB]
+GO
+/****** Object:  StoredProcedure [dbo].[Category_Crud]    Script Date: 28/2/2025 3:56:02 pm ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE Category_Crud
+ALTER PROCEDURE [dbo].[Category_Crud]
 	-- Add the parameters for the stored procedure here
 	@Action VARCHAR(10),
 	@CategoryId INT = NULL,
 	@Name NVARCHAR(100) = NULL,
 	@IsActive BIT = false,
-	@ImageUrl NVARCHAR(MAX) NULL
+	@ImageUrl VARCHAR(MAX) NULL
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -22,6 +24,14 @@ BEGIN
 		BEGIN
 			SELECT * FROM dbo.Categories ORDER BY CreatedDate DESC
 		END
+
+		--ACTIVECATEGORY
+	IF @Action = 'ACTIVECAT'
+		BEGIN
+			SELECT * FROM dbo.Categories 
+			WHERE IsActive = 1
+		END
+
 	--INSERT
 	IF @Action = 'INSERT'
 		BEGIN
@@ -57,4 +67,3 @@ BEGIN
 			SELECT * FROM dbo.Categories WHERE CategoryId = @CategoryId
 		END
 END
-GO

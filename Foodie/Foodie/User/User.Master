@@ -237,14 +237,14 @@
             Cả ngày
           </p>
           <p>
-            10.00 Am -10.00 Pm
+            8.00 Am -12.00 Pm
           </p>
         </div>
       </div>
       <div class="footer-info">
         <p>
-          &copy; <span id="displayYear"></span> Bản quyền thuộc về
-          <a href="https://html.design/">Free Html Templates</a><br><br>
+          &copy; <span id="displayYear"></span> Phát triển thuộc về Công Ty TNHH
+          <a href="#">một mình ênh</a><br><br>
           &copy; <span id="displayYear"></span> Giao diện miễn phí bởi
           <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
         </p>

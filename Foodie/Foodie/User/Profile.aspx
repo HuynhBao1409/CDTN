@@ -21,13 +21,13 @@
                         <div class="card-body">
                             <div class="card-title mb-4">
                                 <div class="d-flex justify-content-start">
-                                    <%--Avatar--%>
+                                    <%--Avatar (đang lỗi load ảnh)--%>
                                     <div class="image-container">
-                                        <img src='<%= string.IsNullOrEmpty(Session["imageUrl"]?.ToString()) ? 
-                                                "../Images/No_image.png" : "../" + Session["imageUrl"].ToString() %>'
-                                                id="imgProfile" style="width: 150px; height: 150px;" class="img-thumbnail" />
+                                        <img src="<%= Utils.GetImageUrl(imageUrl) %>"
+                                             id="imgProfile" style="width: 150px; height: 150px;" class="img-thumbnail" 
+                                             onerror="this.src='../Images/No_user.jpg'"/>
                                         <div class="middle pt-2">
-                                            <a href="Registration.aspx?id=<%Response.Write(Session["userId"]); %>" class="btn btn-warning">
+                                            <a href="Registration.aspx?id=<% Response.Write(Session["userId"]); %>" class="btn btn-warning">
                                                 <i class="fa fa-pencil"></i> Chỉnh sửa
                                             </a>
                                         </div>

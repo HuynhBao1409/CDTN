@@ -201,7 +201,7 @@
                                                                     <img alt="" width="40" src="<%# Utils.GetImageUrl( Eval("ImageUrl")) %>" />
                                                                 </td>
 
-                                                                <td><%#Eval("Price") %> </td>
+                                                                <td><%#Eval("Price", "{0:N0}") %> </td>
 
                                                                 <td>
                                                                     <asp:Label ID="lblQuantity" runat="server" Text='<%# Eval("Quantity") %>'></asp:Label>

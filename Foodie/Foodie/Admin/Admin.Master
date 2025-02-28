@@ -112,8 +112,8 @@
                             <a class="mobile-menu" id="mobile-collapse" href="#!">
                                 <i class="ti-menu"></i>
                             </a>
-                            <a href="Dashboard.aspx">
-                                <img class="img-fluid" src="../assets/images/logo.png" width="75%" alt="Theme-Logo" />
+                            <a href="Dashboard.aspx" class="navbar-brand text-white d-flex align-items-center justify-content-center pl-5" style="height: 100%; font-size: 1.5rem; font-weight: bold;">
+                                FASTBITE
                             </a>
                             <a class="mobile-options">
                                 <i class="ti-more"></i>

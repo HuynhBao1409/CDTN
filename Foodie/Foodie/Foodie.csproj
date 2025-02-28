@@ -117,6 +117,7 @@
     <Content Include="assets\images\flags\PORTO.jpg" />
     <Content Include="assets\images\flags\SPAIN.jpg" />
     <Content Include="assets\images\logo.png" />
+    <Content Include="assets\images\logo2.jpg" />
     <Content Include="assets\images\logome.png" />
     <Content Include="assets\images\mega-menu\01.jpg" />
     <Content Include="assets\images\mega-menu\02.jpg" />
@@ -185,6 +186,7 @@
     <Content Include="Global.asax" />
     <Content Include="Images\login.jpg" />
     <Content Include="Images\No_image.png" />
+    <Content Include="Images\No_user.jpg" />
     <Content Include="Public\css\bootstrap.css" />
     <Content Include="Public\css\font-awesome.min.css" />
     <Content Include="Public\css\responsive.css" />
@@ -199,6 +201,7 @@
     <Content Include="Public\images\donut4.jpg" />
     <Content Include="Public\images\donut5.jpg" />
     <Content Include="Public\images\donut6.jpg" />
+    <Content Include="Public\images\donut_logo.png" />
     <Content Include="Public\images\f1.png" />
     <Content Include="Public\images\f2.png" />
     <Content Include="Public\images\f3.png" />

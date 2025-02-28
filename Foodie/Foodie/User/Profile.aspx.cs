@@ -10,22 +10,22 @@ using System.Xml.Linq;
 
 namespace Foodie.User
 {
-	public partial class Profile : System.Web.UI.Page
-	{
+    public partial class Profile : System.Web.UI.Page
+    {
         //Khai báo SQL Connect
         SqlConnection con;
         SqlCommand cmd;
         SqlDataAdapter sda;
         DataTable dt;
         protected void Page_Load(object sender, EventArgs e)
-		{
+        {
             if (!IsPostBack)
             {
                 if (Session["userId"] == null)
                 {
                     Response.Redirect("Login.aspx");
                 }
-                else 
+                else
                 {
                     getUserDetails();
                 }
@@ -52,11 +52,30 @@ namespace Foodie.User
                 // Gán dữ liệu từ bảng
                 Session["name"] = dt.Rows[0]["Name"].ToString();
                 Session["email"] = dt.Rows[0]["Email"].ToString();
-                Session["imageUrl"] = string.IsNullOrEmpty(dt.Rows[0]["ImageUrl"].ToString()) ?
-                    "Images/No_image.png" : dt.Rows[0]["ImageUrl"].ToString();
+                string dbImageUrl = dt.Rows[0]["ImageUrl"].ToString();
+                string finalImageUrl;
+                if (string.IsNullOrEmpty(dbImageUrl))
+                {
+                    finalImageUrl = "../Images/No_image.png";
+                }
+                else //Tạm vá lỗi load ảnh Profile
+                {
+                    // Kiểm tra có load dc ảnh không
+                    string physicalPath = Server.MapPath(".." + dbImageUrl);
+                    if (System.IO.File.Exists(physicalPath))
+                    {
+                        finalImageUrl = ".." + dbImageUrl;
+                    }
+                    else
+                    {
+                        // Nếu không dùng ảnh mặc định
+                        finalImageUrl = "../Images/No_user.jpg";
+                    }
+                }
+                Session["imageUrl"] = finalImageUrl;
                 Session["createdDate"] = dt.Rows[0]["CreatedDate"].ToString();
             }
-            
+
         }
     }
 }
