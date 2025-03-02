@@ -12,7 +12,7 @@ namespace Foodie.Admin
 {
 	public partial class Category : System.Web.UI.Page
 	{
-        //Khai báo SQL Connect
+        //Khai báo
         SqlConnection con;
         SqlCommand cmd;
         SqlDataAdapter sda;

@@ -12,7 +12,7 @@ namespace Foodie.User
 {
 	public partial class Menu : System.Web.UI.Page
 	{
-        //Khai báo SQL Connect
+        //Khai báo
         SqlConnection con;
         SqlCommand cmd;
         SqlDataAdapter sda;
@@ -55,6 +55,80 @@ namespace Foodie.User
             //Gán dliệu cho id rProduct
             rProducts.DataSource = dt;
             rProducts.DataBind();
+        }
+
+        //Gán Sự kiện thêm giỏ hàng
+        protected void rProducts_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            //Ktra có tk ko
+            if (Session["userId"] != null)
+            {
+                bool isCartItemUpdated = false;
+                int i = isItemExistInCart( Convert.ToInt32(e.CommandArgument) );
+                if(i == 0)
+                {
+                    //Thêm hàng vào giỏ hàng
+                    con = new SqlConnection(Connection.GetConnectionString());
+                    cmd = new SqlCommand("Cart_Crud", con);
+                    cmd.Parameters.AddWithValue("@Action", "INSERT");
+                    cmd.Parameters.AddWithValue("@ProductId", e.CommandArgument);
+                    cmd.Parameters.AddWithValue("@Quantity", 1);
+                    cmd.Parameters.AddWithValue("@UserId", Session["userId"]);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    try
+                    {
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch(Exception ex)
+                    {
+                        Response.Write("<script>alert('Error - "+ ex.Message+ " ')<script>");
+                    }
+                    finally
+                    {
+                        con.Close();
+                    }
+                }
+                else
+                {
+                    //Thêm hàng đang có vào giỏ hàng
+                    Utils utils = new Utils();
+                    isCartItemUpdated = utils.updateCartQuantity(i + 1, Convert.ToInt32(e.CommandArgument), 
+                        Convert.ToInt32(Session["userId"]));
+                    lblMsg.Visible = true;
+                    lblMsg.Text = "Đã thêm hàng, check giỏ ngay!";
+                    lblMsg.CssClass = "alert alert-success";
+                    //Response.AddHeader("REFRESH", "1; URL=Cart.aspx");
+                    // Hiển thị thông báo và chuyển hướng sau 1 giây
+                    string script = "<script type='text/javascript'>setTimeout(function(){ window.location = 'Cart.aspx'; }, 1000);</script>";
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Redirect", script);
+
+                }
+            }
+            else
+            {
+                Response.Redirect("Login.aspx");
+            }
+        }
+
+        int isItemExistInCart(int productId)
+        {
+            // Tạo kết nối và cmd cho SQL và stored proc
+            con = new SqlConnection(Connection.GetConnectionString());
+            cmd = new SqlCommand("Cart_Crud", con);
+            cmd.Parameters.AddWithValue("@Action", "GETBYID");
+            cmd.Parameters.AddWithValue("@ProductId", productId);
+            cmd.Parameters.AddWithValue("@UserId", Session["userId"]);
+            cmd.CommandType = CommandType.StoredProcedure;
+            sda = new SqlDataAdapter(cmd);
+            dt = new DataTable();
+            sda.Fill(dt);
+            int quantity = 0;
+            if(dt.Rows.Count > 0)
+            {
+                quantity = Convert.ToInt32(dt.Rows[0]["Quantity"]);
+            }
+            return quantity;
         }
 
         //public string LowerCase(object obj)

@@ -27,7 +27,7 @@ $(window).on('load', function () {
         masonry: {
             columnWidth: ".all"
         }
-    })
+    });
 
     $(document).ready(function () {
         // Đọc các biến URL GET của một trang và trả về chúng dưới dạng aaray kết hợp.
@@ -49,7 +49,7 @@ $(window).on('load', function () {
 
         $('.filters_menu li').each(function () {
             // Ktra nếu nó cùng một địa chỉ bar
-            if (id == this.attributes["date-id"].value) {
+            if (id === this.attributes["data-id"].value) {
                 $(this).closest("li").addClass("active");
 
                 var data = $(this).attr('data-filter');
@@ -57,7 +57,7 @@ $(window).on('load', function () {
                     filter: data
                 })
 
-                return;
+                return false;
             }
         });
 
@@ -104,3 +104,33 @@ $(".client_owl-carousel").owlCarousel({
         }
     }
 });
+
+
+//"use strict";
+
+(function ($) {
+    // Quantity change
+    var proQty = $('.pro-qty');
+    proQty.prepend('<span class="dec qtybtn">-</span>'); //-
+    proQty.append('<span class="inc qtybtn">+</span>'); //+
+    proQty.on('click', '.qtybtn', function () {
+        var $button = $(this);
+        var oldValue = $button.parent().find('input').val();
+
+        if ($button.hasClass('inc')) {
+            if (oldValue >= 10) {
+                var newVal = parseFloat(oldValue);
+            } else {
+                var newVal = parseFloat(oldValue) + 1;
+            }
+        } else {
+            // Don't allow decrementing below zero
+            if (oldValue > 1) {
+                var newVal = parseFloat(oldValue) - 1;
+            } else {
+                newVal = 1;
+            }
+        }
+        $button.parent().find('input').val(newVal);
+    });
+})(jQuery);

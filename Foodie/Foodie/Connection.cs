@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.SqlClient;
+using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 
@@ -17,6 +20,9 @@ namespace Foodie
 
 	public class Utils
 	{
+        //Khai báo SQL Connect
+        SqlConnection con;
+        SqlCommand cmd;
         //Check đuôi file (chỉ nhận jpg, png, jpeg)
         public static bool IsValidExtension(string fileName)
 		{
@@ -47,6 +53,36 @@ namespace Foodie
             }
             // return ResolveUrl(url1);
             return url1;
+        }
+        // Cật nhật số lượng giỏ hàng
+        public bool updateCartQuantity(int quantity, int productId, int userId)
+        {
+            bool isUpdated = false; //mặc định false
+            //Thêm hàng vào giỏ hàng
+            con = new SqlConnection(Connection.GetConnectionString());
+            cmd = new SqlCommand("Cart_Crud", con);
+            cmd.Parameters.AddWithValue("@Action", "UPDATE");
+            cmd.Parameters.AddWithValue("@ProductId", productId);
+            cmd.Parameters.AddWithValue("@Quantity", quantity);
+            cmd.Parameters.AddWithValue("@UserId", userId);
+            //cmd.Parameters.AddWithValue("@ImageUrl", DBNull.Value);
+            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                con.Open();
+                cmd.ExecuteNonQuery(); // Cật nhật Slượng trả thành true
+                isUpdated = true; 
+            }
+            catch (Exception ex)
+            {
+                isUpdated = false;
+                System.Web.HttpContext.Current.Response.Write("<script>alert('Error- " + ex.Message + " ')<script>");
+            }
+            finally
+            {
+                con.Close();
+            }
+            return isUpdated;
         }
 
     }
