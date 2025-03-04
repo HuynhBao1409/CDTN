@@ -59,7 +59,7 @@ namespace Foodie.User
             rCartItem.DataBind();
         }
 
-        // Xóa đơn hàng khỏi giỏ
+        //Update, Delete Cart
         protected void rCartItem_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             Utils utils = new Utils();
@@ -76,7 +76,7 @@ namespace Foodie.User
                     con.Open();
                     cmd.ExecuteNonQuery(); // Cật nhật Slượng trả thành true
                     getCartItems();
-                    // Đếm giỏ hàng
+                    // Cật nhật lại slượng đơn
                     Session["cartCount"] = utils.cartCount(Convert.ToInt32(Session["userId"]));
                 }
                 catch (Exception ex)
@@ -88,6 +88,47 @@ namespace Foodie.User
                     con.Close();
                 }
             }
+            //Update Cart
+            if(e.CommandName == "updateCart")
+            {
+                bool isCartUpdated = false; //Ktra có đơn nào update ko
+                // Lượt qua các đơn có trong giỏ
+                for (int item = 0; item < rCartItem.Items.Count; item++)
+                {
+                    if (rCartItem.Items[item].ItemType == ListItemType.Item || rCartItem.Items[item].ItemType == ListItemType.AlternatingItem)
+                    {
+                        //Lấy dliệu từ control, DB
+                        TextBox quantity = rCartItem.Items[item].FindControl("txtQuantity") as TextBox;
+                        HiddenField _productId = rCartItem.Items[item].FindControl("hdnProductId") as HiddenField;
+                        HiddenField _quantity = rCartItem.Items[item].FindControl("hdnQuantity") as HiddenField;
+                        int quantityFromCart = Convert.ToInt32(quantity.Text);
+                        int ProductId = Convert.ToInt32(_productId.Value);
+                        int quantityFromDB = Convert.ToInt32(_quantity.Value);
+                        bool isTrue = false;
+                        int updatedQuantity = 1;
+                        //Nếu slượng đơn mới > slượng cũ 
+                        if(quantityFromCart > quantityFromDB)
+                        {
+                            updatedQuantity = quantityFromCart;
+                            isTrue = true;
+                        }
+                        //Nếu slượng đơn mới < slượng cũ 
+                        else if (quantityFromCart < quantityFromDB)
+                        {
+                            updatedQuantity = quantityFromCart;
+                            isTrue = true;
+                        }
+
+                        if (isTrue)
+                        {
+                            // Update lại slượng đơn trong giỏ trong DB
+                            isCartUpdated = utils.updateCartQuantity(updatedQuantity, ProductId, Convert.ToInt32(Session["userId"]));
+
+                        }
+                    }
+                }
+                getCartItems();
+            }
         }
 
         //Tính tổng giá đơn hàng
@@ -95,11 +136,11 @@ namespace Foodie.User
         {
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
-                // Tìm và lấy ở các control Label, TextBox
+                // Tìm, lấy dl ở Label, TextBox
                 Label totalPrice = e.Item.FindControl("lblTotalPrice") as Label;
                 Label productPrice = e.Item.FindControl("lblPrice") as Label;
                 TextBox quantity = e.Item.FindControl("txtQuantity") as TextBox;
-                // Kiểm tra và lấy Giá Tiền, loại bỏ " VND" và dấu phẩy
+                // Kiểm tra và lấy Giá Tiền, loại bỏ và đặt lại " VND" và dấu phẩy
                 decimal price = 0;
                 if (decimal.TryParse(productPrice.Text.Replace(" VND", "").Replace(",", ""), out decimal parsedPrice))
                 {
@@ -113,12 +154,13 @@ namespace Foodie.User
                 }
                 // Tính Tổng Tiền = Giá tiền * Số lượng
                 decimal calTotalPrice = price * qty;
-                totalPrice.Text = calTotalPrice.ToString("N0");
-                // Cộng dồn vào tổng giá trị
+                totalPrice.Text = calTotalPrice.ToString("N0"); // định dạng lại kiểu số(VD:17,000)
+                // Cộng dồn lại tổng các đơn
                 grandTotal += calTotalPrice;
             }
             Session["grandTotalPrice"] = grandTotal.ToString("N0");
         }
+
 
         // Lớp template khi giỏ hàng trống
         private sealed class CustomTemplate : ITemplate

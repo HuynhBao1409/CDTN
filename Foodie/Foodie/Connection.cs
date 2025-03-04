@@ -88,7 +88,7 @@ namespace Foodie
             return isUpdated;
         }
 
-        //Đếm Đơn trong Giỏ
+        //Đếm số Đơn trong Giỏ
         public int cartCount(int userId)
         {
             con = new SqlConnection(Connection.GetConnectionString());

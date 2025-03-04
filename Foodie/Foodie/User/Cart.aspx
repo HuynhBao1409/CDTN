@@ -55,18 +55,18 @@
                                     <div class="pro-qty">
                                         <asp:TextBox ID="txtQuantity" runat="server" TextMode="Number" Text='<%# Eval("Quantity", "{0}") %>' CssClass="quantity-input"></asp:TextBox>
                                         <asp:RegularExpressionValidator ID="revQuantity" runat="server" ErrorMessage="*" ForeColor="Red"
-                                            Font-Size="Small" ValidationExpression="[1-9]*" ControlToValidate="txtQuantity" Display="Dynamic"
+                                            Font-Size="Small" ValidationExpression="^[1-9][0-9]*$" ControlToValidate="txtQuantity" Display="Dynamic"
                                             SetFocusOnError="true" EnableClientScript="true">
                                         </asp:RegularExpressionValidator>
                                     </div>
                                 </div>
                             </div>
                         </td>
-                        <%--Total--%>
+                        <%--Total Bill--%>
                         <td>
                             <asp:Label ID="lblTotalPrice" runat="server"></asp:Label> VND
                         </td>
-                        <%--Delete--%>
+                        <%--Delete Product--%>
                         <td>
                             <asp:LinkButton ID="lbDelete" runat="server" Text="Xóa" CommandName="remove"
                                 CommandArgument='<%# Eval("ProductId") %>' OnClientClick='return confirm("Bạn có muốn xóa sản phẩm này khỏi giỏ hàng không?");'>

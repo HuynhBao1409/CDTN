@@ -73,7 +73,7 @@ namespace Foodie.User
                     cmd = new SqlCommand("Cart_Crud", con);
                     cmd.Parameters.AddWithValue("@Action", "INSERT");
                     cmd.Parameters.AddWithValue("@ProductId", e.CommandArgument);
-                    cmd.Parameters.AddWithValue("@Quantity", 1); // mặc định lên 1
+                    cmd.Parameters.AddWithValue("@Quantity", 1); //SLượng mặc định là 1
                     cmd.Parameters.AddWithValue("@UserId", Session["userId"]);
                     cmd.CommandType = CommandType.StoredProcedure;
                     try
@@ -96,7 +96,7 @@ namespace Foodie.User
                         con.Close();
                     }
                 }
-                else //Thêm đơn > 0
+                else //Đơn > 0
                 {
                     //Thêm hàng đang có vào giỏ hàng
                     Utils utils = new Utils();
