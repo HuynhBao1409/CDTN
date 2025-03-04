@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Web;
+using Foodie.Admin;
 
 namespace Foodie
 {
@@ -20,9 +21,11 @@ namespace Foodie
 
 	public class Utils
 	{
-        //Khai báo SQL Connect
+        //Khai báo
         SqlConnection con;
         SqlCommand cmd;
+        SqlDataAdapter sda;
+
         //Check đuôi file (chỉ nhận jpg, png, jpeg)
         public static bool IsValidExtension(string fileName)
 		{
@@ -83,6 +86,20 @@ namespace Foodie
                 con.Close();
             }
             return isUpdated;
+        }
+
+        //Đếm Đơn trong Giỏ
+        public int cartCount(int userId)
+        {
+            con = new SqlConnection(Connection.GetConnectionString());
+            cmd = new SqlCommand("Cart_Crud", con);
+            cmd.Parameters.AddWithValue("@Action", "SELECT");
+            cmd.Parameters.AddWithValue("@UserId", userId);
+            cmd.CommandType = CommandType.StoredProcedure;
+            sda = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            return dt.Rows.Count;
         }
 
     }

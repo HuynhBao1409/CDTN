@@ -64,8 +64,8 @@
                         </td>
                         <%--Total--%>
                         <td>
-                            <asp:Label ID="lblTotalPrice" runat="server"></asp:Label>
-                            VND</td>
+                            <asp:Label ID="lblTotalPrice" runat="server"></asp:Label> VND
+                        </td>
                         <%--Delete--%>
                         <td>
                             <asp:LinkButton ID="lbDelete" runat="server" Text="Xóa" CommandName="remove"

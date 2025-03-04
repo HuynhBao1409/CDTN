@@ -23,6 +23,7 @@ namespace Foodie.User
             {
                 getCategories();
                 getProducts();
+                lblMsg.Visible = false;
             }
 		}
 
@@ -72,13 +73,19 @@ namespace Foodie.User
                     cmd = new SqlCommand("Cart_Crud", con);
                     cmd.Parameters.AddWithValue("@Action", "INSERT");
                     cmd.Parameters.AddWithValue("@ProductId", e.CommandArgument);
-                    cmd.Parameters.AddWithValue("@Quantity", 1);
+                    cmd.Parameters.AddWithValue("@Quantity", 1); // mặc định lên 1
                     cmd.Parameters.AddWithValue("@UserId", Session["userId"]);
                     cmd.CommandType = CommandType.StoredProcedure;
                     try
                     {
                         con.Open();
                         cmd.ExecuteNonQuery();
+                        lblMsg.Visible = true;
+                        lblMsg.Text = "Đã thêm sản phẩm vào giỏ hàng. <b><a href='Cart.aspx'>Xem giỏ hàng ngay</a></b>";
+                        lblMsg.CssClass = "alert alert-success";
+                        // Hiển thị thông báo và ẩn sau 3 giây
+                        string script = "<script type='text/javascript'>setTimeout(function(){ document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 3000);</script>";
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", script);
                     }
                     catch(Exception ex)
                     {
@@ -89,19 +96,21 @@ namespace Foodie.User
                         con.Close();
                     }
                 }
-                else
+                else //Thêm đơn > 0
                 {
                     //Thêm hàng đang có vào giỏ hàng
                     Utils utils = new Utils();
                     isCartItemUpdated = utils.updateCartQuantity(i + 1, Convert.ToInt32(e.CommandArgument), 
-                        Convert.ToInt32(Session["userId"]));
+                        Convert.ToInt32(Session["userId"])); //Cật nhật Slượng mỗi lần thêm 1 đơn + 1
                     lblMsg.Visible = true;
-                    lblMsg.Text = "Đã thêm hàng, check giỏ ngay!";
+                    lblMsg.Text = "Đã thêm sản phẩm vào giỏ hàng. <b><a href='Cart.aspx'>Xem giỏ hàng ngay</a></b>";
                     lblMsg.CssClass = "alert alert-success";
-                    //Response.AddHeader("REFRESH", "1; URL=Cart.aspx");
-                    // Hiển thị thông báo và chuyển hướng sau 1 giây
-                    string script = "<script type='text/javascript'>setTimeout(function(){ window.location = 'Cart.aspx'; }, 1000);</script>";
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Redirect", script);
+                    // Hiển thị thông báo mất sau 3s
+                    string script = "<script type='text/javascript'>setTimeout(function(){ document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 3000);</script>";
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", script);
+                    // Tự chuyển hướng sau 1s
+                    //string script = "<script type='text/javascript'>setTimeout(function(){ window.location = 'Cart.aspx'; }, 1000);</script>";
+                    //Page.ClientScript.RegisterStartupScript(this.GetType(), "Redirect", script);
 
                 }
             }
