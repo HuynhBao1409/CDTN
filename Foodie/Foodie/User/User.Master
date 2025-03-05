@@ -149,6 +149,7 @@
                   <g>
                   </g>
                 </svg>
+                  <%--Count Cart--%>
                   <span class="badge rounded-pill bg-warning mb-4">
                       <% Response.Write(Session["cartCount"]); %>
                   </span>

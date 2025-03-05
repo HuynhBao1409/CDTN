@@ -92,12 +92,12 @@ namespace Foodie.User
             if(e.CommandName == "updateCart")
             {
                 bool isCartUpdated = false; //Ktra có đơn nào update ko
-                // Lượt qua các đơn có trong giỏ
+                //Ktra qua các đơn có trong giỏ
                 for (int item = 0; item < rCartItem.Items.Count; item++)
                 {
                     if (rCartItem.Items[item].ItemType == ListItemType.Item || rCartItem.Items[item].ItemType == ListItemType.AlternatingItem)
                     {
-                        //Lấy dliệu từ control, DB
+                        //Lấy dliệu từ control, DB và gán vô các biến
                         TextBox quantity = rCartItem.Items[item].FindControl("txtQuantity") as TextBox;
                         HiddenField _productId = rCartItem.Items[item].FindControl("hdnProductId") as HiddenField;
                         HiddenField _quantity = rCartItem.Items[item].FindControl("hdnQuantity") as HiddenField;
@@ -129,9 +129,51 @@ namespace Foodie.User
                 }
                 getCartItems();
             }
+            //Xử lý thanh toán
+            if(e.CommandName == "checkout")
+            {
+                bool isTrue = false;
+                string pName = string.Empty;
+                //Ktra qua các sản phẩm có trong giỏ
+                for (int item = 0; item < rCartItem.Items.Count; item++)
+                {
+                    if (rCartItem.Items[item].ItemType == ListItemType.Item || rCartItem.Items[item].ItemType == ListItemType.AlternatingItem)
+                    {
+                        HiddenField _productId = rCartItem.Items[item].FindControl("hdnProductId") as HiddenField;
+                        HiddenField _cartQuantity = rCartItem.Items[item].FindControl("hdnQuantity") as HiddenField;
+                        HiddenField _productQuantity = rCartItem.Items[item].FindControl("hdnPrdQuantity") as HiddenField;
+                        Label productName = rCartItem.Items[item].FindControl("lblName") as Label;
+                        int productId = Convert.ToInt32(_productId.Value);
+                        int cartQuantity = Convert.ToInt32(_cartQuantity.Value);
+                        int productQuantity = Convert.ToInt32(_productQuantity.Value);
+                        //Nếu slượng sp trong kho > slượng trong giỏ 
+                        if (productQuantity > cartQuantity && productQuantity > 2)
+                        {
+                            isTrue = true;
+                        }
+                        else 
+                        {
+                            isTrue = false;
+                            pName = productName.Text.ToString();
+                            break;
+                        }
+                    }
+                }
+                if (isTrue)
+                {
+                    Response.Redirect("Payment.aspx");
+                }
+                else
+                {
+                    lblMsg.Visible = true;
+                    lblMsg.Text = "Sản phẩm <b>'" + pName + "'</b> đã hết hàng!";
+                    lblMsg.CssClass = "alert alert-danger";
+
+                }
+            }
         }
 
-        //Tính tổng giá đơn hàng
+        //Tính tổng đơn hàng
         protected void rCartItem_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)

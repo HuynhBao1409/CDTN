@@ -52,8 +52,8 @@ namespace Foodie.User
                     lblMsg.Visible = true;
                     lblMsg.Text = "Đăng nhập thành công! Đang chuyển hướng...";
                     lblMsg.CssClass = "alert alert-success";
-                    // Chuyển hướng sau 2s
-                    string script = "setTimeout(function(){ window.location='Default.aspx'; }, 2000);";
+                    // Chuyển hướng sau 1s
+                    string script = "setTimeout(function(){ window.location='Default.aspx'; }, 1000);";
                     ClientScript.RegisterStartupScript(this.GetType(), "Redirect", script, true);
                 }
                 else

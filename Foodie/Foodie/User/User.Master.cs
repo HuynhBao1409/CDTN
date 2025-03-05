@@ -25,14 +25,17 @@ namespace Foodie.User
                 pnlSliderUC.Controls.Add(sliderUserControl);
 
             }
-            //Trạng thái btn
+            //Trạng thái khi có tk
             if (Session["userId"] != null)
             {
                 lbLoginOrLogout.Text = "Đăng xuất";
+                Utils utils = new Utils();
+                Session["cartCount"] = utils.cartCount(Convert.ToInt32(Session["userId"])).ToString();
             }
             else
             {
-                lbLoginOrLogout.Text = "Đăng nhập";        
+                lbLoginOrLogout.Text = "Đăng nhập";
+                Session["cartCount"] = "0";
             }
 		}
 
