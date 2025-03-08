@@ -45,7 +45,7 @@ namespace Foodie.Admin
             int categoryId = Convert.ToInt32(hdnId.Value); 
             con = new SqlConnection(Connection.GetConnectionString());
             cmd = new SqlCommand("Category_Crud", con);
-            // Truyền các tham số cho stored procedures
+            // Truyền các tham số cho stored proc
             cmd.Parameters.AddWithValue("@Action", categoryId == 0 ? "INSERT" : "UPDATE");
             cmd.Parameters.AddWithValue("@CategoryId", categoryId); 
             cmd.Parameters.AddWithValue("@Name", txtName.Text.Trim());
@@ -110,7 +110,7 @@ namespace Foodie.Admin
             cmd = new SqlCommand("Category_Crud", con);
             cmd.Parameters.AddWithValue("@Action", "SELECT");
             cmd.Parameters.AddWithValue("@ImageUrl", DBNull.Value);
-            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandType = CommandType.StoredProcedure; //Gọi thẳng tới stored proc thay vì qua sql
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
             sda.Fill(dt);
@@ -143,7 +143,7 @@ namespace Foodie.Admin
             if (e.CommandName == "edit") 
             {
                 cmd = new SqlCommand("Category_Crud", con);
-                //Truyền các tham số từ Cate_Crud
+                //Truyền các tham số vào Cate_Crud
                 cmd.Parameters.AddWithValue("@Action", "GETBYID");
                 cmd.Parameters.AddWithValue("@CategoryId", e.CommandArgument);
                 cmd.Parameters.AddWithValue("@Name", DBNull.Value);
@@ -170,7 +170,6 @@ namespace Foodie.Admin
             {
                 //con = new SqlConnection(Connection.GetConnectionString());
                 cmd = new SqlCommand("Category_Crud", con); 
-                //Truyền các tham số của Cate_Crud
                 cmd.Parameters.AddWithValue("@Action", "DELETE");
                 cmd.Parameters.AddWithValue("@CategoryId", e.CommandArgument);
                 cmd.Parameters.AddWithValue("@Name", DBNull.Value);

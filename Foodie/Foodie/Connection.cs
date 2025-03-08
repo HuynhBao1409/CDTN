@@ -14,7 +14,7 @@ namespace Foodie
 	{
 		public static string GetConnectionString()
 		{
-            // Trả về chuỗi kết nối có tên "cs" từ file cấu hình (.config)
+            // Trả về chuỗi kết nối có đuôi ".cs" từ file cấu hình (.config)
             return ConfigurationManager.ConnectionStrings["cs"].ConnectionString;
         }
 	}
@@ -100,6 +100,14 @@ namespace Foodie
             DataTable dt = new DataTable();
             sda.Fill(dt);
             return dt.Rows.Count;
+        }
+
+        public static string GetUniqueId()
+        {
+            Guid guid = Guid.NewGuid();
+            String uniqueId = guid.ToString();
+            return uniqueId;
+
         }
 
     }

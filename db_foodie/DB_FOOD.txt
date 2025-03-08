@@ -77,6 +77,8 @@ CvvNo int NULL,
 Address NVARCHAR(MAX) NULL,
 PaymentMode NVARCHAR(50) NULL
 )
+
+
 --Bảng Category_Crud (create,read,update,delete)
 CREATE PROCEDURE Category_Crud
 	-- Add the parameters for the stored procedure here
@@ -106,3 +108,8 @@ ADD FOREIGN KEY (UserId) REFERENCES Users(UserId)
 
 ALTER TABLE Orders
 ADD FOREIGN KEY (PaymentId) REFERENCES Payment(PaymentId)
+
+ALTER TABLE Payment
+ADD BankName NVARCHAR(150) NULL,
+    BankNo NVARCHAR(50) NULL,
+    IFSCCode NVARCHAR(50) NULL;

@@ -34,7 +34,7 @@ namespace Foodie.User
             cmd = new SqlCommand("Category_Crud", con);
             cmd.Parameters.AddWithValue("@Action", "ACTIVECAT");
             cmd.Parameters.AddWithValue("@ImageUrl", DBNull.Value);
-            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandType = CommandType.StoredProcedure; //Gọi thẳng tới stored proc thay vì qua sql
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
             sda.Fill(dt);
@@ -120,6 +120,7 @@ namespace Foodie.User
             }
         }
 
+        //Lấy Id sphẩm của user
         int isItemExistInCart(int productId)
         {
             // Tạo kết nối và cmd cho SQL và stored proc
@@ -133,9 +134,9 @@ namespace Foodie.User
             dt = new DataTable();
             sda.Fill(dt);
             int quantity = 0;
-            if(dt.Rows.Count > 0)
+            if(dt.Rows.Count > 0) //có hàng trong giỏ
             {
-                quantity = Convert.ToInt32(dt.Rows[0]["Quantity"]);
+                quantity = Convert.ToInt32(dt.Rows[0]["Quantity"]); //chuyển slượng thành int
             }
             return quantity;
         }

@@ -70,7 +70,7 @@ namespace Foodie.User
                 cmd.Parameters.AddWithValue("@Action", "DELETE");
                 cmd.Parameters.AddWithValue("@ProductId", e.CommandArgument);
                 cmd.Parameters.AddWithValue("@UserId", Session["userId"]);
-                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandType = CommandType.StoredProcedure; //Gọi thẳng tới stored proc thay vì qua sql
                 try
                 {
                     con.Open();

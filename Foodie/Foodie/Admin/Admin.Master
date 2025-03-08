@@ -172,7 +172,7 @@
 
                                 </ul>
                                 <!-- Category -->
-                                <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Quản Lý Danh Mục</div>
+                                <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Quản Lý Mục Sản Phẩm</div>
                                 <ul class="pcoded-item pcoded-left-item">
                                     <li>
                                         <a href="Category.aspx">
@@ -184,7 +184,6 @@
 
                                 </ul>
                                 <!-- Product -->
-                                <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Quản Lý Sản Phẩm</div>
                                 <ul class="pcoded-item pcoded-left-item">
                                     <li>
                                         <a href="Product.aspx">
@@ -197,7 +196,6 @@
                                 </ul>
 
                                 <!-- Status Product -->
-                                <div class="pcoded-navigatio-lavel" data-i18n="nav.category.other">Trạng thái Sản Phẩm</div>
                                 <ul class="pcoded-item pcoded-left-item">
                                     <li>
                                         <a href="#">

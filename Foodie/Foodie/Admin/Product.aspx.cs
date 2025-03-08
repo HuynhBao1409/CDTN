@@ -150,13 +150,13 @@ namespace Foodie.Admin
             if (e.CommandName == "edit")
             {
                 cmd = new SqlCommand("Product_Crud", con);
-                //Truyền các tham số dliệu của Pro_Crud
+                //Truyền các tham số dliệu vào Pro_Crud
                 cmd.Parameters.AddWithValue("@Action", "GETBYID");
                 cmd.Parameters.AddWithValue("@ProductId", e.CommandArgument);
                 cmd.Parameters.AddWithValue("@Name", DBNull.Value);
                 cmd.Parameters.AddWithValue("@IsActive", false);
                 cmd.Parameters.AddWithValue("@ImageUrl", DBNull.Value);
-                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandType = CommandType.StoredProcedure; //Gọi thẳng tới stored proc thay vì qua sql
                 sda = new SqlDataAdapter(cmd);
                 dt = new DataTable(); 
                 sda.Fill(dt);
