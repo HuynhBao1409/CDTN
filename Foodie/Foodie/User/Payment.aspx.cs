@@ -144,7 +144,7 @@ namespace Foodie.User
                 lblMsg.Visible = true;
                 lblMsg.Text = "Bạn đã đặt hàng thành công!!";
                 lblMsg.CssClass = "alert alert-success";
-                Response.AddHeader("REFRESH", "2;URL=Bills.aspx?id" + paymentId);
+                Response.AddHeader("REFRESH", "2;URL=Invoice.aspx?id=" + paymentId);
             }
             catch (Exception e)
             {
