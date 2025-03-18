@@ -39,14 +39,12 @@
                 </HeaderTemplate>
                 <ItemTemplate>
                     <tr>
-                        <td><%# Eval("SrNo") %> </td>
-                        <td><%# Eval("OrderNo") %> </td>
-                        <td><%# Eval("Name") %> </td>
-                        <td>
-                            <%# string.IsNullOrEmpty(Eval("Price").ToString() ) ? "" : string.Format("{0:N0} VND", Eval("Price")) %> 
-                        </td>
-                        <td><%# Eval("Quantity") %> </td>
-                        <td><%# Eval("TotalPrice", "{0:N0}") + " VND" %> </td>
+                        <td><%# Eval("SrNo") != DBNull.Value ? Eval("SrNo") : "" %></td>
+                        <td><%# Eval("OrderNo") != DBNull.Value ? Eval("OrderNo") : "" %></td>
+                        <td><%# Eval("Name") != DBNull.Value ? Eval("Name") : "" %></td>
+                        <td><%# Eval("Price") != DBNull.Value ? string.Format("{0:N0}", Eval("Price")) + " VND" : "" %></td>
+                        <td><%# Eval("Quantity") != DBNull.Value ? Eval("Quantity") : "" %></td>
+                        <td><%# Eval("TotalPrice") != DBNull.Value ? string.Format("{0:N0}", Eval("TotalPrice")) + " VND" : "" %></td>
                     </tr>
                 </ItemTemplate>
                 <FooterTemplate>

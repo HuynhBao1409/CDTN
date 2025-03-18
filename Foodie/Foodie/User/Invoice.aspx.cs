@@ -42,40 +42,95 @@ namespace Foodie.User
             }
         }
 
-        // Chứa dữ liệu đơn hàng
-        DataTable GetOrderDetails()
+        // Chứa dữ liệu đơn hàng (Code cũ)
+        //DataTable GetOrderDetails()
+        //{
+        //    double grandTotal = 0; // mặc định
+        //    con = new SqlConnection(Connection.GetConnectionString());
+        //    cmd = new SqlCommand("Invoice", con);
+        //    cmd.Parameters.AddWithValue("@Action", "INVOICBYID");
+        //    cmd.Parameters.AddWithValue("@PaymentId", Convert.ToInt32(Request.QueryString["id"]));
+        //    cmd.Parameters.AddWithValue("@UserId", Session["userId"]);
+        //    cmd.CommandType = CommandType.StoredProcedure;
+        //    sda = new SqlDataAdapter(cmd);
+        //    dt = new DataTable();
+        //    sda.Fill(dt);
+
+        //    if (dt.Rows.Count > 0) // Nếu có đơn
+        //    {
+        //        foreach (DataRow drow in dt.Rows) // Lượt qua các dòng
+        //        {
+        //            grandTotal += Convert.ToDouble(drow["TotalPrice"]);
+        //        }
+        //    }
+
+        //    // Thêm hàng tổng kết
+        //    DataRow dr = dt.NewRow();
+        //    dr["TotalPrice"] = grandTotal;
+        //    dt.Rows.Add(dr);
+        //    return dt;
+        //}
+
+        //DatâTble (Mới)
+        protected DataTable GetOrderDetails()
         {
-            double grandTotal = 0; // mặc định
-            con = new SqlConnection(Connection.GetConnectionString());
-            cmd = new SqlCommand("Invoice", con);
-            cmd.Parameters.AddWithValue("@Action", "INVOICEBYID");
-            cmd.Parameters.AddWithValue("@PaymentId", Convert.ToInt32(Request.QueryString["id"]));
-            cmd.Parameters.AddWithValue("@UserId", Session["userId"]);
-            cmd.CommandType = CommandType.StoredProcedure;
-            sda = new SqlDataAdapter(cmd);
-            dt = new DataTable();
-            sda.Fill(dt);
-
-            if (dt.Rows.Count > 0) // Nếu có đơn
+            DataTable dt = new DataTable();
+            try
             {
-                foreach (DataRow drow in dt.Rows) // Lượt qua các dòng
+                using (SqlConnection con = new SqlConnection(Connection.GetConnectionString()))
                 {
-                    grandTotal += Convert.ToDouble(drow["TotalPrice"]);
-                }
-            }
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand("Invoice", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@Action", "INVOICBYID");
+                        int paymentId;
+                        if (!int.TryParse(Request.QueryString["id"], out paymentId))
+                        {
+                            throw new ArgumentException("Invalid Payment ID");
+                        }
+                        cmd.Parameters.AddWithValue("@PaymentId", paymentId);
+                        if (Session["userId"] == null)
+                        {
+                            throw new ArgumentException("User ID is not set in session");
+                        }
+                        cmd.Parameters.AddWithValue("@UserId", Convert.ToInt32(Session["userId"]));
 
-            // Thêm hàng tổng kết
-            DataRow dr = dt.NewRow();
-            dr["TotalPrice"] = grandTotal;
-            dt.Rows.Add(dr);
-            return dt;
+                        using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                        {
+                            DataSet ds = new DataSet();
+                            sda.Fill(ds);
+
+                            if (ds.Tables.Count > 0)
+                            {
+                                dt = ds.Tables[0].Copy();
+                                if (ds.Tables.Count > 1 && ds.Tables[1].Rows.Count > 0)
+                                {
+                                    // Kiểm tra và gộp bảng tổng
+                                    DataTable totalTable = ds.Tables[1].Copy();
+                                    dt.Merge(ds.Tables[1]);
+                                }
+                            }
+                        }
+                    }
+                }
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                lblMsg.Visible = true;
+                lblMsg.Text = "Error: " + ex.Message;
+                lblMsg.CssClass = "alert alert-danger";
+                return dt;
+            }
         }
 
+        //Download Bills
         protected void lbDownloadInvoice_Click(object sender, EventArgs e)
         {
             try
             {
-                string downloadPath = @"D:\order_invoice.pdf";
+                string downloadPath = @"D:\HoaDon_ThanhToan.pdf";
                 DataTable dtbl = GetOrderDetails();
                 ExportToPdf(dtbl, downloadPath, "Hóa Đơn Mua Hàng");
 
@@ -95,6 +150,7 @@ namespace Foodie.User
             }
         }
 
+        //In Hóa Đơn
         void ExportToPdf(DataTable dtblTable, string strPdfPath, string strHeader)
         {
             // Tạo file PDF
@@ -145,8 +201,8 @@ namespace Foodie.User
                 // ----- BẢNG DỮ LIỆU -----
                 // Danh sách các cột cần hiển thị
                 List<string> displayColumns = new List<string> {
-            "SrNo", "OrderNo", "Name", "Price", "Quantity", "TotalPrice"
-        };
+                "SrNo", "OrderNo", "Name", "Price", "Quantity", "TotalPrice"
+            };
 
                 // Tạo bảng
                 PdfPTable table = new PdfPTable(displayColumns.Count);
@@ -222,7 +278,7 @@ namespace Foodie.User
                             // Định dạng hàng tổng
                             if (isLastRow && colName == "Name")
                             {
-                                value = "TỔNG CỘNG";
+                                value = "Total";
                                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
                             }
 

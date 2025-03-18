@@ -1,9 +1,11 @@
-
+USE [FoodieDB]
+GO
+/****** Object:  StoredProcedure [dbo].[Invoice]    Script Date: 18/3/2025 11:56:59 am ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE PROCEDURE Invoice
+ALTER PROCEDURE [dbo].[Invoice]
 	@Action NVARCHAR(10),  
     @PaymentId INT = NULL,  
     @UserId INT = NULL,  
@@ -16,12 +18,25 @@ BEGIN
 	SET NOCOUNT ON;
 
 	  -- GET INVOICE BY ID  
-	IF @Action = 'INVOICEBYID'  
+	IF @Action = 'INVOICBYID'  
 	BEGIN  
 		SELECT ROW_NUMBER() OVER(ORDER BY (SELECT 1)) AS [SrNo], o.OrderNo, p.Name, p.Price, o.Quantity,  
-			   (p.Price * o.Quantity) AS TotalPrice, o.OrderDate, o.Status FROM Orders o  
+		(p.Price * o.Quantity) AS TotalPrice, o.OrderDate, o.Status FROM Orders o  
 		INNER JOIN Products p ON p.ProductId = o.ProductId  
 		WHERE o.PaymentId = @PaymentId AND o.UserId = @UserId  
+
+		-- Hàng tổng với các cột ép kiểu để khớp với bảng chi tiết
+        SELECT CAST(NULL AS BIGINT) AS [SrNo], 
+               CAST(NULL AS NVARCHAR(50)) AS OrderNo, 
+               'Total' AS Name, 
+               CAST(NULL AS DECIMAL(18,2)) AS Price, -- Ép kiểu Price thành DECIMAL
+               CAST(NULL AS INT) AS Quantity,        -- Ép kiểu Quantity thành INT
+               SUM(p.Price * o.Quantity) AS TotalPrice, 
+               CAST(NULL AS DATETIME) AS OrderDate,  -- Ép kiểu OrderDate thành DATETIME
+               CAST(NULL AS NVARCHAR(50)) AS Status  -- Ép kiểu Status thành NVARCHAR
+        FROM Orders o  
+        INNER JOIN Products p ON p.ProductId = o.ProductId  
+        WHERE o.PaymentId = @PaymentId AND o.UserId = @UserId
 	END  
 
 	-- SELECT ORDER HISTORY  
@@ -62,4 +77,3 @@ BEGIN
 	END  
 
 END
-GO
