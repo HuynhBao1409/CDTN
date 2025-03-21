@@ -24,6 +24,15 @@ namespace Foodie.User
         protected global::System.Web.UI.WebControls.Label lblMsg;
 
         /// <summary>
+        /// pnlLogin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlLogin;
+
+        /// <summary>
         /// rfvUsername control.
         /// </summary>
         /// <remarks>

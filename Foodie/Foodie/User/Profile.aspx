@@ -21,14 +21,14 @@
                         <div class="card-body">
                             <div class="card-title mb-4">
                                 <div class="d-flex justify-content-start">
-                                    <%--Avatar (đang lỗi load ảnh)--%>
+                                    <%--Avatar (lỗi load ảnh)--%>
                                     <div class="image-container">
                                         <img src="<%= Utils.GetImageUrl(imageUrl) %>"
-                                             id="imgProfile" style="width: 150px; height: 150px;" class="img-thumbnail" 
-                                             onerror="this.src='../Images/No_user.jpg'"/>
+                                            id="imgProfile" style="width: 150px; height: 150px;" class="img-thumbnail"
+                                            onerror="this.src='../Images/No_user.jpg'" />
                                         <div class="middle pt-2">
                                             <a href="Registration.aspx?id=<% Response.Write(Session["userId"]); %>" class="btn btn-warning">
-                                                <i class="fa fa-pencil"></i> Chỉnh sửa
+                                                <i class="fa fa-pencil"></i>Chỉnh sửa
                                             </a>
                                         </div>
                                     </div>
@@ -162,7 +162,86 @@
 
                                         <%--Order History--%>
                                         <div class="tab-pane fade" id="connectedServices" role="tabpanel" aria-labelledby="ConnectedServices-tab">
-                                            <h3>Lịch sử Mua Hàng</h3>
+
+                                            <asp:Repeater ID="rPurchaseHistory" runat="server" OnItemDataBound="rPurchaseHistory_ItemDataBound">
+                                                <ItemTemplate>
+                                                    <div class="container">
+                                                        <div class="row pt-1 pb-1" style="background-color: lightgray">
+                                                            <div class="col-5">
+                                                            <%--STT--%>
+                                                                <span class="badge badge-pill badge-dark text-white">
+                                                                    <%# Eval("SrNo") %>
+                                                                </span>
+                                                            <%--Payment Mode--%>
+                                                                <!-- Ktra đk nếu ko phải cod thì là card -->
+                                                                   Phương thức: <%# Eval("PaymentMode").ToString() ==  "cod" ? "Thanh toán khi nhận hàng" : Eval("PaymentMode").ToString().ToUpper() %> 
+                                                            </div>
+                                                            <%--CardNo--%>
+                                                            <div class="col-5">
+                                                                <%# string.IsNullOrEmpty( Eval("CardNo").ToString()) ? "" : "Số Thẻ: " + Eval("CardNo") %>
+                                                            </div>
+                                                            <%--Invoice--%>
+                                                            <div class="col-2" style="text-align: end">
+                                                                <a href="Invoice.aspx?id=<%# Eval("PaymentId") %>" class="btn btn-sm">
+                                                                    <i class="fa fa-download mr-2"></i>Hóa đơn</a>
+                                                            </div>
+                                                        </div>
+                                                        <asp:HiddenField ID="hdnPaymentId" runat="server" Value='<%# Eval("PaymentId") %>' />
+
+                                                        <%--Infor Orders Table--%>
+                                                        <asp:Repeater ID="rOrders" runat="server">
+                                                            <HeaderTemplate>
+                                                                <div class="table-responsive-sm">
+                                                                    <table class="table data-table-export table-bordered table-hover">
+                                                                        <thead class=" bg-dark text-white">
+                                                                            <tr>
+                                                                                <th class="text-center">Tên Sản Phẩm</th>
+                                                                                <th class="text-center">Giá tiền</th>
+                                                                                <th class="text-center">Slượng</th>
+                                                                                <th class="text-center">Tổng Tiền</th>
+                                                                                <th class="text-center">Mã Đơn Hàng</th>
+                                                                                <th class="text-center">Trạng Thái</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                            </HeaderTemplate>
+                                                            <ItemTemplate>
+                                                                <tr>
+                                                                    <td class="text-center align-middle">
+                                                                        <asp:Label ID="lblName" runat="server" Text='<%# Eval("Name") %>'></asp:Label>
+                                                                    </td>
+                                                                    <td class="text-center align-middle">
+                                                                        <%# Eval("Price") != DBNull.Value ? string.Format("{0:N0}", Convert.ToDouble(Eval("Price"))) + " VND" : "" %>
+                                                                    </td>
+                                                                    <td class="text-center align-middle">
+                                                                        <asp:Label ID="lblQuantity" runat="server" Text='<%# Eval("Quantity") %>'></asp:Label>
+                                                                    </td>
+                                                                    <td class="text-center align-middle">
+                                                                        <%# Eval("TotalPrice") != DBNull.Value ? string.Format("{0:N0}", Convert.ToDouble(Eval("TotalPrice"))) + " VND" : "" %>
+                                                                    </td>
+                                                                    <td class="text-center align-middle" style="word-wrap: break-word;">
+                                                                        <asp:Label ID="lblOrderNo" runat="server" Text='<%# Eval("OrderNo") %>'></asp:Label>
+                                                                    </td>
+                                                                    <td class="text-center align-middle">
+                                                                        <asp:Label ID="lblStatus" runat="server"  Text='<%# Eval("Status")%>'
+                                                                            CssClass='<%# Eval("Status").ToString() == "Đã giao" ? "badge badge-success" : "badge badge-warning" %>' >
+                                                                        </asp:Label>
+                                                                    </td>
+
+                                                                </tr>
+                                                            </ItemTemplate>
+                                                            <FooterTemplate>
+                                                                </tbody>
+                                                                </table>
+                                                                </div>
+                                                            </FooterTemplate>
+                                                        </asp:Repeater>
+                                                        <%--Infor Orders Table End--%>
+
+                                                    </div>
+                                                </ItemTemplate>
+                                            </asp:Repeater>
+
                                         </div>
                                         <%--Order History End--%>
                                     </div>

@@ -41,7 +41,7 @@ namespace Foodie.User
             _expiryDate = txtExpMonth.Text.Trim() + "/" + txtExpYear.Text.Trim(); //Date: MM/YYYY
             _cvv = txtCvv.Text.Trim();
             _address = txtAddress.Text.Trim();
-            _paymentMode = "card";
+            _paymentMode = "card"; //Thanh toán bằng thẻ
             if(Session["userId"] != null)
             {
                 //Thực thi hàm void
@@ -57,7 +57,7 @@ namespace Foodie.User
         protected void lbCodSubmit_Click(object sender, EventArgs e)
         {
             _address = txtCODAddress.Text.Trim();
-            _paymentMode = "cod";
+            _paymentMode = "cod"; //Thanh toán khi nhận hàng
             if (Session["userId"] != null)
             {
                 OrderPayment(_name, _cardNo, _expiryDate, _cvv, _address, _paymentMode);
@@ -103,7 +103,7 @@ namespace Foodie.User
             cmd.Parameters.Add(outputParam);
             try
             {
-                cmd.ExecuteNonQuery();
+                cmd.ExecuteNonQuery(); // Thực thi lưu dl vào database
                 paymentId = Convert.ToInt32(outputParam.Value);  // Lấy ID thanh toán vừa tạo
 
                 #region Lấy hàng trong Giỏ
@@ -124,7 +124,7 @@ namespace Foodie.User
 
                     //Thêm ttin payment tạm thời
                     dt.Rows.Add(Utils.GetUniqueId(), productId, quantity, (int)Session["userId"],"Đang xử lý", 
-                        paymentId, Convert.ToDateTime(DateTime.Now));
+                       paymentId, Convert.ToDateTime(DateTime.Now));
 
                 }
                 dr.Close();
@@ -136,7 +136,7 @@ namespace Foodie.User
                     cmd = new SqlCommand("Save_Orders", con, transaction);
                     cmd.Parameters.AddWithValue("@tblOrders", dt);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery(); // Thực thi lưu dl vào database
                 }
                 #endregion Chi tiết Đơn Hàng
 
@@ -189,7 +189,7 @@ namespace Foodie.User
                         cmd.Parameters.AddWithValue("@Quantity", dbQuantity);
                         cmd.Parameters.AddWithValue("@ProductId", _productId);
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.ExecuteNonQuery();
+                        cmd.ExecuteNonQuery(); // Thực thi lưu dl vào database
                     }
                 }
                 dr1.Close();

@@ -28,6 +28,7 @@ namespace Foodie.User
                 else
                 {
                     getUserDetails();
+                    getPurchaseHistory();
                 }
             }
         }
@@ -77,5 +78,102 @@ namespace Foodie.User
             }
 
         }
+
+        //Lịch sử Mua Hàng
+        void getPurchaseHistory()
+        {
+            int sr = 1;
+            // Tạo kết nối và cmd cho SQL và stored proc
+            con = new SqlConnection(Connection.GetConnectionString());
+            cmd = new SqlCommand("Invoice", con);
+            cmd.Parameters.AddWithValue("@Action", "ODRHISTORY"); //Lấy lịch sử giao dịch của userId
+            cmd.Parameters.AddWithValue("@UserId", Session["userId"]);
+            cmd.CommandType = CommandType.StoredProcedure;
+            sda = new SqlDataAdapter(cmd);
+            dt = new DataTable();
+            sda.Fill(dt);
+            // Thêm cột stt
+            dt.Columns.Add("SrNo", typeof(Int32));
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow dataRow in dt.Rows) //Lượt qua các dòng trong DataTable
+                {
+                    dataRow["SrNo"] = sr;
+                    sr++;
+                }
+            }
+            if (dt.Rows.Count == 0) //Ktra nếu DataTable trống
+            {
+                //Xóa nút tùy chọn
+                rPurchaseHistory.FooterTemplate = null;
+                rPurchaseHistory.FooterTemplate = new CustomTemplate(ListItemType.Footer);
+            }
+            // Lkết và gán dl DataTable với control để hiển thị 
+            rPurchaseHistory.DataSource = dt;
+            rPurchaseHistory.DataBind();
+        }
+
+        //Hiển thị chi tiết Hóa đơn 
+        protected void rPurchaseHistory_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            // Kiểm tra nếu mục hiện tại là một Item (dữ liệu thông thường) hoặc AlternatingItem (dữ liệu xen kẽ)
+            // Đảm bảo Code bên trong chỉ chạy cho các dữ liệu thực tế, bỏ qua header, footer, v.v.
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                double grandTotal = 0;
+                //Tìm control
+                HiddenField paymentId = e.Item.FindControl("hdnPaymentId") as HiddenField;
+                Repeater repOrders = e.Item.FindControl("rOrders") as Repeater;
+
+                // Tạo kết nối và cmd cho SQL và stored proc
+                con = new SqlConnection(Connection.GetConnectionString());
+                cmd = new SqlCommand("Invoice", con);
+                cmd.Parameters.AddWithValue("@Action", "INVOICBYID"); //Lấy id Hóa đơn của userId
+                cmd.Parameters.AddWithValue("@PaymentId", Convert.ToInt32(paymentId.Value));
+                cmd.Parameters.AddWithValue("@UserId", Session["userId"]);
+                cmd.CommandType = CommandType.StoredProcedure;
+                sda = new SqlDataAdapter(cmd);
+                dt = new DataTable();
+                sda.Fill(dt);
+                // Tính tổng tiền tất cả sản phẩm 
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow dataRow in dt.Rows) //Lượt qua các dòng
+                    {
+                        grandTotal += Convert.ToDouble(dataRow["TotalPrice"]); // Cộng dồn tổng tiền
+                    }
+                }
+                // Thêm dòng mới hiển thị tổng tiền
+                DataRow dr = dt.NewRow();
+                dr["TotalPrice"] = grandTotal;
+                dt.Rows.Add(dr);
+
+                // Lkết và gán dl DataTable với control để hiển thị 
+                repOrders.DataSource = dt;
+                repOrders.DataBind();
+            }
+        }
+
+        // Lớp template khi lịch sử trống
+        private sealed class CustomTemplate : ITemplate
+        {
+            private ListItemType ListItemType { get; set; }
+
+            public CustomTemplate(ListItemType type)
+            {
+                ListItemType = type;
+            }
+
+            public void InstantiateIn(Control container)
+            {
+                if (ListItemType == ListItemType.Footer)
+                {
+                    var footer = new LiteralControl("<tr><td><b>Chờ gì nữa mà không đặt hàng?</b><a href='Menu.aspx' class='badge badge-info ml-2'>Nhấn để đặt hàng</a></td></tr></tbody></table>");
+                    container.Controls.Add(footer);
+                }
+            }
+        }
+
+
     }
 }
