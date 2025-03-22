@@ -197,6 +197,7 @@
     <Content Include="Public\css\style.css" />
     <Content Include="Public\images\7up.jpg" />
     <Content Include="Public\images\about-img.png" />
+    <Content Include="Public\images\banner.png" />
     <Content Include="Public\images\chickenfried.jpg" />
     <Content Include="Public\images\chickennugget.jpg" />
     <Content Include="Public\images\client1.jpg" />
@@ -227,6 +228,7 @@
     <Content Include="Public\images\pizz2.jpg" />
     <Content Include="Public\images\pizza1.jpg" />
     <Content Include="Public\images\pizzaga.jpg" />
+    <Content Include="Public\images\pota2.png" />
     <Content Include="Public\images\ricechicken.jpg" />
     <Content Include="Public\images\sprite.png" />
     <Content Include="Public\images\user1.jpg" />

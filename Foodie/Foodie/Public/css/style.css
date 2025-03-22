@@ -25,7 +25,7 @@ body {
     padding: 5px 0 0 0;
     display: flex;
     align-items: center;
-/*    justify-content: space-between;*/
+    /*    justify-content: space-between;*/
 }
 
 .product__details__option .pro-qty .qtybtn {
@@ -60,7 +60,6 @@ body {
     float: left;
     text-align: center;
     flex: 1;
-
 }
 
 
@@ -470,7 +469,7 @@ a:focus {
         margin-top: 45px;
         border-radius: 5px;
         padding: 20px 15px;
-        background-color: #222831;
+        background-color: #4c4c4c;
         color: #ffffff;
     }
 
@@ -562,14 +561,16 @@ a:focus {
         }
 
 .food_section .box {
-    position: relative;
-    margin-top: 25px;
+    /*
     background-color: #ffffff;
     border-radius: 10px;
-    color: #ffffff;
+    background: linear-gradient(to bottom, #f1f2f3 25px, #222831 25px);*/
+    position: relative;
+    margin-top: 25px;
     border-radius: 15px;
+    color: #ffffff;
     overflow: hidden;
-    background: linear-gradient(to bottom, #f1f2f3 25px, #222831 25px);
+    background: #4c4c4c;
 }
 
     .food_section .box .img-box {
@@ -674,7 +675,7 @@ a:focus {
         }
 
 .about_section {
-    background: #222831;
+    background: #4c4c4c;
     color: #ffffff;
 }
 
@@ -846,7 +847,7 @@ a:focus {
         }
 
     .client_section .box .detail-box {
-        background-color: #222831;
+        background-color: #4c4c4c;
         color: #ffffff;
         padding: 25px 25px 15px 25px;
         border-radius: 5px;
@@ -959,7 +960,7 @@ a:focus {
 
 /* footer section*/
 .footer_section {
-    background-color: #222831;
+    background-color: #4c4c4c;
     color: #ffffff;
     padding: 75px 0 40px 0;
     text-align: center;
