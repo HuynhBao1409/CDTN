@@ -96,7 +96,7 @@
                                                  <div class="form-group">
                                                      <label>Trạng Thái Đơn Hàng</label>
                                                      <div>
-                                                         <!-- Name -->
+                                                         <!-- Form Edit -->
                                                          <asp:DropDownList ID="ddlOrderStatus" runat="server" CssClass="form-control">
                                                              <asp:ListItem Value="0">Chọn Trạng Thái</asp:ListItem>
                                                              <asp:ListItem>Đang xử lý</asp:ListItem>
@@ -112,8 +112,7 @@
                                                  <div class="pb-5">
                                                      <asp:Button ID="btnUpdate" runat="server" Text="Cập nhật" CssClass="btn btn-primary"
                                                          OnClick="btnUpdate_Click" />
-                                                     &nbsp;
-     
+                                                     &nbsp;     
                                                      <asp:Button ID="btnCancel" runat="server" Text="Hủy" CssClass="btn btn-primary"
                                                           OnClick="btnCancel_Click" />
                                                  </div>

@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Foodie.User;
 
 namespace Foodie.Admin
 {
-	public partial class Users : System.Web.UI.Page
+	public partial class Contacts : System.Web.UI.Page
 	{
         //Khai báo
         SqlConnection con;
@@ -22,7 +21,7 @@ namespace Foodie.Admin
 		{
             if (!IsPostBack)
             {
-                Session["breadCrum"] = "Tài Khoản";
+                Session["breadCrum"] = "Feedback";
                 //Nếu ko có tk admin
                 if (Session["admin"] == null)
                 {
@@ -30,47 +29,43 @@ namespace Foodie.Admin
                 }
                 else
                 {
-                    getUsers();
+                    getContacts();
                 }
             }
-            lblMsg.Visible = false;
         }
 
-        private void getUsers()
+        private void getContacts()
         {
             // Tạo kết nối và cmd cho SQL và stored proc
             con = new SqlConnection(Connection.GetConnectionString());
-            cmd = new SqlCommand("User_Crud", con);
-            cmd.Parameters.AddWithValue("@Action", "SELECT4ADMIN");
-            cmd.Parameters.AddWithValue("@ImageUrl", DBNull.Value);
+            cmd = new SqlCommand("ContactSp", con);
+            cmd.Parameters.AddWithValue("@Action", "SELECT");
             cmd.CommandType = CommandType.StoredProcedure;
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
             sda.Fill(dt);
-            rUsers.DataSource = dt;
-            rUsers.DataBind();
+            rContacts.DataSource = dt;
+            rContacts.DataBind();
         }
 
-
-        protected void rUser_ItemCommand(object source, RepeaterCommandEventArgs e)
+        protected void rContacts_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             if (e.CommandName == "delete")
             {
                 con = new SqlConnection(Connection.GetConnectionString());
-                cmd = new SqlCommand("User_Crud", con);
+                cmd = new SqlCommand("ContactSp", con);
                 //Truyền các tham số của User_Crud
                 cmd.Parameters.AddWithValue("@Action", "DELETE");
-                cmd.Parameters.AddWithValue("@UserId", e.CommandArgument);
-                cmd.Parameters.AddWithValue("@Name", DBNull.Value);
+                cmd.Parameters.AddWithValue("@ContactId", e.CommandArgument);
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {
                     con.Open(); //Mở db
                     cmd.ExecuteNonQuery();
                     lblMsg.Visible = true;
-                    lblMsg.Text = "Tài khoản đã xóa thành công!";
+                    lblMsg.Text = "Fhản hồi đã xóa thành công!";
                     lblMsg.CssClass = "alert alert-success";
-                    getUsers();
+                    getContacts();
                 }
                 catch (Exception ex)
                 {
