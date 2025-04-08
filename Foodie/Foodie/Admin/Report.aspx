@@ -14,24 +14,26 @@
                             <div class="card">
                                 <div class="card-header">
                                     <div class="container">
-                                        <%--From Date--%>
-                                        <div class="form-group col-md-4">
-                                            <label>Từ Ngày</label>
-                                            <asp:RequiredFieldValidator ID="rfvFromDate" runat="server" ForeColor="Red" ErrorMessage="*"
-                                                SetFocusOnError="true" Display="Dynamic" ControlToValidate="txtFromDate"></asp:RequiredFieldValidator>
-                                            <asp:TextBox ID="txtFromDate" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
-                                        </div>
-                                        <%--To Date--%>
-                                        <div class="form-group col-md-4">
-                                            <label>Đến Ngày</label>
-                                            <asp:RequiredFieldValidator ID="rfvToDate" runat="server" ForeColor="Red" ErrorMessage="*"
-                                                SetFocusOnError="true" Display="Dynamic" ControlToValidate="txtToDate"></asp:RequiredFieldValidator>
-                                            <asp:TextBox ID="txtToDate" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
-                                        </div>
-                                        <%--From Date--%>
-                                        <div class="form-group col-md-4">
-                                            <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-primary mt-md-4"
-                                                OnClick="btnSearch_Click" />
+                                        <div class="form-row">
+                                            <%--From Date--%>
+                                            <div class="form-group col-md-4">
+                                                <label>Từ Ngày</label>
+                                                <asp:RequiredFieldValidator ID="rfvFromDate" runat="server" ForeColor="Red" ErrorMessage="*"
+                                                    SetFocusOnError="true" Display="Dynamic" ControlToValidate="txtFromDate"></asp:RequiredFieldValidator>
+                                                <asp:TextBox ID="txtFromDate" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
+                                            </div>
+                                            <%--To Date--%>
+                                            <div class="form-group col-md-4">
+                                                <label>Đến Ngày</label>
+                                                <asp:RequiredFieldValidator ID="rfvToDate" runat="server" ForeColor="Red" ErrorMessage="*"
+                                                    SetFocusOnError="true" Display="Dynamic" ControlToValidate="txtToDate"></asp:RequiredFieldValidator>
+                                                <asp:TextBox ID="txtToDate" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
+                                            </div>
+                                            <%--Btn Search--%>
+                                            <div class="form-group col-md-4">
+                                                <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-primary mt-md-4"
+                                                    OnClick="btnSearch_Click" />
+                                            </div>
                                         </div>
 
                                     </div>

@@ -20,6 +20,19 @@ namespace Foodie.Admin
                 {
 					Response.Redirect("../User/Login.aspx"); //Trả về trang Login
                 }
+				else
+				{
+                    // Tạo DashboardCount và Đếm số lượng trong hệ thống
+                    DashboardCount dashboard = new DashboardCount();
+					Session["category"] = dashboard.Count("CATEGORY");
+					Session["product"] = dashboard.Count("PRODUCT");
+					Session["order"] = dashboard.Count("ORDER");
+					Session["delivered"] = dashboard.Count("DELIVERED");
+					Session["pending"] = dashboard.Count("PENDING");
+					Session["user"] = dashboard.Count("USER");
+					Session["soldAmount"] = dashboard.Count("SOLDAMOUNT");
+					Session["contact"] = dashboard.Count("CONTACT");
+				}
 			}
 		}
 	}

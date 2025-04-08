@@ -112,4 +112,38 @@ namespace Foodie
 
     }
 
+    public class DashboardCount
+    {
+        //Khai báo
+        SqlConnection con;
+        SqlCommand cmd;
+        SqlDataReader sdr;
+
+        //Đếm Số lượng giá trị ở mỗi lớp
+        public int Count(string tableName)
+        {
+            int count = 0;
+            con = new SqlConnection(Connection.GetConnectionString());
+            cmd = new SqlCommand("Dashboard", con);
+            cmd.Parameters.AddWithValue("@Action", tableName);
+            cmd.CommandType = CommandType.StoredProcedure;
+            con.Open();
+            sdr = cmd.ExecuteReader();
+            while (sdr.Read())
+            {
+                if (sdr[0] == DBNull.Value)
+                {
+                    count = 0;
+                }
+                else
+                {
+                    count = Convert.ToInt32(sdr[0]);
+                }
+            }
+            sdr.Close();
+            con.Close();
+            return count;
+        }
+    }
+
 }

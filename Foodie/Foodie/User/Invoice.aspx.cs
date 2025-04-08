@@ -42,36 +42,7 @@ namespace Foodie.User
             }
         }
 
-        // Chứa dữ liệu đơn hàng (Code cũ)
-        //DataTable GetOrderDetails()
-        //{
-        //    double grandTotal = 0; // mặc định
-        //    con = new SqlConnection(Connection.GetConnectionString());
-        //    cmd = new SqlCommand("Invoice", con);
-        //    cmd.Parameters.AddWithValue("@Action", "INVOICBYID");
-        //    cmd.Parameters.AddWithValue("@PaymentId", Convert.ToInt32(Request.QueryString["id"]));
-        //    cmd.Parameters.AddWithValue("@UserId", Session["userId"]);
-        //    cmd.CommandType = CommandType.StoredProcedure;
-        //    sda = new SqlDataAdapter(cmd);
-        //    dt = new DataTable();
-        //    sda.Fill(dt);
-
-        //    if (dt.Rows.Count > 0) // Nếu có đơn
-        //    {
-        //        foreach (DataRow drow in dt.Rows) // Lượt qua các dòng
-        //        {
-        //            grandTotal += Convert.ToDouble(drow["TotalPrice"]);
-        //        }
-        //    }
-
-        //    // Thêm hàng tổng kết
-        //    DataRow dr = dt.NewRow();
-        //    dr["TotalPrice"] = grandTotal;
-        //    dt.Rows.Add(dr);
-        //    return dt;
-        //}
-
-        //DatâTble (Mới)
+        // Chứa dữ liệu đơn hàng
         protected DataTable GetOrderDetails()
         {
             DataTable dt = new DataTable();

@@ -244,7 +244,7 @@
                         <div class="pcoded-content">
                             <!-- Thanh Điều Hướng card start -->
                             <div class="card borderless-card">
-                                <div class="card-block danger-breadcrumb">
+                                <div class="card-block danger-breadcrumb" style="background-color: #2C3E50;">
                                     <div class="page-header-breadcrumb">
                                         <ul class="breadcrumb-title">
                                             <li class="breadcrumb-item">
