@@ -217,12 +217,12 @@
                                     </li>
                                 </ul>
                                 <!-- Feedback -->
-                                <div class="pcoded-navigatio-lavel" data-i18n="nav.category.other">Feedback</div>
+                                <div class="pcoded-navigatio-lavel" data-i18n="nav.category.other">Phản Hồi</div>
                                 <ul class="pcoded-item pcoded-left-item">
                                     <li>
                                         <a href="Contacts.aspx">
                                             <span class="pcoded-micon"><i class="ti-direction-alt"></i><b>M</b></span>
-                                            <span class="pcoded-mtext" data-i18n="nav.menu-levels.main">Phản Hồi</span>
+                                            <span class="pcoded-mtext" data-i18n="nav.menu-levels.main">Feedback</span>
                                             <span class="pcoded-mcaret"></span>
                                         </a>
                                     </li>
@@ -231,9 +231,9 @@
                                 <div class="pcoded-navigatio-lavel" data-i18n="nav.category.other">Báo cáo</div>
                                 <ul class="pcoded-item pcoded-left-item">
                                     <li>
-                                        <a href="#">
+                                        <a href="Report.aspx">
                                             <span class="pcoded-micon"><i class="ti-direction-alt"></i><b>M</b></span>
-                                            <span class="pcoded-mtext" data-i18n="nav.menu-levels.main">Báo cáo bán hàng</span>
+                                            <span class="pcoded-mtext" data-i18n="nav.menu-levels.main">Báo cáo doanh thu</span>
                                             <span class="pcoded-mcaret"></span>
                                         </a>
                                     </li>
