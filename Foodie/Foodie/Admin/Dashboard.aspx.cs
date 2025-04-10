@@ -29,6 +29,7 @@ namespace Foodie.Admin
 					Session["order"] = dashboard.Count("ORDER");
 					Session["delivered"] = dashboard.Count("DELIVERED");
 					Session["pending"] = dashboard.Count("PENDING");
+					Session["cancelled"] = dashboard.Count("CANCELLED");
 					Session["user"] = dashboard.Count("USER");
 					Session["soldAmount"] = dashboard.Count("SOLDAMOUNT");
 					Session["contact"] = dashboard.Count("CONTACT");

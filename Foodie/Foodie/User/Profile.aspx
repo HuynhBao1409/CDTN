@@ -224,7 +224,8 @@
                                                                     </td>
                                                                     <td class="text-center align-middle">
                                                                         <asp:Label ID="lblStatus" runat="server"  Text='<%# Eval("Status")%>'
-                                                                            CssClass='<%# Eval("Status").ToString() == "Đã giao" ? "badge badge-success" : "badge badge-warning" %>' >
+                                                                            CssClass='<%# Eval("Status").ToString() == "Đã giao" ? "badge badge-success" : 
+                                                                                       Eval("Status").ToString() == "Đã hủy đơn" ? "badge badge-danger" : "badge badge-warning" %>' >
                                                                         </asp:Label>
                                                                     </td>
 

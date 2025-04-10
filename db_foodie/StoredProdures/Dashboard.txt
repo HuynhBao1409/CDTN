@@ -1,4 +1,11 @@
-Create procedure Dashboard
+USE [FoodieDB]
+GO
+/****** Object:  StoredProcedure [dbo].[Dashboard]    Script Date: 10/4/2025 11:57:58 am ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER procedure [dbo].[Dashboard]
 @Action nvarchar(20) = null
 as
 begin
@@ -33,22 +40,27 @@ begin
 		SELECT COUNT(*) FROM dbo.Orders
 		WHERE Status IN (N'Đang xử lý', N'Đã gửi đi')
 	END
-
-	-- 6. Users
+	-- 6. Orders Cancelled
+	IF @Action = 'CANCELLED'
+	BEGIN
+		SELECT COUNT(*) FROM dbo.Orders WHERE Status = N'Đã hủy đơn'
+	END
+	-- 7. Users
 	IF @Action = 'USER'
 	BEGIN
 		SELECT COUNT(*) FROM dbo.Users
 	END
 
-	-- 7. Sold Item Cost
+	-- 8. Sold Item Cost
 	IF @Action = 'SOLDAMOUNT'
 	BEGIN
 		SELECT SUM(o.Quantity * p.Price) FROM Orders o
 		INNER JOIN Products p ON p.ProductId = o.ProductId
 	END
-	-- 8. Contact
+	-- 9. Contact
 	IF @Action = 'CONTACT'
 	BEGIN
 		SELECT COUNT(*) FROM dbo.Contact
 	END
+	
 end

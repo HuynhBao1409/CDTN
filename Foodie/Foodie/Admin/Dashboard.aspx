@@ -89,16 +89,31 @@
                                 </div>
                             </div>
                         </div>
+                        <%--Cancelled Orders--%>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card widget-card-1">
+                                <div class="card-block-small">
+                                    <i class="icofont icofont-trash bg-c-pink card1-icon"></i>
+                                    <span class="text-c-pink f-w-600">Đơn Đã Hủy</span>
+                                    <h4><%Response.Write(Session["cancelled"]); %></h4>
+                                    <div>
+                                        <span class="f-left m-t-10 text-muted">
+                                            <a href="OrderStatus.aspx"><i class="text-c-pink f-16 icofont icofont-eye-alt m-r-10"></i>Xem chi tiết </a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <%--Users--%>
                         <div class="col-md-6 col-xl-3">
                             <div class="card widget-card-1">
                                 <div class="card-block-small">
-                                    <i class="icofont icofont-users-social bg-c-pink card1-icon"></i>
-                                    <span class="text-c-pink f-w-600">Tài Khoản</span>
+                                    <i class="icofont icofont-users-social bg-c-blue card1-icon"></i>
+                                    <span class="text-c-blue f-w-600">Tài Khoản</span>
                                     <h4><%Response.Write(Session["user"]); %></h4>
                                     <div>
                                         <span class="f-left m-t-10 text-muted">
-                                            <a href="Users.aspx"><i class="text-c-pink f-16 icofont icofont-eye-alt m-r-10"></i>Xem chi tiết </a>
+                                            <a href="Users.aspx"><i class="text-c-blue f-16 icofont icofont-eye-alt m-r-10"></i>Xem chi tiết </a>
                                         </span>
                                     </div>
                                 </div>

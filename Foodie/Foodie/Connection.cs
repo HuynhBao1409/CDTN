@@ -112,6 +112,7 @@ namespace Foodie
 
     }
 
+    //Đếm số lượng thống kê mỗi class
     public class DashboardCount
     {
         //Khai báo

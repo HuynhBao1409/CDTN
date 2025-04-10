@@ -62,7 +62,8 @@
                                                                 </td>
                                                                 <td>
                                                                     <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("Status") %>'
-                                                                        CssClass='<%# Eval("Status").ToString() == "Đã giao" ? "badge badge-success" : "badge badge-warning" %>'>
+                                                                        CssClass='<%# Eval("Status").ToString() == "Đã giao" ? "badge badge-success" : 
+                                                                                   Eval("Status").ToString() == "Đã hủy đơn" ? "badge badge-danger" : "badge badge-warning" %>'>
                                                                     </asp:Label>
                                                                 </td>
                                                                 <td><%#Eval("Name") %> </td>
@@ -102,6 +103,7 @@
                                                              <asp:ListItem>Đang xử lý</asp:ListItem>
                                                              <asp:ListItem>Đã gửi đi</asp:ListItem>
                                                              <asp:ListItem>Đã giao</asp:ListItem>
+                                                             <asp:ListItem>Đã hủy đơn</asp:ListItem>
                                                          </asp:DropDownList>
                                                          <asp:RequiredFieldValidator ID="rfvDdlOrderStatus" runat="server" ForeColor="Red" ControlToValidate="ddlOrderStatus"
                                                              ErrorMessage="Trạng Thái không được để trống" SetFocusOnError="true" Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
