@@ -21,7 +21,7 @@ namespace Foodie.Admin
         {
             if (!IsPostBack)
             {
-                Session["breadCrum"] = "Trạng thái Sản Phẩm";
+                Session["breadCrum"] = "Trạng thái Đơn Hàng";
                 //Nếu ko có tk admin
                 if (Session["admin"] == null)
                 {

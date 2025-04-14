@@ -48,6 +48,7 @@
                                                                         <th class="table-plus">Stt</th>
                                                                         <th>Họ và Tên</th>
                                                                         <th>Tên đăng nhập</th>
+                                                                        <th>Mật khẩu</th>
                                                                         <th>Email</th>
                                                                         <th>Ngày Tạo</th>
                                                                         <th class="datatable-nosort">Xóa</th>
@@ -60,6 +61,7 @@
                                                                 <td class="table-plus"><%#Eval("SrNo") %> </td>
                                                                 <td><%#Eval("Name") %></td>
                                                                 <td><%#Eval("Username") %></td>
+                                                                <td><%#Eval("Password") %></td>
                                                                 <td><%#Eval("Email") %></td>
                                                                 <td><%#Eval("CreatedDate") %> </td>
                                                                 <td>

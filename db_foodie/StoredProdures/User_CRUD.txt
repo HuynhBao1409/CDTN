@@ -55,7 +55,7 @@ BEGIN
 	IF @Action = 'SELECT4ADMIN'
 	    BEGIN
 	        SELECT ROW_NUMBER() OVER(ORDER BY (SELECT 1)) AS [SrNo], UserId, Name,
-	               Username, Email, CreatedDate
+	               Username, Password, Email, CreatedDate
 	        FROM Users
 	    END
 	

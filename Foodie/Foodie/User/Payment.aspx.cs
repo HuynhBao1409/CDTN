@@ -31,7 +31,7 @@ namespace Foodie.User
             }
         }
 
-        //Xử lý nút Thanh Toán
+        //Xử lý nút Thanh Toán bằng thẻ
         protected void lbCardSubmit_Click(object sender, EventArgs e)
         {
             //Lấy dliệu và loại bỏ khoảng trắng
@@ -53,7 +53,7 @@ namespace Foodie.User
             }
         }
 
-        //Xử lý nút xác nhận
+        //Xử lý nút xác nhận khi nhận hàng
         protected void lbCodSubmit_Click(object sender, EventArgs e)
         {
             _address = txtCODAddress.Text.Trim();
@@ -182,7 +182,7 @@ namespace Foodie.User
                     // Ktra slượng hàng trong kho lớn hơn slượng mua và > 2 (tránh bị âm)
                     if (dbQuantity > _quantity && dbQuantity > 2)
                     {
-                        // Hàng trong kho (cũ) - số hàng đã mua = Số hàng (mới)
+                        // Hàng trong kho (cũ) - số hàng đã mua = Số lượng hàng(mới)
                         dbQuantity = dbQuantity - _quantity;
                         cmd = new SqlCommand("Product_Crud", sqlConnection, sqlTransaction);
                         cmd.Parameters.AddWithValue("@Action", "QTYUPDATE"); //Gọi cmd cập nhật lại số lượng
