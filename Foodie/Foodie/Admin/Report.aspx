@@ -1,6 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="Report.aspx.cs" Inherits="Foodie.Admin.Report" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
@@ -56,6 +59,7 @@
                                                                         <th>Tên người dùng</th>
                                                                         <th>Email</th>
                                                                         <th>Đơn đặt hàng</th>
+                                                                        <th>Thời gian</th>
                                                                         <th>Tổng hóa đơn</th>
                                                                     </tr>
                                                                 </thead>
@@ -67,6 +71,7 @@
                                                                 <td><%#Eval("Name") %></td>
                                                                 <td><%#Eval("Email") %></td>
                                                                 <td><%#Eval("TotalOrders") %></td>
+                                                                <td><%#Eval("OrderDateFormatted") %></td>
                                                                 <td class="text-right">
                                                                     <%# string.Format("{0:N0} VND", Eval("TotalPrice")) %>
                                                                 </td>
@@ -78,15 +83,22 @@
                                                         </table>
                                                         </FooterTemplate>
                                                     </asp:Repeater>
+
                                                     <!-- Datatable end -->
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
-                                    <div class="row pl-4">
-                                        <asp:Label ID="lblTotal" runat="server" Font-Bold="true" Font-Size="Small"></asp:Label>
-                                    </div>
+                                    <%--Diagram--%>
+                                        <div class="row pl-4">
+                                            <asp:Label ID="lblTotal" runat="server" Font-Bold="true" Font-Size="Small"></asp:Label>
+                                        </div>
+                                        <div class="row pl-4 mt-4">
+                                            <div class="col-12">
+                                                <canvas id="revenueChart" style="max-height: 400px;"></canvas>
+                                            </div>
+                                        </div>
+                                    <%--Diagram end--%>                                    
                                 </div>
                                 <!-- End Form -->
                             </div>
@@ -97,4 +109,70 @@
         </div>
     </div>
 
+<script type="text/javascript">
+    window.onload = function () {
+        // Lấy dữ liệu thô từ ViewState
+        var rawData = <%= ViewState["ChartRawData"] %> || [];
+
+        // Kiểm tra nếu không có dữ liệu
+        if (rawData.length === 0) {
+            console.log("Không có dữ liệu để vẽ biểu đồ.");
+            return;
+        }
+
+        // Lấy danh sách ngày/tháng/năm duy nhất
+        var dates = [...new Set(rawData.map(row => row.OrderDateFormatted))];
+
+        // Sắp xếp ngày theo thứ tự thời gian
+        dates.sort(function (a, b) {
+            // Chuyển định dạng "DD/MM/YYYY" thành đối tượng Date để so sánh
+            var dateA = new Date(a.split('/').reverse().join('-')); // Chuyển "DD/MM/YYYY" thành "YYYY-MM-DD"
+            var dateB = new Date(b.split('/').reverse().join('-'));
+            return dateA - dateB; // Sắp xếp tăng dần
+        });
+
+        // Tính tổng doanh thu cho từng ngày
+        var totalRevenueByDate = dates.map(function (date) {
+            var total = rawData
+                .filter(row => row.OrderDateFormatted === date)
+                .reduce((sum, row) => sum + parseFloat(row.TotalPrice), 0);
+            return total;
+        });
+
+        // Vẽ biểu đồ đường
+        var ctx = document.getElementById('revenueChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: 'Tổng Doanh Thu (VND)',
+                    data: totalRevenueByDate,
+                    borderColor: 'rgba(0, 123, 255, 1)',
+                    backgroundColor: 'rgba(0, 123, 255, 0.1)',
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Doanh Thu (VND)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Ngày/Tháng/Năm'
+                        }
+                    }
+                }
+            }
+        });
+    };
+</script>
 </asp:Content>

@@ -59,3 +59,5 @@ D:\Project_AnhBeo\CDTN\Foodie\Foodie\obj\Debug\Foodie.dll
 D:\Project_AnhBeo\CDTN\Foodie\Foodie\obj\Debug\Foodie.pdb
 D:\Project_AnhBeo\CDTN\Foodie\Foodie\bin\itextsharp.dll
 D:\Project_AnhBeo\CDTN\Foodie\Foodie\bin\itextsharp.xml
+D:\Project_AnhBeo\CDTN\Foodie\Foodie\bin\Newtonsoft.Json.dll
+D:\Project_AnhBeo\CDTN\Foodie\Foodie\bin\Newtonsoft.Json.xml

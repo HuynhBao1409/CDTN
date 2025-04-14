@@ -5,12 +5,13 @@ as
 begin  
     SET NOCOUNT ON;  
   
-Select ROW_NUMBER() OVER(ORDER BY (SELECT 1)) AS [SrNo],u.Name, u.Email,
-SUM(o.Quantity) AS TotalOrders,SUM(o.Quantity * p.Price) AS TotalPrice 
-From Orders o
-INNER JOIN Products p ON p.ProductId = o.ProductId
-INNER JOIN Users u ON u.UserId = o.UserId
-WHERE CAST(o.OrderDate AS Date) BETWEEN @FromDate AND @ToDate
-GROUP BY u.Name,u.Email
-
+	Select ROW_NUMBER() OVER(ORDER BY MAX(o.OrderDate)) AS [SrNo],u.Name, u.Email,
+		SUM(o.Quantity) AS TotalOrders,SUM(o.Quantity * p.Price) AS TotalPrice, 
+		CONVERT(varchar, o.OrderDate, 103) AS OrderDateFormatted -- Định dạng ngày/tháng/năm (dd/MM/yyyy)
+	From Orders o
+	INNER JOIN Products p ON p.ProductId = o.ProductId
+	INNER JOIN Users u ON u.UserId = o.UserId
+	WHERE CAST(o.OrderDate AS Date) BETWEEN @FromDate AND @ToDate
+	GROUP BY u.Name, u.Email, CONVERT(varchar, o.OrderDate, 103) -- Nhóm theo tên, email và ngày
+    ORDER BY CONVERT(varchar, o.OrderDate, 103)
 end

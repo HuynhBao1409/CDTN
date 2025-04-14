@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Foodie.User;
+using Newtonsoft.Json;
 
 namespace Foodie.Admin
 {
@@ -43,17 +44,39 @@ namespace Foodie.Admin
             sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
             sda.Fill(dt);
+
+            // Tạo danh sách cho labels (tên người dùng) và data (tổng doanh thu)
+            List<string> labels = new List<string>();
+            List<double> data = new List<double>();
+
             // Nếu có dữ liệu trong bảng
             if (dt.Rows.Count > 0)
             {
-                // Duyệt qua row để cộng dồn TotalPrice
+                // Duyệt qua cột để cộng dồn TotalPrice
                 foreach (DataRow dr in dt.Rows)
                 {
                     grandTotal += Convert.ToDouble(dr["TotalPrice"]); // Cộng tổng tiền
+                    //Thêm dữ liệu cho sơ đồ
+                    labels.Add(dr["Name"].ToString()); // Thêm tên người dùng vào labels
+                    data.Add(Convert.ToDouble(dr["TotalPrice"])); // Thêm tổng doanh thu vào data
                 }
                 lblTotal.Text = "Tổng doanh thu: " + grandTotal.ToString("N0") + " VND";
                 lblTotal.CssClass = "badge badge-primary";
+
+                // Lưu dữ liệu vào ViewState để sử dụng trong JavaScript
+                ViewState["ChartLabels"] = labels;
+                ViewState["ChartData"] = data;
             }
+            else
+            {
+                // Nếu không có dữ liệu, đặt giá trị rỗng cho ViewState
+                ViewState["ChartLabels"] = labels; // Rỗng
+                ViewState["ChartData"] = data; // Rỗng
+                lblTotal.Text = "Không có dữ liệu trong khoảng thời gian này.";
+                lblTotal.CssClass = "badge badge-warning";
+            }
+            
+            ViewState["ChartRawData"] = JsonConvert.SerializeObject(dt);// lưu toàn bộ DataTable dưới dạng JSON
             rReport.DataSource = dt;
             rReport.DataBind();
         }
