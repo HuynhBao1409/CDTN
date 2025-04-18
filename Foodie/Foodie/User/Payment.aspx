@@ -24,6 +24,43 @@
             border: none;
             box-shadow: 1px 5px 10px 1px rgba(0, 0, 0, 0.2)
         }
+        /* Thêm style để căn giữa nút xác nhận */
+        .center-button {
+            text-align: center; /* Căn giữa nội dung trong thẻ p */
+        }
+
+            .center-button .btn {
+                margin: 0 auto; /* Đảm bảo nút không bị lệch */
+            }
+        /* Điều chỉnh container cho QR */
+        #qr-container {
+            text-align: center; /* Căn giữa nội dung */
+            max-width: 600px; /* Kích thước tối đa cho container QR */
+            margin: 0 auto; /* Căn giữa */
+        }
+
+        #qrImage {
+            max-width: 100%; /* Đảm bảo ảnh không vượt container */
+            width: 450px; /* Kích thước lớn hơn, phù hợp với ảnh QR */
+            height: auto; /* Giữ tỷ lệ */
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Responsive cho màn hình nhỏ */
+        @media (max-width: 768px) {
+            .card {
+                padding: 20px 25px; /* Giảm padding trên mobile */
+            }
+
+            #qrImage {
+                width: 300px; /* Giảm kích thước QR trên mobile */
+            }
+
+            #qr-container {
+                max-width: 100%; /* Chiếm toàn bộ chiều rộng trên mobile */
+            }
+        }
     </style>
 
     <script>
@@ -49,6 +86,52 @@
         window.onload = DisableBackButton;
         window.onpageshow = function (evt) { if (evt.persisted) DisableBackButton() }
         window.onunload = function () { void (0) }
+
+        /* logic tạo mã QR */
+        $(document).ready(function () {
+            const bankId = "VCB"; // Vietcombank
+            const accountNumber = "1019494339";
+            const accountName = "HUYNH GIA BAO";
+
+            // Hàm tạo chuỗi ngẫu nhiên cho nội dung chuyển khoản
+            function generateRandomNote() {
+                const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+                let result = '';
+                for (let i = 0; i < 8; i++) {
+                    result += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                return `Thanh toan don hang ${result}`;
+            }
+
+            // Hàm tạo mã QR
+            function generateQR(amount, note) {
+                console.log("Generating QR with amount: " + amount + ", note: " + note);
+                let qrUrl = `https://img.vietqr.io/image/${bankId}-${accountNumber}-compact.png?amount=${amount}&addInfo=${encodeURIComponent(note)}&accountName=${encodeURIComponent(accountName)}`;
+                $('#qrImage').attr('src', qrUrl);
+                $('#transferNote').text(`Nội dung chuyển khoản: ${note}`);
+                $('#qr-container').show();
+                // Lưu nội dung chuyển khoản vào hidden field để gửi <asp:HiddenField> để gửi về server
+                $('#<%=hfQrNote.ClientID %>').val(note);
+            }
+
+            // Tạo mã QR tự động khi tab "Thanh Toán Mã QR" được chọn
+            $('a[href="#bank-transfer"]').on('shown.bs.tab', function () {
+                let rawAmount = '<%= Session["grandTotalPrice"] %>';
+                let amount = parseInt(rawAmount.replace(/[^0-9]/g, ''));
+                console.log("Tab bank-transfer shown, rawAmount: " + rawAmount + ", parsed amount: " + amount);
+                if (isNaN(amount) || amount <= 0) {
+                    console.error("Invalid amount, defaulting to 0");
+                    amount = 0;
+                }
+                let randomNote = generateRandomNote();
+                generateQR(amount, randomNote);
+            });
+            // Xử lý nút xác nhận thanh toán
+            $('#<%=btnConfirmQr.ClientID %>').click(function () {
+                console.log("Xác nhận thanh toán?");
+                return true; // Cho phép postback để gọi btnConfirmQr_Click
+            });
+        });
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -67,14 +150,15 @@
             </div>
             <!-- End -->
             <div class="row pb-5">
-                <div class="col-lg-6 mx-auto">
+                <div class="col-lg-8 mx-auto">
                     <div class="card ">
                         <div class="card-header">
                             <div class="bg-white shadow-sm pt-4 pl-2 pr-2 pb-2">
                                 <!-- Loại thanh toán -->
                                 <ul role="tablist" class="nav bg-light nav-pills rounded nav-fill mb-3">
                                     <li class="nav-item"><a data-toggle="pill" href="#credit-card" class="nav-link active "><i class="fa fa-credit-card mr-2"></i>Thẻ Tín Dụng </a></li>
-                                    <li class="nav-item"><a data-toggle="pill" href="#paypal" class="nav-link "><i class="fa fa-money mr-2"></i>Thanh Toán Khi Nhận Hàng </a></li>
+                                    <li class="nav-item"><a data-toggle="pill" href="#cod" class="nav-link "><i class="fa fa-money mr-2"></i>Thanh Toán Khi Nhận Hàng </a></li>
+                                    <li class="nav-item"><a data-toggle="pill" href="#bank-transfer" class="nav-link "><i class="fa fa-university mr-2"></i>Thanh toán mã QR </a></li>
                                 </ul>
                                 <!-- End -->
                             </div>
@@ -191,9 +275,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Card End -->
+                                <!-- COD End -->
                                 <!-- Thông tin thanh toán khi nhận hàng -->
-                                <div id="paypal" class="tab-pane fade pt-3">
+                                <div id="cod" class="tab-pane fade pt-3">
                                     <%--Address--%>
                                     <div class="form-group">
                                         <label for="txtCODAddress">
@@ -213,10 +297,45 @@
                                     <p class="text-muted">
                                         Lưu ý: Khi nhận hàng, bạn sẽ thanh toán toàn bộ số tiền. 
                                     Sau khi hoàn tất quá trình thanh toán, bạn có thể kiểm tra trạng thái đơn hàng được cập nhật.
+                                   
                                     </p>
                                 </div>
-                                <!-- End -->
-                              
+                                <!-- COD End -->
+
+                                <!-- QR code -->
+                                <!-- Thông tin chuyển khoản -->
+                                <div id="bank-transfer" class="tab-pane fade pt-3">
+                                    <asp:HiddenField ID="hfQrNote" runat="server" />
+                                    <%--<asp:Button ID="btnConfirmQr" runat="server" Style="display: none;" OnClick="btnConfirmQr_Click" />--%>
+                                    <div class="form-group text-center">
+                                        <label>
+                                            <h6>Số Tiền Cần Chuyển</h6>
+                                        </label>
+                                        <p class="amount-display"><% Response.Write(Session["grandTotalPrice"]); %> VND</p>
+                                        <label for="txtQRAddress">
+                                            <h6>Địa Chỉ Giao Hàng</h6>
+                                        </label>
+                                        <asp:TextBox ID="txtQRAddress" runat="server" CssClass="form-control" placeholder="Địa Chỉ Giao Hàng" TextMode="MultiLine"></asp:TextBox>
+                                        <asp:RequiredFieldValidator ID="rfvQRAddress" runat="server" ErrorMessage="Địa chỉ không được để trống" ForeColor="Red"
+                                            ControlToValidate="txtQRAddress" Display="Dynamic" SetFocusOnError="true" ValidationGroup="qr">*</asp:RequiredFieldValidator>
+                                    </div>
+                                    <div id="qr-container">
+                                        <p class="qr-instruction">Vui lòng quét mã để thanh toán</p>
+                                        <img id="qrImage" />
+                                        <div id="paymentInfo" class="mx-auto" style="max-width: 400px;">
+                                            <p><strong>Thông tin thanh toán:</strong></p>
+                                            <p>Ngân hàng: Vietcombank</p>
+                                            <p>Số tài khoản: 1019494339</p>
+                                            <p>Chủ tài khoản: HUYNH GIA BAO</p>
+                                            <p id="transferNote"></p>
+                                        </div>
+                                    </div>
+                                    <p class="center-button">
+                                        <asp:Button ID="btnConfirmQr" runat="server" CssClass="btn btn-primary" Text="Xác Nhận Thanh Toán" OnClick="btnConfirmQr_Click" />
+                                    </p>
+                                </div>
+                                <!-- Bank Transfer End -->
+
 
                             </div>
                             <%--Total Bill--%>
@@ -224,6 +343,8 @@
                                 <b class="badge badge-success badge-pill shadow-sm">Tổng Đơn Hàng: <% Response.Write(Session["grandTotalPrice"]); %> VND </b>
                                 <div class="pt-1">
                                     <asp:ValidationSummary ID="ValidationSummary1" runat="server" ForeColor="Red" ValidationGroup="card"
+                                        HeaderText="Vui lòng sửa các lỗi sau" Font-Names="Segoe Script" />
+                                    <asp:ValidationSummary ID="ValidationSummary2" runat="server" ForeColor="Red" ValidationGroup="cod"
                                         HeaderText="Vui lòng sửa các lỗi sau" Font-Names="Segoe Script" />
                                 </div>
                             </div>

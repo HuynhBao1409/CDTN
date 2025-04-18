@@ -68,6 +68,33 @@ namespace Foodie.User
             }
         }
 
+        //Xử lý nút tạo mã QR
+        protected void btnConfirmQr_Click(object sender, EventArgs e)
+        {
+            _paymentMode = "qr"; //Thanh toán bằng mã QR
+            if (Session["userId"] != null)
+            {
+                // Lấy nội dung chuyển khoản từ hidden field
+                string qrNote = hfQrNote.Value;
+                if (string.IsNullOrEmpty(qrNote))
+                {
+                    // Nếu hidden field rỗng, tạo mới (trường hợp lỗi)
+                    Random random = new Random();
+                    const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                    qrNote = "Thanh toan don hang " + new string(Enumerable.Repeat(chars, 8).Select(s => s[random.Next(s.Length)]).ToArray());
+                }
+                Session["qrNote"] = qrNote; // Lưu nội dung chuyển khoản để sử dụng trong Invoice.aspx nếu cần
+                _address = txtQRAddress.Text.Trim();
+                // Gọi hàm xử lý thanh toán
+                OrderPayment(_name, _cardNo, _expiryDate, _cvv, _address, _paymentMode);
+            }
+            else
+            {
+                Response.Redirect("Login.aspx");
+            }
+        }
+
+
         void OrderPayment(string name, string cardNo, string expiryDate, string cvv,string address, string paymentMode)
         {
             int paymentId; int productId; int quantity;
@@ -201,6 +228,7 @@ namespace Foodie.User
             
         }
 
+        
         //Xóa đơn trong giỏ sau khi thanh toán
         void DeleteCartItem(int _productId, SqlTransaction sqlTransaction, SqlConnection sqlConnection)
         {

@@ -14,7 +14,7 @@
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  <link rel="shortcut icon" href="../Public/images/favicon.png" type="">
+  <link rel="shortcut icon" href="../Public/images/logo.png" type="">
 
   <title> FastBite </title>
 
@@ -153,12 +153,7 @@
                   <span class="badge rounded-pill bg-warning mb-4">
                       <% Response.Write(Session["cartCount"]); %>
                   </span>
-              </a>
-              <div class="form-inline">
-                <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
-                  <i class="fa fa-search" aria-hidden="true"></i>
-                </button>
-              </div>
+              </a>              
               <%-- Login/Logout --%>
                 <asp:LinkButton ID="lbLoginOrLogout" runat="server" CssClass="order_online" CausesValidation="false" 
                     OnClick="lbLoginOrLogout_Click"></asp:LinkButton>

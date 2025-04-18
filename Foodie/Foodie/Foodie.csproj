@@ -226,6 +226,7 @@
     <Content Include="Public\images\favicon.png" />
     <Content Include="Public\images\hambu1.jpg" />
     <Content Include="Public\images\hero-bg.jpg" />
+    <Content Include="Public\images\logo.png" />
     <Content Include="Public\images\o1.jpg" />
     <Content Include="Public\images\o2.jpg" />
     <Content Include="Public\images\pasta1.jpg" />
