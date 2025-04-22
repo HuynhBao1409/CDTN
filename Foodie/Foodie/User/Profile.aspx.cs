@@ -69,7 +69,7 @@ namespace Foodie.User
                     }
                     else
                     {
-                        // Nếu không dùng ảnh mặc định
+                        // Nếu không load dc dùng ảnh mặc định
                         finalImageUrl = "../Images/No_user.jpg";
                     }
                 }
@@ -117,7 +117,7 @@ namespace Foodie.User
         protected void rPurchaseHistory_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             // Kiểm tra nếu mục hiện tại là một Item (dữ liệu thông thường) hoặc AlternatingItem (dữ liệu xen kẽ)
-            // Đảm bảo Code bên trong chỉ chạy cho các dữ liệu thực tế, bỏ qua header, footer, v.v.
+            // Đảm bảo Code bên trong chỉ chạy cho các dữ liệu thực tế, bỏ qua header, footer
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
                 double grandTotal = 0;

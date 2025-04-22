@@ -84,7 +84,7 @@ namespace Foodie.User
                     qrNote = "Thanh toan don hang " + new string(Enumerable.Repeat(chars, 8).Select(s => s[random.Next(s.Length)]).ToArray());
                 }
                 Session["qrNote"] = qrNote; // Lưu nội dung chuyển khoản để sử dụng trong Invoice.aspx nếu cần
-                _address = txtQRAddress.Text.Trim();
+                _address = "";
                 // Gọi hàm xử lý thanh toán
                 OrderPayment(_name, _cardNo, _expiryDate, _cvv, _address, _paymentMode);
             }

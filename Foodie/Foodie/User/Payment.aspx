@@ -87,7 +87,7 @@
         window.onpageshow = function (evt) { if (evt.persisted) DisableBackButton() }
         window.onunload = function () { void (0) }
 
-        /* logic tạo mã QR */
+        /* Tạo mã QR */
         $(document).ready(function () {
             const bankId = "VCB"; // Vietcombank
             const accountNumber = "1019494339";

@@ -58,12 +58,12 @@ namespace Foodie.User
                         int paymentId;
                         if (!int.TryParse(Request.QueryString["id"], out paymentId))
                         {
-                            throw new ArgumentException("Invalid Payment ID");
+                            throw new ArgumentException("Mã thanh toán không hợp lệ");
                         }
                         cmd.Parameters.AddWithValue("@PaymentId", paymentId);
                         if (Session["userId"] == null)
                         {
-                            throw new ArgumentException("User ID is not set in session");
+                            throw new ArgumentException("Mã người dùng không tồn tại trong phiên làm việc");
                         }
                         cmd.Parameters.AddWithValue("@UserId", Convert.ToInt32(Session["userId"]));
 
@@ -121,7 +121,7 @@ namespace Foodie.User
             }
         }
 
-        //In Hóa Đơn
+        //Tạo file Hóa Đơn
         void ExportToPdf(DataTable dtblTable, string strPdfPath, string strHeader)
         {
             // Tạo file PDF
@@ -133,95 +133,130 @@ namespace Foodie.User
 
             try
             {
-                // ----- PHẦN TIÊU ĐỀ BÁO CÁO -----
-                BaseFont bfntHead = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                Font fntHead = new Font(bfntHead, 16, Font.BOLD, BaseColor.GRAY);
+                // Font hỗ trợ tiếng Việt
+                string fontPath = Environment.GetEnvironmentVariable("SystemRoot") + "\\fonts\\arial.ttf";
+                BaseFont bfntUnicode = BaseFont.CreateFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+
+                // Font cho tiêu đề chính
+                Font fntHead = new Font(bfntUnicode, 18, Font.BOLD, new BaseColor(33, 37, 41)); // Màu xám đậm
 
                 // Tiêu đề chính
                 Paragraph prgHeading = new Paragraph();
                 prgHeading.Alignment = Element.ALIGN_CENTER;
-                prgHeading.Add(new Chunk(strHeader.ToUpper(), fntHead));
+                prgHeading.SpacingAfter = 10f;
+                prgHeading.Add(new Chunk(strHeader, fntHead));
                 document.Add(prgHeading);
 
-                // ----- THÔNG TIN THÊM -----
-                BaseFont btnAuthor = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                Font fntAuthor = new Font(btnAuthor, 8, Font.ITALIC, BaseColor.GRAY);
+                // Font cho thông tin bổ sung
+                Font fntAuthor = new Font(bfntUnicode, 10, Font.ITALIC, new BaseColor(108, 117, 125)); // Màu xám nhạt
 
-                // Tên cửa hàng và ngày đặt hàng
+                // Thông tin cửa hàng, ngày đặt, và phương thức thanh toán
                 Paragraph prgAuthor = new Paragraph();
                 prgAuthor.Alignment = Element.ALIGN_RIGHT;
-                prgAuthor.Add(new Chunk("Order From: Foodie Fast Food", fntAuthor));
+                prgAuthor.SpacingAfter = 10f;
+                prgAuthor.Add(new Chunk("Đặt hàng từ: FastBite Food", fntAuthor));
 
-                // Thêm ngày đặt hàng nếu có
-                string orderDate = "N/A";
+                // Ngày đặt hàng
+                string orderDate = "Không có";
                 if (dtblTable.Rows.Count > 0 && dtblTable.Columns.Contains("OrderDate") &&
                     dtblTable.Rows[0]["OrderDate"] != DBNull.Value)
                 {
                     orderDate = Convert.ToDateTime(dtblTable.Rows[0]["OrderDate"]).ToString("dd/MM/yyyy");
                 }
-                prgAuthor.Add(new Chunk("\nOrder Date: " + orderDate, fntAuthor));
+                prgAuthor.Add(new Chunk("\nNgày đặt: " + orderDate, fntAuthor));
+
+                // Phương thức thanh toán
+                string paymentMethod = "Không xác định";
+                if (dtblTable.Rows.Count > 0 && dtblTable.Columns.Contains("PaymentMode"))
+                {
+                    object paymentModeValue = dtblTable.Rows[0]["PaymentMode"];
+                    if (paymentModeValue != DBNull.Value && paymentModeValue != null)
+                    {
+                        string paymentMode = paymentModeValue.ToString().ToLower();
+                        if (paymentMode == "cod")
+                        {
+                            paymentMethod = "Thanh toán khi nhận hàng";
+                        }
+                        else if (paymentMode == "card")
+                        {
+                            paymentMethod = "Thẻ tín dụng";
+                            if (dtblTable.Columns.Contains("CardNo") && dtblTable.Rows[0]["CardNo"] != DBNull.Value &&
+                                !string.IsNullOrEmpty(dtblTable.Rows[0]["CardNo"].ToString()))
+                            {
+                                paymentMethod += " (" + dtblTable.Rows[0]["CardNo"].ToString() + ")";
+                            }
+                        }
+                        else if (paymentMode == "qr")
+                        {
+                            paymentMethod = "Mã QR";
+                        }
+                    }
+                }
+                prgAuthor.Add(new Chunk("\nPhương thức thanh toán: " + paymentMethod, fntAuthor));
                 document.Add(prgAuthor);
 
-                // ----- ĐƯỜNG PHÂN CÁCH -----
+                // Đường phân cách
                 Paragraph line = new Paragraph(new Chunk(
-                    new iTextSharp.text.pdf.draw.LineSeparator(0.0F, 100.0F, BaseColor.BLACK, Element.ALIGN_LEFT, 1)
+                    new iTextSharp.text.pdf.draw.LineSeparator(0.5F, 100.0F, new BaseColor(200, 200, 200), Element.ALIGN_LEFT, 1)
                 ));
                 document.Add(line);
-                document.Add(new Chunk("\n", fntHead)); // Thêm dòng trống
 
-                // ----- BẢNG DỮ LIỆU -----
-                // Danh sách các cột cần hiển thị
+                // Dòng trống
+                document.Add(new Paragraph(" ", fntAuthor));
+
+                // Danh sách cột hiển thị 
                 List<string> displayColumns = new List<string> {
-                "SrNo", "OrderNo", "Name", "Price", "Quantity", "TotalPrice"
-            };
+                    "SrNo", "OrderNo", "Name", "Price", "Quantity", "TotalPrice"
+                };
+                List<string> columnHeaders = new List<string> {
+                    "STT", "Mã đơn hàng", "Tên sản phẩm", "Đơn giá", "Số lượng", "Thành tiền"
+                };
 
                 // Tạo bảng
                 PdfPTable table = new PdfPTable(displayColumns.Count);
-                table.WidthPercentage = 100; // Sử dụng 100% chiều rộng có sẵn
-                table.SetWidths(new float[] { 1f, 2f, 3f, 2f, 1.5f, 2f }); // Tỷ lệ chiều rộng các cột
+                table.WidthPercentage = 100;
+                table.SetWidths(new float[] { 0.8f, 3.5f, 2.5f, 1.8f, 1.2f, 2.2f });
 
-                // Font cho header
-                Font fntColumnHeader = new Font(bfntHead, 9, Font.BOLD, BaseColor.WHITE);
+                // Font cho tiêu đề cột
+                Font fntColumnHeader = new Font(bfntUnicode, 10, Font.BOLD, BaseColor.WHITE);
 
-                // Thêm header cho bảng
-                foreach (string colName in displayColumns)
+                // Thêm tiêu đề cột
+                for (int i = 0; i < columnHeaders.Count; i++)
                 {
-                    if (dtblTable.Columns.Contains(colName))
-                    {
-                        PdfPCell cell = new PdfPCell();
-                        cell.BackgroundColor = BaseColor.GRAY;
-                        cell.Padding = 5;
-                        cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                        cell.VerticalAlignment = Element.ALIGN_MIDDLE;
-                        cell.AddElement(new Chunk(dtblTable.Columns[colName].ColumnName.ToUpper(), fntColumnHeader));
-                        table.AddCell(cell);
-                    }
+                    PdfPCell cell = new PdfPCell();
+                    cell.BackgroundColor = new BaseColor(108, 117, 125);
+                    cell.Padding = 8;
+                    cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                    cell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                    cell.BorderColor = new BaseColor(200, 200, 200);
+                    cell.AddElement(new Chunk(columnHeaders[i], fntColumnHeader));
+                    table.AddCell(cell);
                 }
 
                 // Font cho dữ liệu
-                Font fntColumnData = new Font(bfntHead, 8, Font.NORMAL, BaseColor.BLACK);
-                Font fntTotalRow = new Font(bfntHead, 9, Font.BOLD, BaseColor.BLACK);
+                Font fntColumnData = new Font(bfntUnicode, 9, Font.NORMAL, BaseColor.BLACK);
+                Font fntTotalRow = new Font(bfntUnicode, 10, Font.BOLD, BaseColor.BLACK);
 
                 // Thêm dữ liệu vào bảng
                 for (int i = 0; i < dtblTable.Rows.Count; i++)
                 {
-                    bool isLastRow = (i == dtblTable.Rows.Count - 1); // Kiểm tra hàng tổng
+                    bool isLastRow = (i == dtblTable.Rows.Count - 1);
                     Font currentFont = isLastRow ? fntTotalRow : fntColumnData;
 
-                    foreach (string colName in displayColumns)
+                    for (int j = 0; j < displayColumns.Count; j++)
                     {
+                        string colName = displayColumns[j];
                         if (dtblTable.Columns.Contains(colName))
                         {
                             PdfPCell cell = new PdfPCell();
-                            cell.Padding = 5;
+                            cell.Padding = 8;
+                            cell.BorderColor = new BaseColor(200, 200, 200);
 
-                            // Xử lý hiển thị giá trị
                             string value = "";
                             if (dtblTable.Rows[i][colName] != DBNull.Value && dtblTable.Rows[i][colName] != null)
                             {
                                 value = dtblTable.Rows[i][colName].ToString();
 
-                                // Định dạng tiền tệ cho cột giá
                                 if (colName == "TotalPrice" || colName == "Price")
                                 {
                                     double numValue;
@@ -232,7 +267,6 @@ namespace Foodie.User
                                 }
                             }
 
-                            // Định dạng căn chỉnh theo loại dữ liệu
                             if (colName == "TotalPrice" || colName == "Price" || colName == "Quantity")
                             {
                                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
@@ -246,11 +280,15 @@ namespace Foodie.User
                                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
                             }
 
-                            // Định dạng hàng tổng
                             if (isLastRow && colName == "Name")
                             {
-                                value = "Total";
+                                value = "Tổng cộng";
                                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
+                            }
+
+                            if (!isLastRow && i % 2 == 1)
+                            {
+                                cell.BackgroundColor = new BaseColor(245, 245, 245);
                             }
 
                             Paragraph cellContent = new Paragraph(value, currentFont);
@@ -262,21 +300,19 @@ namespace Foodie.User
 
                 document.Add(table);
 
-                // ----- THÔNG TIN FOOTER -----
+                // Chân trang
                 Paragraph footer = new Paragraph();
                 footer.SpacingBefore = 20;
                 footer.Alignment = Element.ALIGN_CENTER;
-                footer.Add(new Chunk("Cảm ơn quý khách đã đặt hàng tại Foodie Fast Food!", fntAuthor));
+                footer.Add(new Chunk("Cảm ơn quý khách đã đặt hàng tại FastBite Food!", fntAuthor));
                 document.Add(footer);
             }
             catch (Exception ex)
             {
-                // Ghi log hoặc xử lý lỗi tại đây thay vì sử dụng alert
-                System.Diagnostics.Debug.WriteLine("PDF Export Error: " + ex.Message);
+                System.Diagnostics.Debug.WriteLine("Lỗi xuất PDF: " + ex.Message);
             }
             finally
             {
-                // Đảm bảo các tài nguyên được đóng đúng cách
                 document.Close();
                 writer.Close();
                 fs.Close();

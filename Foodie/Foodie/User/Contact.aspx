@@ -4,23 +4,23 @@
     <script>
         .form_container,
         .map_container {
-            padding: 0; /* Remove any extra padding */
-            margin: 0; /* Remove any extra margins */
-            width: 100 %; /* Ensure both containers take full column width */
-            box - sizing: border - box; /* Include padding/borders in width calculation */
+            padding: 0; 
+            margin: 0; 
+            width: 100 %; 
+            box - sizing: border - box; 
         }
         
         .map_container iframe {
-            width: 100 % !important; /* Force iframe to match container width */
-            border - radius: 8px; /* Optional: match form input styling */
+            width: 100 % !important; 
+            border - radius: 8px; 
         }
         @media(max - width: 767.98px) {
         .form_container,
         .map_container {
-                margin - bottom: 20px; /* Add spacing between stacked elements on mobile */
+                margin - bottom: 20px; 
             }
         .map_container iframe {
-                height: 300px; /* Slightly reduce height on mobile for better fit */
+                height: 300px; 
             }
         }
     </script>
