@@ -43,16 +43,21 @@
                             <div>
                                 <label for="txtPassword" class="form-label">Mật Khẩu</label>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*Không được bỏ trống" ControlToValidate="txtPassword"
-                                    ForeColor="Red" Display="Dynamic" SetFocusOnError="true" Font-Size="Small" ></asp:RequiredFieldValidator>
+                                    ForeColor="Red" Display="Dynamic" SetFocusOnError="true" Font-Size="Small"></asp:RequiredFieldValidator>
                                 <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" TextMode="Password" placeholder="Nhập mật khẩu"></asp:TextBox>
                             </div>
-                            <!-- Btn Login -->
-                            <div class="btn_box">
-                                <asp:Button ID="btnLogin" runat="server" Text="Đăng nhập" CssClass="btn btn-success rounded-pill pl-4 pr-4 text-white"
-                                    OnClick="btnLogin_Click"/>
-                                <span class="pl-3 text-info">Chưa có tài khoản?? <a href="Registration.aspx" class="badge badge-info">Đăng ký..</a></span>
+                            <!-- Btn Login and Forgot Password -->
+                            <div class="btn_box d-flex justify-content-between align-items-center">
+                                <div>
+                                    <asp:Button ID="btnLogin" runat="server" Text="Đăng nhập" CssClass="btn btn-success rounded-pill pl-4 pr-4 text-white"
+                                        OnClick="btnLogin_Click" />
+                                    <span class="pl-3 text-info">Chưa có tài khoản?? <a href="Registration.aspx" class="badge badge-info">Đăng ký..</a></span>
+                                </div>
+                                <div>
+                                    <span class="text-info"><a href="ForgotPassword.aspx" class="badge badge-info">Quên mật khẩu?</a></span>
+                                </div>                                
                             </div>
-                         </asp:Panel>
+                        </asp:Panel>
                     </div>
                 </div>
             </div>

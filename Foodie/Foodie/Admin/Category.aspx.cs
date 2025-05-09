@@ -82,7 +82,7 @@ namespace Foodie.Admin
                 try
                 {
                     con.Open();
-                    cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery(); //Chèn dl vào db
                     actionName = categoryId == 0 ? "đã thêm" : "đã cật nhật";
                     lblMsg.Visible = true;
                     lblMsg.Text = "Danh mục " + actionName + " thành công!";

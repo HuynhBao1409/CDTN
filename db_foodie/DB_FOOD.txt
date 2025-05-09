@@ -13,6 +13,7 @@ CREATE TABLE Users (
     Password NVARCHAR(50) NULL,
     ImageUrl NVARCHAR(MAX) NULL,
     CreatedDate DATETIME NULL
+    ActivationToken NVARCHAR(MAX) NULL
 )
 
 --Bang Contact

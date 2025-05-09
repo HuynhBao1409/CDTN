@@ -194,8 +194,10 @@
     <Content Include="assets\pages\widget\amchart\worldLow.min.js" />
     <Content Include="Global.asax" />
     <Content Include="Images\login.jpg" />
+    <Content Include="Images\new-password.jpg" />
     <Content Include="Images\No_image.png" />
     <Content Include="Images\No_user.jpg" />
+    <Content Include="Images\reset-password.jpg" />
     <Content Include="itextsharp.dll" />
     <Content Include="Public\css\bootstrap.css" />
     <Content Include="Public\css\font-awesome.min.css" />
@@ -224,6 +226,7 @@
     <Content Include="Public\images\f9.png" />
     <Content Include="Public\images\fanta.jpg" />
     <Content Include="Public\images\favicon.png" />
+    <Content Include="Images\forgot-password.png" />
     <Content Include="Public\images\hambu1.jpg" />
     <Content Include="Public\images\hero-bg.jpg" />
     <Content Include="Public\images\logo.png" />
@@ -247,12 +250,15 @@
     <Content Include="User\Cart.aspx" />
     <Content Include="User\Contact.aspx" />
     <Content Include="User\Default.aspx" />
+    <Content Include="User\ForgotPassword.aspx" />
     <Content Include="User\Invoice.aspx" />
     <Content Include="User\Login.aspx" />
     <Content Include="User\Menu.aspx" />
+    <Content Include="User\NewPassword.aspx" />
     <Content Include="User\Payment.aspx" />
     <Content Include="User\Profile.aspx" />
     <Content Include="User\Registration.aspx" />
+    <Content Include="User\ResetPassword.aspx" />
     <Content Include="User\SliderUserControl.ascx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -318,6 +324,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SendMail.cs" />
     <Compile Include="User\About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -346,6 +353,13 @@
     <Compile Include="User\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="User\ForgotPassword.aspx.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\ForgotPassword.aspx.designer.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
+    </Compile>
     <Compile Include="User\Invoice.aspx.cs">
       <DependentUpon>Invoice.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -367,6 +381,13 @@
     <Compile Include="User\Menu.aspx.designer.cs">
       <DependentUpon>Menu.aspx</DependentUpon>
     </Compile>
+    <Compile Include="User\NewPassword.aspx.cs">
+      <DependentUpon>NewPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\NewPassword.aspx.designer.cs">
+      <DependentUpon>NewPassword.aspx</DependentUpon>
+    </Compile>
     <Compile Include="User\Payment.aspx.cs">
       <DependentUpon>Payment.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -387,6 +408,13 @@
     </Compile>
     <Compile Include="User\Registration.aspx.designer.cs">
       <DependentUpon>Registration.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\ResetPassword.aspx.cs">
+      <DependentUpon>ResetPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\ResetPassword.aspx.designer.cs">
+      <DependentUpon>ResetPassword.aspx</DependentUpon>
     </Compile>
     <Compile Include="User\SliderUserControl.ascx.cs">
       <DependentUpon>SliderUserControl.ascx</DependentUpon>

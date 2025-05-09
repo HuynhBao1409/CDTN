@@ -64,6 +64,19 @@ BEGIN
 	    BEGIN
 	        DELETE FROM dbo.Users WHERE UserId = @UserId
 	    END
+	-- SELECT BY EMAIL
+    	IF @Action = 'SELECTBYEMAIL'
+    		BEGIN
+       		 	SELECT * FROM dbo.Users WHERE Email = @Email
+    		END
 
+    -- UPDATE PASSWORD
+    	IF @Action = 'UPDATEPASSWORD'
+    	BEGIN
+        	UPDATE dbo.Users
+        	SET Password = @Password
+        	WHERE Email = @Email
+    	END
+	
 END
 GO

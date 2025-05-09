@@ -71,7 +71,7 @@ namespace Foodie.Admin
             {
                 // Nếu không có dữ liệu, đặt giá trị rỗng cho ViewState
                 ViewState["ChartLabels"] = labels; // Rỗng
-                ViewState["ChartData"] = data; // Rỗng
+                ViewState["ChartData"] = data; 
                 lblTotal.Text = "Không có dữ liệu trong khoảng thời gian này.";
                 lblTotal.CssClass = "badge badge-warning";
             }
