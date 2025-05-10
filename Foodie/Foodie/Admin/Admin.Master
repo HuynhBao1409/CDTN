@@ -111,8 +111,7 @@
                             <a class="mobile-menu" id="mobile-collapse" href="#!">
                                 <i class="ti-menu"></i>
                             </a>
-                            <a href="Dashboard.aspx" class="navbar-brand text-white d-flex align-items-center justify-content-center pl-5" style="height: 100%; font-size: 1.5rem; font-weight: bold;">
-                                FASTBITE
+                            <a href="Dashboard.aspx" class="navbar-brand text-white d-flex align-items-center justify-content-center pl-5" style="height: 100%; font-size: 1.5rem; font-weight: bold;">FASTBITE
                             </a>
                             <a class="mobile-options">
                                 <i class="ti-more"></i>
@@ -186,7 +185,7 @@
                                 <ul class="pcoded-item pcoded-left-item">
                                     <li>
                                         <a href="Product.aspx">
-                                            <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
+                                            <span class="pcoded-micon"><i class="ti-import"></i><b>FC</b></span>
                                             <span class="pcoded-mtext" data-i18n="nav.form-components.main">Sản phẩm</span>
                                             <span class="pcoded-mcaret"></span>
                                         </a>
@@ -198,7 +197,7 @@
                                 <ul class="pcoded-item pcoded-left-item">
                                     <li>
                                         <a href="OrderStatus.aspx">
-                                            <span class="pcoded-micon"><i class="ti-direction-alt"></i><b>M</b></span>
+                                            <span class="pcoded-micon"><i class="ti-check"></i><b>M</b></span>
                                             <span class="pcoded-mtext" data-i18n="nav.menu-levels.main">Trạng Thái Đơn Hàng</span>
                                             <span class="pcoded-mcaret"></span>
                                         </a>
@@ -209,7 +208,7 @@
                                 <ul class="pcoded-item pcoded-left-item">
                                     <li>
                                         <a href="Users.aspx">
-                                            <span class="pcoded-micon"><i class="ti-direction-alt"></i><b>M</b></span>
+                                            <span class="pcoded-micon"><i class="ti-user"></i><b>M</b></span>
                                             <span class="pcoded-mtext" data-i18n="nav.menu-levels.main">Tài Khoản</span>
                                             <span class="pcoded-mcaret"></span>
                                         </a>
@@ -220,8 +219,19 @@
                                 <ul class="pcoded-item pcoded-left-item">
                                     <li>
                                         <a href="Contacts.aspx">
-                                            <span class="pcoded-micon"><i class="ti-direction-alt"></i><b>M</b></span>
+                                            <span class="pcoded-micon"><i class="ti-comment"></i><b>M</b></span>
                                             <span class="pcoded-mtext" data-i18n="nav.menu-levels.main">Feedback</span>
+                                            <span class="pcoded-mcaret"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!-- News -->
+                                <div class="pcoded-navigatio-lavel" data-i18n="nav.category.other">Tin Tức</div>
+                                <ul class="pcoded-item pcoded-left-item">
+                                    <li>
+                                        <a href="News.aspx">
+                                            <span class="pcoded-micon"><i class="ti-pencil-alt"></i><b>M</b></span>
+                                            <span class="pcoded-mtext" data-i18n="nav.menu-levels.main">Tin Tức</span>
                                             <span class="pcoded-mcaret"></span>
                                         </a>
                                     </li>
@@ -231,7 +241,7 @@
                                 <ul class="pcoded-item pcoded-left-item">
                                     <li>
                                         <a href="Report.aspx">
-                                            <span class="pcoded-micon"><i class="ti-direction-alt"></i><b>M</b></span>
+                                            <span class="pcoded-micon"><i class="ti-money"></i><b>M</b></span>
                                             <span class="pcoded-mtext" data-i18n="nav.menu-levels.main">Báo cáo doanh thu</span>
                                             <span class="pcoded-mcaret"></span>
                                         </a>

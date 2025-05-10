@@ -76,6 +76,7 @@
     <Content Include="Admin\Category.aspx" />
     <Content Include="Admin\Contacts.aspx" />
     <Content Include="Admin\Dashboard.aspx" />
+    <Content Include="Admin\News.aspx" />
     <Content Include="Admin\OrderStatus.aspx" />
     <Content Include="Admin\Product.aspx" />
     <Content Include="Admin\Report.aspx" />
@@ -206,6 +207,8 @@
     <Content Include="Public\images\7up.jpg" />
     <Content Include="Public\images\about-img.png" />
     <Content Include="Public\images\banner.png" />
+    <Content Include="Public\images\bigsale1.png" />
+    <Content Include="Public\images\black.jpeg" />
     <Content Include="Public\images\chickenfried.jpg" />
     <Content Include="Public\images\chickennugget.jpg" />
     <Content Include="Public\images\client1.jpg" />
@@ -255,6 +258,7 @@
     <Content Include="User\Login.aspx" />
     <Content Include="User\Menu.aspx" />
     <Content Include="User\NewPassword.aspx" />
+    <Content Include="User\News.aspx" />
     <Content Include="User\Payment.aspx" />
     <Content Include="User\Profile.aspx" />
     <Content Include="User\Registration.aspx" />
@@ -290,6 +294,13 @@
     </Compile>
     <Compile Include="Admin\Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\News.aspx.cs">
+      <DependentUpon>News.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\News.aspx.designer.cs">
+      <DependentUpon>News.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\OrderStatus.aspx.cs">
       <DependentUpon>OrderStatus.aspx</DependentUpon>
@@ -388,6 +399,13 @@
     <Compile Include="User\NewPassword.aspx.designer.cs">
       <DependentUpon>NewPassword.aspx</DependentUpon>
     </Compile>
+    <Compile Include="User\News.aspx.cs">
+      <DependentUpon>News.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\News.aspx.designer.cs">
+      <DependentUpon>News.aspx</DependentUpon>
+    </Compile>
     <Compile Include="User\Payment.aspx.cs">
       <DependentUpon>Payment.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -460,6 +478,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Images\Category\" />
+    <Folder Include="Images\News\" />
     <Folder Include="Images\Product\" />
     <Folder Include="Images\User\" />
     <Folder Include="Models\" />

@@ -1,0 +1,59 @@
+CREATE PROCEDURE News_Crud
+    @Action VARCHAR(10),
+    @NewsId INT = NULL,
+    @Title NVARCHAR(200) = NULL,
+    @Content NVARCHAR(MAX) = NULL,
+    @ImageUrl NVARCHAR(MAX) = NULL,
+    @IsActive BIT = 0,
+    @CreatedDate DATETIME = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- INSERT
+    IF @Action = 'INSERT'
+    BEGIN
+        INSERT INTO News (Title, Content, ImageUrl, IsActive, CreatedDate)
+        VALUES (@Title, @Content, @ImageUrl, @IsActive, GETDATE())
+        SELECT SCOPE_IDENTITY() AS NewsId
+    END
+
+    -- UPDATE
+    IF @Action = 'UPDATE'
+    BEGIN
+        UPDATE News
+        SET Title = @Title,
+            Content = @Content,
+            ImageUrl = @ImageUrl,
+            IsActive = @IsActive,
+            CreatedDate = @CreatedDate
+        WHERE NewsId = @NewsId
+    END
+
+    -- DELETE
+    IF @Action = 'DELETE'
+    BEGIN
+        DELETE FROM News WHERE NewsId = @NewsId
+    END
+
+    -- SELECT ONE
+    IF @Action = 'SELECT'
+    BEGIN
+        SELECT * FROM News WHERE NewsId = @NewsId
+    END
+
+    -- SELECT ALL (for Admin)
+    IF @Action = 'SELECTALL'
+    BEGIN
+        SELECT * FROM News
+        ORDER BY CreatedDate DESC
+    END
+
+    -- SELECT ACTIVE (for User view)
+    IF @Action = 'SELECTACT'
+    BEGIN
+        SELECT * FROM News
+        WHERE IsActive = 1
+        ORDER BY CreatedDate DESC
+    END
+END

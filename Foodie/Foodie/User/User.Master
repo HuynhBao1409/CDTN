@@ -86,6 +86,9 @@
               <li class="nav-item">
                 <a class="nav-link" href="About.aspx">Thông tin</a>
               </li>
+                <li class="nav-item">
+                <a class="nav-link" href="News.aspx">Tin Tức</a>
+              </li>
               <li class="nav-item">
                 <a class="nav-link" href="Contact.aspx">Liên hệ</a>
               </li>

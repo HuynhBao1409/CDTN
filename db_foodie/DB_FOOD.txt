@@ -79,6 +79,16 @@ Address NVARCHAR(MAX) NULL,
 PaymentMode NVARCHAR(50) NULL
 )
 
+-- Create News Table
+CREATE TABLE News (
+    NewsId INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    Title NVARCHAR(200) NULL,
+    Content NVARCHAR(MAX) NULL,
+    ImageUrl NVARCHAR(MAX) NULL,
+    IsActive BIT NULL,
+    CreatedDate DATETIME NULL
+)
+
 
 --Bảng Category_Crud (create,read,update,delete)
 CREATE PROCEDURE Category_Crud
