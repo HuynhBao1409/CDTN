@@ -25,6 +25,7 @@ namespace Foodie.User
             }
         }
 
+        // Hàm lấy tất cả để hiển thị tin tức
         private void getNews()
         {
             con = new SqlConnection(Connection.GetConnectionString());
@@ -40,7 +41,7 @@ namespace Foodie.User
             // Thêm cột TimeAgo để hiển thị thời gian tương đối
             dt.Columns.Add("TimeAgo", typeof(string));
 
-            DateTime currentDate = DateTime.Now; // Ngày hiện tại
+            DateTime currentDate = DateTime.Now; //Lấy ngày hiện tại
             foreach (DataRow row in dt.Rows)
             {
                 DateTime createdDate = Convert.ToDateTime(row["CreatedDate"]);
@@ -67,10 +68,10 @@ namespace Foodie.User
                 }
             }
 
-            // Lọc chỉ hiển thị tin tức đang hoạt động và sắp xếp theo ngày đăng (mới nhất trước)
+            // Tạo DataView để lọc và sắp xếp dữ liệu (mới nhất trước)
             DataView dv = dt.DefaultView;
-            dv.RowFilter = "IsActive = 1";
-            dv.Sort = "CreatedDate DESC";
+            dv.RowFilter = "IsActive = 1"; // Chỉ hiển thị đang hoạt động
+            dv.Sort = "CreatedDate DESC"; // Sắp xếp tin tức theo thời gian đăng mới nhất
 
             // Gán tất cả dữ liệu cho Repeater mà không phân trang
             rNews.DataSource = dv;

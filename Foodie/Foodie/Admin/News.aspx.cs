@@ -21,7 +21,7 @@ namespace Foodie.Admin
             // Ktra nếu trang được tải lần đầu 
             if (!IsPostBack)
             {
-                Session["breadCrum"] = "Tin Tức";
+                Session["breadCrum"] = "Bài Viết";
                 //Nếu ko có tk admin
                 if (Session["admin"] == null)
                 {

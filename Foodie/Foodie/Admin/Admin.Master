@@ -226,12 +226,12 @@
                                     </li>
                                 </ul>
                                 <!-- News -->
-                                <div class="pcoded-navigatio-lavel" data-i18n="nav.category.other">Tin Tức</div>
+                                <div class="pcoded-navigatio-lavel" data-i18n="nav.category.other">Blog</div>
                                 <ul class="pcoded-item pcoded-left-item">
                                     <li>
                                         <a href="News.aspx">
                                             <span class="pcoded-micon"><i class="ti-pencil-alt"></i><b>M</b></span>
-                                            <span class="pcoded-mtext" data-i18n="nav.menu-levels.main">Tin Tức</span>
+                                            <span class="pcoded-mtext" data-i18n="nav.menu-levels.main">Bài Viết</span>
                                             <span class="pcoded-mcaret"></span>
                                         </a>
                                     </li>

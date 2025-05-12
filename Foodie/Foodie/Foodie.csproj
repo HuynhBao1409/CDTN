@@ -244,7 +244,6 @@
     <Content Include="Public\images\pota2.png" />
     <Content Include="Public\images\ricechicken.jpg" />
     <Content Include="Public\images\sprite.png" />
-    <Content Include="Public\images\user1.jpg" />
     <Content Include="Public\images\user3.jpg" />
     <Content Include="Public\js\bootstrap.js" />
     <Content Include="Public\js\custom.js" />

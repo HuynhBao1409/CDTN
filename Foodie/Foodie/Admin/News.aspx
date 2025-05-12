@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Quản Lý Tin Tức" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="News.aspx.cs" Inherits="Foodie.Admin.News" %>
+﻿<%@ Page Title="Quản Lý Bài Viết" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="News.aspx.cs" Inherits="Foodie.Admin.News" %>
 <%@ Import Namespace="Foodie" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -45,13 +45,13 @@
                                 <div class="card-block">
                                     <div class="row">
                                         <div class="col-sm-6 col-md-4 col-lg-4">
-                                            <h4 class="sub-title">Tin Tức</h4>
+                                            <h4 class="sub-title">Bài Viết</h4>
                                             <div>
                                                 <div class="form-group">
                                                     <label>Tiêu đề</label>
                                                     <div>
                                                         <asp:TextBox ID="txtTitle" runat="server" CssClass="form-control"
-                                                            placeholder="Nhập tiêu đề tin tức" required></asp:TextBox>
+                                                            placeholder="Nhập tiêu đề bài viết" required></asp:TextBox>
                                                         <asp:HiddenField ID="hdnId" runat="server" Value="0" />
                                                     </div>
                                                 </div>
@@ -59,7 +59,7 @@
                                                     <label>Nội dung</label>
                                                     <div>
                                                         <asp:TextBox ID="txtContent" runat="server" CssClass="form-control"
-                                                            TextMode="MultiLine" Rows="5" placeholder="Nhập nội dung tin tức" required></asp:TextBox>
+                                                            TextMode="MultiLine" Rows="5" placeholder="Nhập nội dung bài viết" required></asp:TextBox>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -87,7 +87,7 @@
                                         </div>
                                         <!-- List News -->
                                         <div class="col-sm-6 col-md-8 col-lg-8 mobile-inputs">
-                                            <h4 class="sub-title">Danh sách Tin Tức</h4>
+                                            <h4 class="sub-title">Danh sách Bài Viết</h4>
                                             <div class="card-block table-border-style">
                                                 <div class="table-responsive">
                                                     <!-- DataTable -->
