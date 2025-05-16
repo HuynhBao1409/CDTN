@@ -139,6 +139,7 @@ namespace Foodie.User
                 {
                     if (rCartItem.Items[item].ItemType == ListItemType.Item || rCartItem.Items[item].ItemType == ListItemType.AlternatingItem)
                     {
+                        // Tìm, lấy dl
                         HiddenField _productId = rCartItem.Items[item].FindControl("hdnProductId") as HiddenField;
                         HiddenField _cartQuantity = rCartItem.Items[item].FindControl("hdnQuantity") as HiddenField;
                         HiddenField _productQuantity = rCartItem.Items[item].FindControl("hdnPrdQuantity") as HiddenField;
@@ -166,7 +167,7 @@ namespace Foodie.User
                 else
                 {
                     lblMsg.Visible = true;
-                    lblMsg.Text = "Sản phẩm <b>'" + pName + "'</b> đã hết hàng!";
+                    lblMsg.Text = "Sản phẩm <b>'" + pName + "'</b> đã hết hàng hoặc quá số lượng hàng hiện có!";
                     lblMsg.CssClass = "alert alert-danger";
 
                 }
@@ -196,7 +197,7 @@ namespace Foodie.User
                 }
                 // Tính Tổng Tiền = Giá tiền * Số lượng
                 decimal calTotalPrice = price * qty;
-                totalPrice.Text = calTotalPrice.ToString("N0"); // định dạng lại kiểu số(VD:17,000)
+                totalPrice.Text = calTotalPrice.ToString("N0"); //định dạng lại kiểu số(VD:17,000)
                 // Cộng dồn lại tổng các đơn
                 grandTotal += calTotalPrice;
             }

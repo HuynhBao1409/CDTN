@@ -156,7 +156,7 @@ namespace Foodie.Admin
                 cmd.Parameters.AddWithValue("@Name", DBNull.Value);
                 cmd.Parameters.AddWithValue("@IsActive", false);
                 cmd.Parameters.AddWithValue("@ImageUrl", DBNull.Value);
-                cmd.CommandType = CommandType.StoredProcedure; //Gọi thẳng tới stored proc thay vì qua sql
+                cmd.CommandType = CommandType.StoredProcedure; 
                 sda = new SqlDataAdapter(cmd);
                 dt = new DataTable(); 
                 sda.Fill(dt);
@@ -192,7 +192,7 @@ namespace Foodie.Admin
                     con.Open(); 
                     cmd.ExecuteNonQuery();
                     lblMsg.Visible = true;
-                    lblMsg.Text = "Danh mục đã xóa thành công!";
+                    lblMsg.Text = "Sản phẩm đã xóa thành công!";
                     lblMsg.CssClass = "alert alert-success";
                     getProducts(); 
                 }

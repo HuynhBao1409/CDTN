@@ -18,7 +18,7 @@ namespace Foodie.Admin
         SqlDataAdapter sda;
         DataTable dt;
 
-        //Gán sự kiện cho thanh điều hướng
+        //Thanh điều hướng
         protected void Page_Load(object sender, EventArgs e)
 		{
             if (!IsPostBack)
@@ -198,7 +198,7 @@ namespace Foodie.Admin
             }
         }
 
-        //Gán sự kiện Active và In-Active cho Reapeater
+        //Gán sự kiện Active và In-Active
         protected void rCategory_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             // Kiểm tra nếu ItemType là mục thông thường hoặc mục xen kẽ

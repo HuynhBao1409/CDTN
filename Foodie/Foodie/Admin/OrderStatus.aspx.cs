@@ -96,7 +96,7 @@ namespace Foodie.Admin
             catch (Exception ex)
             {
                 lblMsg.Visible = true;
-                lblMsg.Text = "Error - " + ex.Message;
+                lblMsg.Text = "Error: " + ex.Message;
                 lblMsg.CssClass = "alert alert-danger";
             }
             finally
