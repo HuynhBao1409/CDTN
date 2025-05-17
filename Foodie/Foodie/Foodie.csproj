@@ -76,6 +76,7 @@
     <Content Include="Admin\Category.aspx" />
     <Content Include="Admin\Contacts.aspx" />
     <Content Include="Admin\Dashboard.aspx" />
+    <Content Include="Admin\EmailHelper.aspx" />
     <Content Include="Admin\News.aspx" />
     <Content Include="Admin\OrderStatus.aspx" />
     <Content Include="Admin\Product.aspx" />
@@ -293,6 +294,13 @@
     </Compile>
     <Compile Include="Admin\Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\EmailHelper.aspx.cs">
+      <DependentUpon>EmailHelper.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\EmailHelper.aspx.designer.cs">
+      <DependentUpon>EmailHelper.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\News.aspx.cs">
       <DependentUpon>News.aspx</DependentUpon>

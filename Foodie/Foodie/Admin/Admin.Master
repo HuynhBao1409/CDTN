@@ -223,6 +223,11 @@
                                             <span class="pcoded-mtext" data-i18n="nav.menu-levels.main">Feedback</span>
                                             <span class="pcoded-mcaret"></span>
                                         </a>
+                                        <a href="EmailHelper.aspx">
+                                            <span class="pcoded-micon"><i class="ti-pencil"></i><b>M</b></span>
+                                            <span class="pcoded-mtext" data-i18n="nav.menu-levels.main">Gửi email</span>
+                                            <span class="pcoded-mcaret"></span>
+                                        </a>
                                     </li>
                                 </ul>
                                 <!-- News -->
