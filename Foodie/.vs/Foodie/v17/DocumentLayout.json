@@ -3,11 +3,19 @@
   "WorkspaceRootPath": "D:\\Project_AnhBeo\\CDTN\\Foodie\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{C460F23B-64E9-4F9E-92DA-7692259C61EA}|Foodie\\Foodie.csproj|d:\\project_anhbeo\\cdtn\\foodie\\foodie\\user\\news.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{C460F23B-64E9-4F9E-92DA-7692259C61EA}|Foodie\\Foodie.csproj|solutionrelative:foodie\\user\\news.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C460F23B-64E9-4F9E-92DA-7692259C61EA}|Foodie\\Foodie.csproj|d:\\project_anhbeo\\cdtn\\foodie\\foodie\\user\\news.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C460F23B-64E9-4F9E-92DA-7692259C61EA}|Foodie\\Foodie.csproj|solutionrelative:foodie\\user\\news.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{C460F23B-64E9-4F9E-92DA-7692259C61EA}|Foodie\\Foodie.csproj|d:\\project_anhbeo\\cdtn\\foodie\\foodie\\user\\profile.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C460F23B-64E9-4F9E-92DA-7692259C61EA}|Foodie\\Foodie.csproj|solutionrelative:foodie\\user\\profile.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C460F23B-64E9-4F9E-92DA-7692259C61EA}|Foodie\\Foodie.csproj|d:\\project_anhbeo\\cdtn\\foodie\\foodie\\admin\\admin.master||{B30AFBFF-D992-43B7-B62D-2642580A2883}",
+      "AbsoluteMoniker": "D:0:0:{C460F23B-64E9-4F9E-92DA-7692259C61EA}|Foodie\\Foodie.csproj|D:\\Project_AnhBeo\\CDTN\\Foodie\\foodie\\admin\\admin.master||{B30AFBFF-D992-43B7-B62D-2642580A2883}",
       "RelativeMoniker": "D:0:0:{C460F23B-64E9-4F9E-92DA-7692259C61EA}|Foodie\\Foodie.csproj|solutionrelative:foodie\\admin\\admin.master||{B30AFBFF-D992-43B7-B62D-2642580A2883}"
     },
     {
@@ -35,19 +43,45 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "News.aspx",
+              "DocumentMoniker": "D:\\Project_AnhBeo\\CDTN\\Foodie\\Foodie\\User\\News.aspx",
+              "RelativeDocumentMoniker": "Foodie\\User\\News.aspx",
+              "ToolTip": "D:\\Project_AnhBeo\\CDTN\\Foodie\\Foodie\\User\\News.aspx",
+              "RelativeToolTip": "Foodie\\User\\News.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2025-05-21T07:57:16.2Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "News.aspx.cs",
+              "DocumentMoniker": "D:\\Project_AnhBeo\\CDTN\\Foodie\\Foodie\\User\\News.aspx.cs",
+              "RelativeDocumentMoniker": "Foodie\\User\\News.aspx.cs",
+              "ToolTip": "D:\\Project_AnhBeo\\CDTN\\Foodie\\Foodie\\User\\News.aspx.cs",
+              "RelativeToolTip": "Foodie\\User\\News.aspx.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-21T07:57:35.42Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "Profile.aspx.cs",
               "DocumentMoniker": "D:\\Project_AnhBeo\\CDTN\\Foodie\\Foodie\\User\\Profile.aspx.cs",
               "RelativeDocumentMoniker": "Foodie\\User\\Profile.aspx.cs",
               "ToolTip": "D:\\Project_AnhBeo\\CDTN\\Foodie\\Foodie\\User\\Profile.aspx.cs",
               "RelativeToolTip": "Foodie\\User\\Profile.aspx.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAIAAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAuwAIAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-17T07:55:09.514Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "Admin.Master",
               "DocumentMoniker": "D:\\Project_AnhBeo\\CDTN\\Foodie\\Foodie\\Admin\\Admin.Master",
               "RelativeDocumentMoniker": "Foodie\\Admin\\Admin.Master",
@@ -55,12 +89,11 @@
               "RelativeToolTip": "Foodie\\Admin\\Admin.Master",
               "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2025-05-17T07:26:28.927Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-17T07:26:28.927Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "EmailHelper.aspx.cs",
               "DocumentMoniker": "D:\\Project_AnhBeo\\CDTN\\Foodie\\Foodie\\Admin\\EmailHelper.aspx.cs",
               "RelativeDocumentMoniker": "Foodie\\Admin\\EmailHelper.aspx.cs",
@@ -72,7 +105,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "EmailHelper.aspx",
               "DocumentMoniker": "D:\\Project_AnhBeo\\CDTN\\Foodie\\Foodie\\Admin\\EmailHelper.aspx",
               "RelativeDocumentMoniker": "Foodie\\Admin\\EmailHelper.aspx",

@@ -158,7 +158,7 @@
                     <!-- News Cards -->
                     <asp:Repeater ID="rNews" runat="server">
                         <ItemTemplate>
-                            <div class="col-sm-6 col-lg-4 news-card all">
+                            <div class="col-sm-6 col-lg-4 news-card all <%# Convert.ToBoolean(Eval("IsNew")) ? "new" : "" %>">
                                 <div class="box">
                                     <div class="img-box">
                                         <img src="<%# Utils.GetImageUrl(Eval("ImageUrl")) %>" alt="News Image">
