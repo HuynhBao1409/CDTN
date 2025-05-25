@@ -5,18 +5,18 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         .box {
-            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng hover */
-            cursor: pointer; /* Con trỏ dạng bàn tay */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer; 
         }
         .box:hover {
-            transform: translateY(-5px); /* Nhấc card lên khi hover */
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Đổ bóng đậm hơn */
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
         }
         .options svg {
-            transition: fill 0.3s ease; /* Hiệu ứng đổi màu mượt mà */
+            transition: fill 0.3s ease;
         }
         .box:hover .options svg {
-            fill: #ffd700; /* Biểu tượng giỏ đổi màu vàng khi hover */
+            fill: #ffd700; 
         }
     </style>
     <script type="text/javascript">
