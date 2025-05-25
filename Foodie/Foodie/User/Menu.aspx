@@ -3,54 +3,71 @@
 <%@ Import Namespace="Foodie" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style>
+        .box {
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng hover */
+            cursor: pointer; /* Con trỏ dạng bàn tay */
+        }
+        .box:hover {
+            transform: translateY(-5px); /* Nhấc card lên khi hover */
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Đổ bóng đậm hơn */
+        }
+        .options svg {
+            transition: fill 0.3s ease; /* Hiệu ứng đổi màu mượt mà */
+        }
+        .box:hover .options svg {
+            fill: #ffd700; /* Biểu tượng giỏ đổi màu vàng khi hover */
+        }
+    </style>
+    <script type="text/javascript">
+        function addToCart(card) {
+            var button = card.querySelector('[id*="lbAddToCart"]');
+            if (button && typeof button.click === 'function') {
+                button.click();
+            }
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
-
-    <!-- food section -->
+    <!-- Phần hiển thị món ăn -->
     <section class="food_section layout_padding">
         <div class="container">
             <div class="heading_container heading_center">
                 <div class="align-self-end">
                     <asp:Label ID="lblMsg" runat="server" Visible="false"></asp:Label>
                 </div>
-                <h2>Menu
-                </h2>
+                <h2>Menu</h2>
             </div>
-            <!-- Filter Category -->
+            <!-- Bộ lọc danh mục -->
             <ul class="filters_menu">
                 <li class="active" data-filter="*" data-id="0">Tất Cả</li>
                 <asp:Repeater ID="rCategory" runat="server">
-                    <ItemTemplate>              <%--lọc dl = loại bỏ khoảng trắng, chuyển thành chữ thường để đồng bộ--%>
+                    <ItemTemplate>
                         <li data-filter=".<%# Regex.Replace(Eval("Name").ToString().ToLower(),@"\s+","") %>" 
-                            data-id="<%# Eval("CategoryId") %>" > <%# Eval("Name") %></li>
+                            data-id="<%# Eval("CategoryId") %>" ><%# Eval("Name") %></li>
                     </ItemTemplate>
                 </asp:Repeater>
             </ul>
 
             <div class="filters-content">
                 <div class="row grid">
-                    <!-- Menu Cart -->
+                    <!-- Card sản phẩm -->
                     <asp:Repeater ID="rProducts" runat="server" OnItemCommand="rProducts_ItemCommand">
-                        <ItemTemplate>                            <%-- như nhau lấy dl vs tk trên đồng bộ vs bộ lọc--%>
+                        <ItemTemplate>
                             <div class="col-sm-6 col-lg-4 all <%# Regex.Replace(Eval("CategoryName").ToString().ToLower(),@"\s+","") %>">
-                                <div class="box">
+                                <div class="box" onclick="addToCart(this);">
                                     <div>
                                         <div class="img-box">
-                                            <img src="<%# Utils.GetImageUrl( Eval("ImageUrl")) %>" alt="">
+                                            <img src="<%# Utils.GetImageUrl(Eval("ImageUrl")) %>" alt="">
                                         </div>
                                         <div class="detail-box">
-                                            <!-- Name-->
+                                            <!-- Tên sản phẩm -->
                                             <h5><%# Eval("Name") %></h5>
-                                            <!-- Description-->
-                                            <p>
-                                                <%# Eval("Description") %>
-                                            </p>
+                                            <!-- Mô tả -->
+                                            <p><%# Eval("Description") %></p>
                                             <div class="options">
-                                                <!-- Price-->
-                                                <h6>
-                                                     <%# Eval("Price", "{0:N0}") %> VND
-                                                </h6>
+                                                <!-- Giá -->
+                                                <h6><%# Eval("Price", "{0:N0}") %> VND</h6>
                                                 <asp:LinkButton runat="server" ID="lbAddToCart" CommandName="addToCart" 
                                                     CommandArgument='<%# Eval("ProductId") %>'>
                                                     <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background: new 0 0 456.029 456.029;" xml:space="preserve">
@@ -74,36 +91,6 @@
                                                                          c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
                                                             </g>
                                                         </g>
-                                                        <g>
-                                                        </g>
-                                                        <g>
-                                                        </g>
-                                                        <g>
-                                                        </g>
-                                                        <g>
-                                                        </g>
-                                                        <g>
-                                                        </g>
-                                                        <g>
-                                                        </g>
-                                                        <g>
-                                                        </g>
-                                                        <g>
-                                                        </g>
-                                                        <g>
-                                                        </g>
-                                                        <g>
-                                                        </g>
-                                                        <g>
-                                                        </g>
-                                                        <g>
-                                                        </g>
-                                                        <g>
-                                                        </g>
-                                                        <g>
-                                                        </g>
-                                                        <g>
-                                                        </g>
                                                     </svg>
                                                 </asp:LinkButton>
                                             </div>
@@ -113,17 +100,9 @@
                             </div>
                         </ItemTemplate>
                     </asp:Repeater>
-
-
                 </div>
             </div>
-           <%-- <div class="btn-box">
-                <a href="">View More
-                </a>
-            </div>--%>
         </div>
     </section>
-
-    <!-- end food section -->
-
+    <!-- Kết thúc phần hiển thị món ăn -->
 </asp:Content>

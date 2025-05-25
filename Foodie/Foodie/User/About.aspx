@@ -18,17 +18,16 @@
           <div class="detail-box">
             <div class="heading_container">
               <h2>
-                We Are Feane
+                Chúng tôi là FastBite
               </h2>
             </div>
             <p>
-              There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration
-              in some form, by injected humour, or randomised words which don't look even slightly believable. If you
-              are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in
-              the middle of text. All
+              FastBite mang đến cho bạn trải nghiệm ẩm thực nhanh chóng và tiện lợi, từ những chiếc burger nóng hổi đến khoai tây chiên giòn tan. 
+                Mỗi món ăn được chế biến kỹ lưỡng, phục vụ liền tay, đảm bảo vừa ngon miệng vừa tiết kiệm thời gian. 
+                Dù là bữa trưa vội vã hay buổi tối lười nấu ăn, FastBite luôn sẵn sàng đồng hành cùng bạn.
             </p>
             <a href="">
-              Read More
+              Xem thêm
             </a>
           </div>
         </div>

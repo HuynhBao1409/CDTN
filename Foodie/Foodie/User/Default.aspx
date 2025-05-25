@@ -112,10 +112,9 @@
                             </h2>
                         </div>
                         <p>
-                            There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration
-              in some form, by injected humour, or randomised words which don't look even slightly believable. If you
-              are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in
-              the middle of text. All
+                            FastBite mang đến cho bạn trải nghiệm ẩm thực nhanh chóng và tiện lợi, từ những chiếc burger nóng hổi đến khoai tây chiên giòn tan. 
+                            Mỗi món ăn được chế biến kỹ lưỡng, phục vụ liền tay, đảm bảo vừa ngon miệng vừa tiết kiệm thời gian. 
+                            Dù là bữa trưa vội vã hay buổi tối lười nấu ăn, FastBite luôn sẵn sàng đồng hành cùng bạn.
                         </p>
                         <a href="">Xem Thêm
                         </a>
@@ -141,8 +140,8 @@
                         <div class="box">
                             <div class="detail-box">
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
-                                </p>
+                                    Mình cực kỳ ấn tượng với tốc độ giao hàng và hương vị đồ ăn tại FastBite. 
+                                    đúng là giải pháp hoàn hảo cho những ngày bận rộn!                                </p>
                                 <h6>Moana Michell
                                 </h6>
                                 <p>
@@ -158,7 +157,7 @@
                         <div class="box">
                             <div class="detail-box">
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
+                                    FastBite là lựa chọn số một của mình mỗi khi cần ăn nhanh mà vẫn đảm bảo chất lượng. Dịch vụ thân thiện, món ăn đa dạng và giá cả hợp lý!
                                 </p>
                                 <h6>Mike Hamell
                                 </h6>

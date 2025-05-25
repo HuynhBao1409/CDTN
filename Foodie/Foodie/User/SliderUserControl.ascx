@@ -13,8 +13,7 @@
                                 <h1>FastBite 
                     </h1>
                                 <p>
-                                    Doloremque, itaque aperiam facilis rerum, commodi, temporibus sapiente ad mollitia laborum quam quisquam esse error unde. Tempora ex doloremque, labore, sunt repellat dolore, iste magni quos nihil ducimus libero ipsam.
-                   
+                                    Khám phá thế giới đồ ăn nhanh ngon miệng, phục vụ nhanh chóng – nơi mỗi bữa ăn là một trải nghiệm đầy hương vị!
                                 </p>
                                 <div class="btn-box">
                                 <a href="Menu.aspx" class="btn1">
@@ -36,7 +35,7 @@
                                 <h1>FastBite
                     </h1>
                                 <p>
-                                    Doloremque, itaque aperiam facilis rerum, commodi, temporibus sapiente ad mollitia laborum quam quisquam esse error unde. Tempora ex doloremque, labore, sunt repellat dolore, iste magni quos nihil ducimus libero ipsam.
+                                    Từ burger nóng hổi đến khoai tây chiên giòn rụm – tất cả đều sẵn sàng phục vụ bạn trong tích tắc! 
                    
                                 </p>
                                 <div class="btn-box">
@@ -57,7 +56,7 @@
                                 <h1>FastBite
                     </h1>
                                 <p>
-                                    Doloremque, itaque aperiam facilis rerum, commodi, temporibus sapiente ad mollitia laborum quam quisquam esse error unde. Tempora ex doloremque, labore, sunt repellat dolore, iste magni quos nihil ducimus libero ipsam.
+                                    Chỉ cần vài cú nhấp, món yêu thích sẽ đến tận cửa bạn. FastBite – nhanh, tiện, ngon!
                    
                                 </p>
                                 <div class="btn-box">
