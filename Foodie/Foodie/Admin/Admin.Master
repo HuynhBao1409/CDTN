@@ -133,7 +133,7 @@
                                 <!-- User profile -->
                                 <li class="user-profile header-notification">
                                     <a href="#!">
-                                        <img src="../assets/images/user3.jpg" class="img-radius" alt="User-Profile-Image">
+                                        <img src="../assets/images/logo.png" class="img-radius" alt="User-Profile-Image">
                                         <span>Admin</span>
                                         <i class="ti-angle-down"></i>
                                     </a>
